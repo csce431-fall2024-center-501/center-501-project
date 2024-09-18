@@ -32,3 +32,5 @@
 
 # Ignore coverage information
 /coverage
+
+client_secret.apps.googleusercontent.com.json
