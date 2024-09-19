@@ -1,4 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+    ADMIN_EMAILS = ['kjj@tamu.edu', 'ryan.pavlik@tamu.edu', 'kfogle6782@tamu.edu', 'pearlynntoh@tamu.edu', 'saradyl@tamu.edu']
+
     def google_oauth2
         user = User.from_google(**from_google_params)
         if user.present?
@@ -27,7 +29,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         uid: auth.uid,
         email: auth.info.email,
         full_name: auth.info.name,
-        avatar_url: auth.info.image
+        avatar_url: auth.info.image,
+        user_type: ADMIN_EMAILS.include?(auth.info.email) ? 'admin' : 'user'
         }
     end
     def auth
