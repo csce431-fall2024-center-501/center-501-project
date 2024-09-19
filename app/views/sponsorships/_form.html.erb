@@ -1,0 +1,44 @@
+<%= form_with(model: sponsorship) do |f| %>
+    <% if sponsorship.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(sponsorship.errors.count, "error") %> prohibited this sponsorship record from being saved:</h2>
+
+            <ul>
+                <% sponsorship.errors.each do |error| %>
+                    <li><%= error.full_message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <table summary="Sponsorship form fields">
+        <tr>
+            <th>Sponsor Name</th>
+            <td><%= f.text_field :sponsorName %></td>
+        </tr>
+        <tr>
+            <th>Lead Name</th>
+            <td><%= f.text_field :sponsorLeadName %></td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td><%= f.text_field :sponsorPhone %></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td><%= f.text_field :sponsorEmail %></td>
+        </tr>
+        <tr>
+            <th>Donation</th>
+            <td><%= f.number_field :sponsorDonation, step: 0.01 %></td>
+        </tr>
+        <tr>
+            <th>End of Contract</th>
+            <td><%= f.date_select :sponsorEndOfContract %></td>
+        </tr>
+    </table>
+
+    <div class="actions">
+        <%= f.submit %>
+    </div>
+<% end %>

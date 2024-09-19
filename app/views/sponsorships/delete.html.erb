@@ -1,0 +1,14 @@
+<div class="sponsorship delete">
+    <h2>Delete Sponsorship</h2>
+
+    <%= form_for(@sponsorship, method: 'delete') do |f| %>
+
+        <p>Are you sure you want to permanently delete this sponsorship?</p>
+
+        <p class="reference-name"><%= f.object.sponsorName %></p>
+
+        <div class="form-buttons">
+            <%= f.submit("Delete Sponsorship") %>
+        </div>
+    <% end %>
+</div>

@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<div class="sponsorships index">
+    <h1>Sponsorships</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Sponsor</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @sponsorships.each do |sponsorship| %>
+                <tr>
+                    <td><%= sponsorship.sponsorName %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
