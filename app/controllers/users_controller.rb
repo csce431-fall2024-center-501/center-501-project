@@ -23,6 +23,8 @@ class UsersController < ApplicationController
   def create
     return unless require_admin
 
+    # if user is not admin, do not create user
+    # TODO ability to edit your own user profile even if not admin
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
@@ -38,6 +40,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     return unless require_admin
+
+    # if user is not admin, do not edit user
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
@@ -52,6 +56,8 @@ class UsersController < ApplicationController
   # DELETE /users/1 or /users/1.json
   def destroy
     return unless require_admin
+
+    # if user is not admin, do not delete user
     @user.destroy
 
     respond_to do |format|

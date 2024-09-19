@@ -33,4 +33,5 @@
 # Ignore coverage information
 /coverage
 
+# Local file containing google secret information for reference
 client_secret.apps.googleusercontent.com.json

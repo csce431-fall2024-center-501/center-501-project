@@ -17,7 +17,9 @@
         <td><%= user.full_name %></td>
         <td><%= user.user_type %></td>
         <td><%= link_to 'Show', user %></td>
-        <% if current_user == user || current_user.admin? %>
+        <!--TODO after editing controller to allow user to edit their own profile, change this-->
+        <%# if current_user == user || current_user.admin? %>
+        <% if current_user.admin? %>
           <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <% end %>
         <% if current_user.admin? %>

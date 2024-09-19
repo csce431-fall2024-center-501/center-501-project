@@ -78,7 +78,10 @@ group :test do
   gem "simplecov", :require => false
 end
 
+# Security analyzer
 gem "brakeman"
+
+# Authentication solutions
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'

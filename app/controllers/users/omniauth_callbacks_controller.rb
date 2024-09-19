@@ -1,6 +1,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     ADMIN_EMAILS = ['kjj@tamu.edu', 'ryan.pavlik@tamu.edu', 'kfogle6782@tamu.edu', 'pearlynntoh@tamu.edu', 'saradyl@tamu.edu']
 
+    # google_oauth2 is the method that is called when the user logs in with Google
     def google_oauth2
         user = User.from_google(**from_google_params)
         if user.present?
