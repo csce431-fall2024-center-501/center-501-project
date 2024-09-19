@@ -1,5 +1,5 @@
 class EducationsController < ApplicationController
-  before_action :set_education, only: %i[ show edit update destroy ]
+  before_action :set_education, only: %i[show edit update destroy]
 
   # GET /educations or /educations.json
   def index
@@ -8,6 +8,10 @@ class EducationsController < ApplicationController
 
   # GET /educations/1 or /educations/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json { render :show, status: :ok, location: @education }
+    end
   end
 
   # GET /educations/new
@@ -23,26 +27,59 @@ class EducationsController < ApplicationController
   def create
     @education = Education.new(education_params)
 
+    if params[:education][:educationName].blank? || !%w[Minor Major minor
+                                                        major].include?(params[:education][:educationType])
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: { error: 'Invalid educationName or educationType' }, status: :unprocessable_entity }
+        if params[:education][:educationName].blank?
+          @education.errors.add(:educationName, :invalid,
+                                message: 'Invalid educationName')
+        end
+        unless %w[minor major].include?(params[:education][:educationType])
+          @education.errors.add(:educationType, :invalid,
+                                message: 'Invalid educationType')
+        end
+      end
+      return
+    end
+
     respond_to do |format|
       if @education.save
-        format.html { redirect_to education_url(@education), notice: "Education was successfully created." }
+        format.html { redirect_to education_url(@education), notice: 'Education was successfully created.' }
         format.json { render :show, status: :created, location: @education }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @education.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /educations/1 or /educations/1.json
   def update
+    @education = Education.find(params[:id])
+
+    if params[:education][:educationName].blank? || !%w[minor major Major
+                                                        Minor].include?(params[:education][:educationType])
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: { error: 'Invalid educationName or educationType' }, status: :unprocessable_entity }
+        if params[:education][:educationName].blank?
+          @education.errors.add(:educationName, :invalid,
+                                message: 'Invalid educationName')
+        end
+        unless %w[minor major].include?(params[:education][:educationType])
+          @education.errors.add(:educationType, :invalid,
+                                message: 'Invalid educationType')
+        end
+      end
+      return
+    end
     respond_to do |format|
       if @education.update(education_params)
-        format.html { redirect_to education_url(@education), notice: "Education was successfully updated." }
+        format.html { redirect_to education_url(@education), notice: 'Education was successfully updated.' }
         format.json { render :show, status: :ok, location: @education }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @education.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,19 +89,20 @@ class EducationsController < ApplicationController
     @education.destroy
 
     respond_to do |format|
-      format.html { redirect_to educations_url, notice: "Education was successfully destroyed." }
+      format.html { redirect_to educations_url, notice: 'Education was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_education
-      @education = Education.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def education_params
-      params.require(:education).permit(:educationName, :educationType, :educationDescription)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_education
+    @education = Education.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def education_params
+    params.require(:education).permit(:educationName, :educationType, :educationDescription)
+  end
 end
