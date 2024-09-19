@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
         unless current_user&.admin?
         flash[:alert] = "You must be an admin to access this section."
         redirect_to root_path # Redirect non-admin users
+        return false
         end
+        true
     end
 end

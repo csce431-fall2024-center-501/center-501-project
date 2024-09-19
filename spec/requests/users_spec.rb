@@ -13,6 +13,24 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/users", type: :request do
+  let(:alternative_valid_attributes) {
+    {
+      email: 'testuser-alternative@example.com', # different email
+      full_name: 'Test User',
+      uid: '1234567890',
+      avatar_url: 'http://example.com/avatar.jpg',  
+      user_type: 'user'                       
+    }
+  }
+  let(:new_attributes) {
+    {
+      email: 'testuser@example.com',
+      full_name: 'Test Newuser', # changed name
+      uid: '1234567890',
+      avatar_url: 'http://example.com/avatar.jpg',  
+      user_type: 'user'                       
+    }
+  }
   
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
@@ -72,6 +90,21 @@ RSpec.describe "/users", type: :request do
       end
     end
 
+    context "with valid parameters but not admin" do
+      it "does not create a new User" do
+        sign_in User.create! valid_attributes
+        expect {
+          post users_url, params: { user: valid_admin_attributes }
+        }.to change(User, :count).by(0)
+      end
+
+      it "redirects to the root path" do
+        sign_in User.create! valid_attributes
+        post users_url, params: { user: valid_admin_attributes }
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
     context "with invalid parameters" do
       it "does not create a new User" do
         sign_in User.create! valid_admin_attributes
@@ -90,15 +123,6 @@ RSpec.describe "/users", type: :request do
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) {
-        {
-          email: 'testuser@example.com',
-          full_name: 'Test Newuser', # changed name
-          uid: '1234567890',
-          avatar_url: 'http://example.com/avatar.jpg',  
-          user_type: 'user'                       
-        }
-      }
 
       it "updates the requested user" do
         sign_in User.create! valid_admin_attributes
@@ -116,6 +140,22 @@ RSpec.describe "/users", type: :request do
         patch user_url(user), params: { user: new_attributes }
         user.reload
         expect(response).to redirect_to(user_url(user))
+      end
+
+      it "does not allow user to change other users if not admin" do
+        sign_in User.create! alternative_valid_attributes
+        user = User.create! valid_attributes
+        patch user_url(user), params: { user: new_attributes }
+        valid_attributes.each do |key, value|
+          expect(user.send(key)).to eq(value)
+        end
+      end
+
+      it "does not allow user to change other users if not admin and redirects to root" do
+        sign_in User.create! alternative_valid_attributes
+        user = User.create! valid_attributes
+        patch user_url(user), params: { user: new_attributes }
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -143,6 +183,21 @@ RSpec.describe "/users", type: :request do
       user = User.create! valid_attributes
       delete user_url(user)
       expect(response).to redirect_to(users_url)
+    end
+
+    it "doesn't allow user to delete other users if not admin" do
+      sign_in User.create! valid_attributes
+      user = User.create! valid_admin_attributes
+      expect {
+        delete user_url(user)
+      }.to change(User, :count).by(0)
+    end
+
+    it "doesn't allow user to delete other users if not admin and redirects to root" do
+      sign_in User.create! valid_attributes
+      user = User.create! valid_admin_attributes
+      delete user_url(user)
+      expect(response).to redirect_to(root_path)
     end
   end
 end

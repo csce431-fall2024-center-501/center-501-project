@@ -21,9 +21,9 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    require_admin
-    @user = User.new(user_params)
+    return unless require_admin
 
+    @user = User.new(user_params)
     respond_to do |format|
       if @user.save
         format.html { redirect_to user_url(@user), notice: "User was successfully created." }
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    require_admin
+    return unless require_admin
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    require_admin
+    return unless require_admin
     @user.destroy
 
     respond_to do |format|
