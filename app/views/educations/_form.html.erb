@@ -1,0 +1,32 @@
+<%= form_with(model: education) do |form| %>
+  <% if education.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(education.errors.count, "error") %> prohibited this education from being saved:</h2>
+
+      <ul>
+        <% education.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label "Education Name", style: "display: block" %>
+    <%= form.text_field :educationName %>
+  </div>
+
+  <div>
+    <%= form.label "Education Type", style: "display: block" %>
+    <%= form.text_field :educationType %>
+  </div>
+
+  <div>
+    <%= form.label "Education Description", style: "display: block" %>
+    <%= form.text_area :educationDescription %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
