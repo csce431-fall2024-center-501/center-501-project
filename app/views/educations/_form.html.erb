@@ -1,9 +1,11 @@
 <%= form_with(model: education) do |form| %>
   <% if education.errors.any? %>
+    <!-- Display error messages if there are any validation errors -->
     <div style="color: red">
       <h2><%= pluralize(education.errors.count, "error") %> prohibited this education from being saved:</h2>
 
       <ul>
+        <!-- Iterate through each error and display its full message -->
         <% education.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -12,21 +14,25 @@
   <% end %>
 
   <div>
+    <!-- Label and text field for Education Name -->
     <%= form.label "Education Name", style: "display: block" %>
     <%= form.text_field :educationName %>
   </div>
 
   <div>
+    <!-- Label and text field for Education Type -->
     <%= form.label "Education Type", style: "display: block" %>
     <%= form.text_field :educationType %>
   </div>
 
   <div>
+    <!-- Label and text area for Education Description -->
     <%= form.label "Education Description", style: "display: block" %>
     <%= form.text_area :educationDescription %>
   </div>
 
   <div>
+    <!-- Submit button for the form -->
     <%= form.submit %>
   </div>
 <% end %>
