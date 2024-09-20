@@ -1,0 +1,10 @@
+<nav> 
+    <ul>
+        <li class="logo"><%= image_tag('logo.png', alt: 'Engineers Without Borders Logo') %></li>
+        <li><%= link_to 'Home', root_path, class: current_page?(root_path) ? 'active' : '' %></li>
+        <li><%= 'Projects' %></li>
+        <li><%= 'Members' %></li>
+        <li><%= 'Sponsors and Donations' %></li>
+        <li><%= 'Log In' %></li>
+    </ul>
+</nav>

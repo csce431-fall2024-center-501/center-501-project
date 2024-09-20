@@ -17,11 +17,12 @@
     </style>
   </head>
   <body>
-    <% if flash.any? %>
-    <% flash.each do |key, value| -%>
-    <section class="flash flash__<%= key %>"><%= value.html_safe%></section>
-    <% end -%>
-    <% end %>
-    <%= yield %>
+    <header>
+      <%= render "shared/navbar" %>
+    </header>
+    
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

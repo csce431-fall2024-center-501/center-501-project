@@ -13,3 +13,18 @@
  *= require_tree .
  *= require_self
  */
+
+ 
+/*
+ *= require navbar
+ */
+
+:root {
+    --primary-color: #77a0ef;
+    --secondary-color: #eae7e7;
+}
+
+ /* Reset body margin and padding */
+body {
+    margin: 0;
+}
