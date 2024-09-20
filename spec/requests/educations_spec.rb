@@ -18,7 +18,9 @@ RSpec.describe '/educations', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Education. As you add validations to Education, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) do
+  include TestAttributes
+
+  let(:valid_education_attributes) do
     {
       educationName: 'Computer Science',
       educationType: 'major',
@@ -26,7 +28,7 @@ RSpec.describe '/educations', type: :request do
     }
   end
 
-  let(:invalid_attributes) do
+  let(:invalid_education_attributes) do
     {
       educationName: nil, # Name can't be nil
       educationType: 'invalid_type', # Assuming 'type' has a validation for specific values
@@ -36,7 +38,8 @@ RSpec.describe '/educations', type: :request do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      Education.create! valid_attributes
+      sign_in User.create! valid_attributes
+      Education.create! valid_education_attributes
       get educations_url
       expect(response).to be_successful
     end
@@ -44,7 +47,8 @@ RSpec.describe '/educations', type: :request do
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      education = Education.create! valid_attributes
+      sign_in User.create! valid_attributes
+      education = Education.create! valid_education_attributes
       get education_url(education)
       expect(response).to be_successful
     end
@@ -52,6 +56,7 @@ RSpec.describe '/educations', type: :request do
 
   describe 'GET /new' do
     it 'renders a successful response' do
+      sign_in User.create! valid_attributes
       get new_education_url
       expect(response).to be_successful
     end
@@ -59,7 +64,8 @@ RSpec.describe '/educations', type: :request do
 
   describe 'GET /edit' do
     it 'renders a successful response' do
-      education = Education.create! valid_attributes
+      sign_in User.create! valid_attributes
+      education = Education.create! valid_education_attributes
       get edit_education_url(education)
       expect(response).to be_successful
     end
@@ -68,26 +74,30 @@ RSpec.describe '/educations', type: :request do
   describe 'POST /create' do
     context 'with valid parameters' do
       it 'creates a new Education' do
+        sign_in User.create! valid_attributes
         expect do
-          post educations_url, params: { education: valid_attributes }
+          post educations_url, params: { education: valid_education_attributes }
         end.to change(Education, :count).by(1)
       end
 
       it 'redirects to the created education' do
-        post educations_url, params: { education: valid_attributes }
+        sign_in User.create! valid_attributes
+        post educations_url, params: { education: valid_education_attributes }
         expect(response).to redirect_to(education_url(Education.last))
       end
     end
 
     context 'with invalid parameters' do
       it 'does not create a new Education' do
+        sign_in User.create! valid_attributes
         expect do
-          post educations_url, params: { education: invalid_attributes }
+          post educations_url, params: { education: invalid_education_attributes }
         end.to change(Education, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post educations_url, params: { education: invalid_attributes }
+        sign_in User.create! valid_attributes
+        post educations_url, params: { education: invalid_education_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -104,7 +114,8 @@ RSpec.describe '/educations', type: :request do
       end
 
       it 'updates the requested education' do
-        education = Education.create! valid_attributes
+        sign_in User.create! valid_attributes
+        education = Education.create! valid_education_attributes
         patch education_url(education), params: { education: new_attributes }
         education.reload
         expect(education.educationName).to eq('Software Engineering')
@@ -113,7 +124,8 @@ RSpec.describe '/educations', type: :request do
       end
 
       it 'redirects to the education' do
-        education = Education.create! valid_attributes
+        sign_in User.create! valid_attributes
+        education = Education.create! valid_education_attributes
         patch education_url(education), params: { education: new_attributes }
         education.reload
         expect(response).to redirect_to(education_url(education))
@@ -121,24 +133,27 @@ RSpec.describe '/educations', type: :request do
     end
 
     context 'with invalid parameters' do
-      it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        education = Education.create! valid_attributes
-        patch education_url(education), params: { education: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        it "renders a response with 422 status (i.e. to display the 'edit' template)" do
+          sign_in User.create! valid_attributes
+          education = Education.create! valid_education_attributes
+          patch education_url(education), params: { education: invalid_education_attributes }
+          expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
 
   describe 'DELETE /destroy' do
     it 'destroys the requested education' do
-      education = Education.create! valid_attributes
+      sign_in User.create! valid_attributes
+      education = Education.create! valid_education_attributes
       expect do
         delete education_url(education)
       end.to change(Education, :count).by(-1)
     end
 
     it 'redirects to the educations list' do
-      education = Education.create! valid_attributes
+      sign_in User.create! valid_attributes
+      education = Education.create! valid_education_attributes
       delete education_url(education)
       expect(response).to redirect_to(educations_url)
     end

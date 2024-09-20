@@ -1,4 +1,4 @@
-class DashboardsController < ApplicationController
+class DashboardsController < AuthenticatedApplicationController
     # basic dashboard page
     def show
     end
