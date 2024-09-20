@@ -27,6 +27,10 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
+      - name: Set Rails Master Key
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        run: echo "$RAILS_MASTER_KEY" > config/master.key
 
       - name: Install postgres client
         run: sudo apt-get install libpq-dev
