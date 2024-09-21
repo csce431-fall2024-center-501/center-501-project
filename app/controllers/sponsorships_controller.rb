@@ -1,21 +1,19 @@
+# frozen_string_literal: true
+
 class SponsorshipsController < ApplicationController
-  before_action :set_sponsorship, only: %i[ show edit update destroy ]
+  before_action :set_sponsorship, only: %i[show edit update destroy]
 
   def index
     @sponsorships = Sponsorship.order(:sponsor_donation)
   end
 
-  def show
-    # @sponsorship = Sponsorship.find(params[:id])
-  end
+  def show; end
 
   def new
     @sponsorship = Sponsorship.new
   end
 
-  def edit
-    # @sponsorship = Sponsorship.find(params[:id])
-  end
+  def edit; end
 
   def delete
     @sponsorship = Sponsorship.find(params[:id])
@@ -26,7 +24,7 @@ class SponsorshipsController < ApplicationController
 
     respond_to do |format|
       if @sponsorship.save
-        format.html { redirect_to sponsorships_path, notice: "Sponsorship record was successfully created." }
+        format.html { redirect_to sponsorships_path, notice: 'Sponsorship record was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @sponsorship.errors, status: :unprocessable_entity }
@@ -35,11 +33,9 @@ class SponsorshipsController < ApplicationController
   end
 
   def update
-    # @sponsorship = Sponsorship.find(params[:id])
-
     respond_to do |format|
       if @sponsorship.update(sponsorship_params)
-        format.html { redirect_to sponsorships_path, notice: "Sponsorship record was successfully updated." }
+        format.html { redirect_to sponsorships_path, notice: 'Sponsorship record was successfully updated.' }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @sponsorship.errors, status: :unprocessable_entity }
@@ -48,7 +44,6 @@ class SponsorshipsController < ApplicationController
   end
 
   def destroy
-    # @sponsorship = Sponsorship.find(params[:id])
     @sponsorship.destroy
     redirect_to sponsorships_path
   end
@@ -60,6 +55,7 @@ class SponsorshipsController < ApplicationController
   end
 
   def sponsorship_params
-    params.require(:sponsorship).permit(:sponsor_name, :sponsor_lead_name, :sponsor_phone, :sponsor_email, :sponsor_donation, :sponsor_end_of_contract)
+    params.require(:sponsorship).permit(:sponsor_name, :sponsor_lead_name, :sponsor_phone, :sponsor_email,
+                                        :sponsor_donation, :sponsor_end_of_contract)
   end
 end
