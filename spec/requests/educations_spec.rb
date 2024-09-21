@@ -133,11 +133,11 @@ RSpec.describe '/educations', type: :request do
     end
 
     context 'with invalid parameters' do
-        it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-          sign_in User.create! valid_attributes
-          education = Education.create! valid_education_attributes
-          patch education_url(education), params: { education: invalid_education_attributes }
-          expect(response).to have_http_status(:unprocessable_entity)
+      it "renders a response with 422 status (i.e. to display the 'edit' template)" do
+        sign_in User.create! valid_attributes
+        education = Education.create! valid_education_attributes
+        patch education_url(education), params: { education: invalid_education_attributes }
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end

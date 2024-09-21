@@ -42,7 +42,7 @@ RSpec.feature 'Navbar', type: :feature do
   end
 end
 
-RSpec.feature "Navbar", type: :feature do
+RSpec.feature 'Navbar', type: :feature do
   scenario "'Home' link does not have active class on non-home pages" do
     visit new_user_session_path
 
@@ -53,7 +53,7 @@ RSpec.feature "Navbar", type: :feature do
   end
 end
 
-RSpec.feature "Navbar", type: :feature do
+RSpec.feature 'Navbar', type: :feature do
   scenario "'Log In' link does not have active class on non-home pages" do
     visit root_path # Replace with a path other than root_path
 
