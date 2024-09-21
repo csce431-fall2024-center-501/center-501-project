@@ -1,10 +1,12 @@
 class SponsorshipsController < ApplicationController
+  before_action :set_sponsorship, only: %i[ show edit update destroy ]
+
   def index
-    @sponsorships = Sponsorship.order(:sponsorDonation)
+    @sponsorships = Sponsorship.order(:sponsor_donation)
   end
 
   def show
-    @sponsorship = Sponsorship.find(params[:id])
+    # @sponsorship = Sponsorship.find(params[:id])
   end
 
   def new
@@ -12,7 +14,7 @@ class SponsorshipsController < ApplicationController
   end
 
   def edit
-    @sponsorship = Sponsorship.find(params[:id])
+    # @sponsorship = Sponsorship.find(params[:id])
   end
 
   def delete
@@ -33,7 +35,7 @@ class SponsorshipsController < ApplicationController
   end
 
   def update
-    @sponsorship = Sponsorship.find(params[:id])
+    # @sponsorship = Sponsorship.find(params[:id])
 
     respond_to do |format|
       if @sponsorship.update(sponsorship_params)
@@ -46,14 +48,18 @@ class SponsorshipsController < ApplicationController
   end
 
   def destroy
-    @sponsorship = Sponsorship.find(params[:id])
+    # @sponsorship = Sponsorship.find(params[:id])
     @sponsorship.destroy
     redirect_to sponsorships_path
   end
 
   private
 
+  def set_sponsorship
+    @sponsorship = Sponsorship.find(params[:id])
+  end
+
   def sponsorship_params
-    params.require(:sponsorship).permit(:sponsorName, :sponsorLeadName, :sponsorPhone, :sponsorEmail, :sponsorDonation, :sponsorEndOfContract)
+    params.require(:sponsorship).permit(:sponsor_name, :sponsor_lead_name, :sponsor_phone, :sponsor_email, :sponsor_donation, :sponsor_end_of_contract)
   end
 end

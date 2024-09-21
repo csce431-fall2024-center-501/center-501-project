@@ -1,3 +1,5 @@
+<%= link_to 'Back', sponsorships_path %>
+
 <p id="notice"><%= notice %></p>
 
 <div class="sponsorship show">
@@ -11,27 +13,27 @@
     <table summary="Sponsorship detail view">
         <tr>
             <th>Sponsor Name</th>
-            <td><%= @sponsorship.sponsorName %></td>
+            <td><%= @sponsorship.sponsor_name %></td>
         </tr>
         <tr>
             <th>Lead Name</th>
-            <td><%= @sponsorship.sponsorLeadName %></td>
+            <td><%= @sponsorship.sponsor_lead_name %></td>
         </tr>
         <tr>
             <th>Phone</th>
-            <td><%= @sponsorship.sponsorPhone %></td>
+            <td><%= @sponsorship.sponsor_phone %></td>
         </tr>
         <tr>
             <th>Email</th>
-            <td><%= @sponsorship.sponsorEmail %></td>
+            <td><%= @sponsorship.sponsor_email %></td>
         </tr>
         <tr>
             <th>Donation</th>
-            <td><%= @sponsorship.sponsorDonation %></td>
+            <td><%= @sponsorship.sponsor_donation %></td>
         </tr>
         <tr>
             <th>End of Contract</th>
-            <td><%= @sponsorship.sponsorEndOfContract %></td>
+            <td><%= @sponsorship.sponsor_end_of_contract %></td>
         </tr>
     </table>
 </div>

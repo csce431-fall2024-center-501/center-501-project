@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_16_175741) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_21_150258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "sponsorships", force: :cascade do |t|
-    t.string "sponsorName"
-    t.string "sponsorLeadName"
-    t.string "sponsorPhone"
-    t.string "sponsorEmail"
-    t.decimal "sponsorDonation"
-    t.date "sponsorEndOfContract"
+    t.string "sponsor_name"
+    t.string "sponsor_lead_name"
+    t.string "sponsor_phone"
+    t.string "sponsor_email"
+    t.decimal "sponsor_donation"
+    t.date "sponsor_end_of_contract"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

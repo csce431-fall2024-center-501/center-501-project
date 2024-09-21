@@ -3,17 +3,21 @@
 <div class="sponsorships index">
     <h1>Sponsorships</h1>
 
+    <%= link_to 'New Sponsorship', new_sponsorship_path %>
+
     <table>
         <thead>
             <tr>
                 <th>Sponsor</th>
+                <th colspan="1"></th>
             </tr>
         </thead>
 
         <tbody>
             <% @sponsorships.each do |sponsorship| %>
                 <tr>
-                    <td><%= sponsorship.sponsorName %></td>
+                    <td><%= sponsorship.sponsor_name %></td>
+                    <td><%= link_to 'Show', sponsorship %></td>
                 </tr>
             <% end %>
         </tbody>
