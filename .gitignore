@@ -32,3 +32,6 @@
 
 # Ignore coverage information
 /coverage
+
+# Ignore the default vs code settings
+.vscode/*
