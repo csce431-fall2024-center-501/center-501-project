@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EducationsController < AuthenticatedApplicationController
   # Set the education object for specific actions
   before_action :set_education, only: %i[show edit update destroy]
@@ -25,8 +27,7 @@ class EducationsController < AuthenticatedApplicationController
 
   # GET /educations/1/edit
   # Edit a specific education record
-  def edit
-  end
+  def edit; end
 
   # POST /educations or /educations.json
   # Create a new education record
