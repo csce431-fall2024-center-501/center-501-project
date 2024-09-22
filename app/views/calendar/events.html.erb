@@ -21,5 +21,17 @@
 </ul>
 
 <%= form_tag new_event_url do %>
-  <%= submit_tag 'Add event' %>
+<div>
+  <%= label_tag :event_name, 'Event Name' %>
+  <%= text_field_tag :event_name %>
+</div>
+<div>
+  <%= label_tag :start_date, 'Start Date' %>
+  <%= date_field_tag :start_date %>
+</div>
+<div>
+  <%= label_tag :end_date, 'End Date' %>
+  <%= date_field_tag :end_date %>
+</div>
+<%= submit_tag 'Add event' %>
 <% end %>

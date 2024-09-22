@@ -16,6 +16,28 @@ class CalendarController < ApplicationController
     redirect_to calendars_url
   end
 
+  def new_event
+    client = Signet::OAuth2::Client.new(client_options)
+    client.update!(session[:authorization])
+
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+    event = Google::Apis::CalendarV3::Event.new
+    event.summary = params[:event_name]
+
+    event.start = Google::Apis::CalendarV3::EventDateTime.new(
+      date: params[:start_date]
+    )
+    event.end = Google::Apis::CalendarV3::EventDateTime.new(
+      date: params[:end_date]
+    )
+
+    service.insert_event(params[:calendar_id], event)
+
+    redirect_to events_url(calendar_id: params[:calendar_id])
+  end
+
   def calendars
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
