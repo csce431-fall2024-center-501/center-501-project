@@ -14,6 +14,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_21_150258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "educations", force: :cascade do |t|
+    t.string "educationName"
+    t.string "educationType"
+    t.string "educationDescription"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sponsorships", force: :cascade do |t|
     t.string "sponsor_name"
     t.string "sponsor_lead_name"
@@ -23,6 +31,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_21_150258) do
     t.date "sponsor_end_of_contract"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "full_name"
+    t.string "uid"
+    t.string "avatar_url"
+    t.string "user_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end
