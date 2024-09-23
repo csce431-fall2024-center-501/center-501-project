@@ -55,6 +55,8 @@ class UsersController < AuthenticatedApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
+
+    puts "destroying user"
     return unless require_admin
 
     # if user is not admin, do not delete user
