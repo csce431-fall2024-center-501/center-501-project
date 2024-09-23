@@ -22,6 +22,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_20_153404) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sponsorships", force: :cascade do |t|
+    t.string "sponsor_name"
+    t.string "sponsor_lead_name"
+    t.string "sponsor_phone"
+    t.string "sponsor_email"
+    t.decimal "sponsor_donation"
+    t.date "sponsor_end_of_contract"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "full_name"
