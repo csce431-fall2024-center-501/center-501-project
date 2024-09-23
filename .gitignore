@@ -33,5 +33,10 @@
 # Ignore coverage information
 /coverage
 
+
 # Ignore the default vs code settings
 .vscode/*
+
+# Local file containing google secret information for reference
+client_secret.apps.googleusercontent.com.json
+
