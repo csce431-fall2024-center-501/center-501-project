@@ -43,6 +43,8 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 gem "rexml"
 
+#gem 'redcarpet'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -78,4 +80,4 @@ group :test do
   gem "simplecov", :require => false
 end
 
-gem "brakeman"  
+gem "brakeman"

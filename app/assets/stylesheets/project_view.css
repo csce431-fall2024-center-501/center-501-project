@@ -1,0 +1,39 @@
+header {
+  text-align: center;
+  border-style: dashed;
+  border-radius: 4px;
+}
+
+header h1{
+  font-size: 36px;
+}
+
+header p{
+  font-size: 24px;
+}
+
+gallery {
+  border-style: dashed;
+  border-radius: 4px;
+  align-items: center;
+}
+
+summary {
+  border-style: dashed;
+  border-radius: 4px;
+}
+
+summary h1{
+  font-size: 24px;
+  text-decoration: underline;
+  text-align: center;
+}
+
+summary p{
+  font-size: 18px;
+}
+actions {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+}
