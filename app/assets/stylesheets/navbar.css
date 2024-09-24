@@ -1,0 +1,55 @@
+/* do we want navbar fixed or do we want to scroll back up to it */
+/* Navbar container */
+nav {
+    background-color: var(--primary-color);
+    width: 100%;
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    border: none !important;
+}
+
+/* logo */
+nav .logo {
+    margin-left: 0px;
+}
+
+nav .logo img {
+    max-height: 65px;
+    width: auto;  
+}
+
+/* Navbar links */
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin-left: 40px;
+}
+/* will remove once dummy data is replaced with actual links */
+nav li {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+nav a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+/* Navbar link hover effect */
+nav a:hover {
+    color: var(--secondary-color);
+}
+
+nav a.active {
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color);
+}

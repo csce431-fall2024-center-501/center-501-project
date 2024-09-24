@@ -1,0 +1,14 @@
+
+<div class="login-box">
+    <h2 class="logout-message">Member Login</h2>
+
+    <%= button_to user_google_oauth2_omniauth_authorize_path,
+        class: "btn google-btn",
+        method: :post,
+        data: { turbo: "false" } do %>
+
+    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" class="google-logo" />
+    <span class="mobile-font">&nbsp;Sign in with Google</span>
+
+    <% end %>
+</div>

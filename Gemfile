@@ -48,6 +48,8 @@ gem "rexml"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+ 
+gem 'google-api-client', require: 'google/apis/calendar_v3'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -78,4 +80,12 @@ group :test do
   gem "simplecov", :require => false
 end
 
-gem "brakeman"  
+# Security analyzer
+gem "brakeman"
+
+# Authentication solutions
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+
