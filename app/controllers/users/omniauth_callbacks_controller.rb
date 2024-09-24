@@ -9,7 +9,13 @@ module Users
     def google_oauth2
       user = User.from_google(**from_google_params)
       if user.present?
+        
+        # Prevent other signed in scopes from interfering with the sign in
         sign_out_all_scopes
+        
+        # Store OAuth tokens in session for future API access
+        store_oauth_session_data(auth.credentials)
+
         flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
         sign_in_and_redirect user, event: :authentication
       else
@@ -43,6 +49,13 @@ module Users
 
     def auth
       @auth ||= request.env['omniauth.auth']
+    end
+
+    def store_oauth_session_data(credentials)
+      # Storing access token, refresh token, and expiration in the session
+      session[:google_access_token] = credentials.token
+      session[:google_refresh_token] = credentials.refresh_token
+      session[:google_expires_at] = credentials.expires_at
     end
   end
 end
