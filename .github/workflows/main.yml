@@ -46,6 +46,11 @@ jobs:
           gem install bundler
           bundler install
 
+      - name: Set Rails Master Key
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          run: echo "$RAILS_MASTER_KEY" > config/master.key
+
       - name: Create database
         run: |
           bundler exec rails db:create RAILS_ENV=test
