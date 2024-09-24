@@ -1,0 +1,46 @@
+<%= stylesheet_link_tag "projects", media: "all"%>
+
+<p style="color: green"><%= notice %></p>
+
+<body>
+  <div id="projects">
+
+    <h1> Current Projects </h1>
+
+    <% @projects.each do |project| %>
+      <% if project.isProjectActive %>
+        <p>
+          <b> <%= project.projectName %>: </b>
+          <br>
+          <%= project.projectDesc %>
+          <ul>
+            <b> - Project Start Date: </b> <%= project.projectStartDate %> <br>
+            <b> - Location: </b> <%= project.locationID %> <br>
+          </ul>
+        </p>
+        <p> <%= link_to "Show this project", project %> </p>
+      <% end %>
+    <% end %>
+
+    <h1> Past Projects </h1>
+
+    <% @projects.each do |project| %>
+      <% if !project.isProjectActive %>
+        <p>
+          <b> <%= project.projectName %>: </b>
+          <br>
+          <%= project.projectDesc %>
+          <ul>
+            <b> - Project Start Date: </b> <%= project.projectStartDate %> <br>
+            <b> - Location: </b> <%= project.locationID %> <br>
+          </ul>
+        </p>
+        <p> <%= link_to "Show this project", project %> </p>
+      <% end %>
+    <% end %>
+
+    <p> <%= link_to "Create a New Project", new_project_path %> </p>
+
+  </div>
+
+</<body>

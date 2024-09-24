@@ -14,6 +14,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_20_153404) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+    create_table "projects", force: :cascade do |t|
+    t.string "projectName"
+    t.string "projectDesc"
+    t.integer "locationID"
+    t.date "projectStartDate"
+    t.boolean "isProjectActive"
+  
   create_table "educations", force: :cascade do |t|
     t.string "educationName"
     t.string "educationType"
