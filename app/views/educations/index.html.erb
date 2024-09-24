@@ -1,0 +1,21 @@
+<!-- Display a notice message in green color if there is any -->
+<p style="color: green"><%= notice %></p>
+
+<!-- Main heading for the Educations page -->
+<h1>Educations</h1>
+
+<!-- Container for the list of educations -->
+<div id="educations">
+  <!-- Iterate through each education in the @educations collection -->
+  <% @educations.each do |education| %>
+    <!-- Render the partial for each education -->
+    <%= render education %>
+    <p>
+      <!-- Link to show the details of the specific education -->
+      <%= link_to "Show this education", education %>
+    </p>
+  <% end %>
+</div>
+
+<!-- Link to create a new education -->
+<%= link_to "New education", new_education_path %>
