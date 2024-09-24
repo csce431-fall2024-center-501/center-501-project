@@ -10,21 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_20_153404) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_21_150258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-    create_table "projects", force: :cascade do |t|
+  create_table "educations", force: :cascade do |t|
+    t.string "educationName"
+    t.string "educationType"
+    t.string "educationDescription"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
     t.string "projectName"
     t.string "projectDesc"
     t.integer "locationID"
     t.date "projectStartDate"
     t.boolean "isProjectActive"
-  
-  create_table "educations", force: :cascade do |t|
-    t.string "educationName"
-    t.string "educationType"
-    t.string "educationDescription"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

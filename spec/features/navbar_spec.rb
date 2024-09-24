@@ -13,6 +13,26 @@ RSpec.feature 'Navbar', type: :feature do
 end
 
 RSpec.feature 'Navbar', type: :feature do
+  scenario "displays 'Sponsors & Donations' link" do
+    visit root_path
+
+    within('nav') do
+      expect(page).to have_link('Sponsors & Donations', href: sponsorships_path)
+    end
+  end
+end
+
+RSpec.feature 'Navbar', type: :feature do
+  scenario "displays 'Projects' link" do
+    visit root_path
+
+    within('nav') do
+      expect(page).to have_link('Projects', href: projects_path)
+    end
+  end
+end
+
+RSpec.feature 'Navbar', type: :feature do
   scenario "displays 'Log In' link" do
     visit root_path
 
@@ -28,6 +48,26 @@ RSpec.feature 'Navbar', type: :feature do
 
     within('nav') do
       expect(page).to have_css('a.active', text: 'Home')
+    end
+  end
+end
+
+RSpec.feature 'Navbar', type: :feature do
+  scenario "'Sponsors & Donations' link has active class when on the sponsorships page" do
+    visit sponsorships_path
+
+    within('nav') do
+      expect(page).to have_css('a.active', text: 'Sponsors & Donations')
+    end
+  end
+end
+
+RSpec.feature 'Navbar', type: :feature do
+  scenario "'Projects' link has active class when on the projects page" do
+    visit projects_path
+
+    within('nav') do
+      expect(page).to have_css('a.active', text: 'Projects')
     end
   end
 end
