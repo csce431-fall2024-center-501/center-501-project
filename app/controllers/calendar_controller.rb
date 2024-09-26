@@ -7,6 +7,7 @@ class CalendarController < AuthenticatedApplicationController
   def new_event
     # Redirect and halt execution if calendar_id is not valid
     unless EWB_CALENDAR_IDS.include?(params[:calendar_id])
+      flash[:alert] = 'Invalid calendar ID - only EWB calendars are supported.'
       redirect_to calendars_path and return
     end
   
@@ -34,6 +35,7 @@ class CalendarController < AuthenticatedApplicationController
   def events
     # TODO - add better redirect
     unless EWB_CALENDAR_IDS.include?(params[:calendar_id])
+      flash[:alert] = 'Invalid calendar ID - only EWB calendars are supported.'
       redirect_to calendars_path and return
     end
 
