@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
   resources :users
   resources :educations
-  
+
   resources :projects do
     member do
       get :delete

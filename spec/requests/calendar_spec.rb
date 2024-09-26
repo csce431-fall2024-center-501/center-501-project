@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "CalendarController", type: :request do
-  let(:valid_calendar_id) { 'c_35657eacaf7df0315b9988c9b68e72be62b3d78e730edd6583459300f61320db@group.calendar.google.com' }
+RSpec.describe 'CalendarController', type: :request do
+  let(:valid_calendar_id) do
+    'c_35657eacaf7df0315b9988c9b68e72be62b3d78e730edd6583459300f61320db@group.calendar.google.com'
+  end
   let(:invalid_calendar_id) { 'invalid_calendar_id' }
 
   include TestAttributes
@@ -9,10 +13,10 @@ RSpec.describe "CalendarController", type: :request do
   before do
     # Mock session data for authentication and tokens
     allow_any_instance_of(CalendarController).to receive(:session).and_return({
-      google_access_token: 'valid_access_token',
-      google_refresh_token: 'valid_refresh_token',
-      google_expires_at: Time.now + 1.hour
-    })
+                                                                                google_access_token: 'valid_access_token',
+                                                                                google_refresh_token: 'valid_refresh_token',
+                                                                                google_expires_at: Time.now + 1.hour
+                                                                              })
 
     sign_in User.create! valid_attributes
   end
@@ -30,7 +34,6 @@ RSpec.describe "CalendarController", type: :request do
     # Stub the initialization of Google Calendar service
     allow(Google::Apis::CalendarV3::CalendarService).to receive(:new).and_return(calendar_service)
     allow(calendar_service).to receive(:authorization=).with(google_client)
-    
   end
 
   describe 'POST /new_event' do
@@ -83,9 +86,9 @@ RSpec.describe "CalendarController", type: :request do
   describe 'GET /calendars' do
     let(:calendar_list_response) do
       double('CalendarList', items: [
-        double('Calendar', id: valid_calendar_id, summary: 'Test Calendar12345'),
-        double('Calendar', id: 'other_calendar_id', summary: 'Other Calendar67890')
-      ])
+               double('Calendar', id: valid_calendar_id, summary: 'Test Calendar12345'),
+               double('Calendar', id: 'other_calendar_id', summary: 'Other Calendar67890')
+             ])
     end
 
     before do

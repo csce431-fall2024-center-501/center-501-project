@@ -9,10 +9,10 @@ module Users
     def google_oauth2
       user = User.from_google(**from_google_params)
       if user.present?
-        
+
         # Prevent other signed in scopes from interfering with the sign in
         sign_out_all_scopes
-        
+
         # Store OAuth tokens in session for future API access
         store_oauth_session_data(auth.credentials)
 
