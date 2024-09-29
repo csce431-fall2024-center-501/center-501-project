@@ -10,7 +10,14 @@ Rails.application.routes.draw do
     get 'users/sign_in', to: 'users/sessions#new', as: :new_user_session
     get 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
   end
-  resources :users
+
+  resources :users do
+    collection do
+      get 'complete_profile'
+      post 'update_profile'
+    end
+  end
+
   resources :educations
 
   resources :projects do

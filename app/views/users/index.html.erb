@@ -3,9 +3,9 @@
 <table>
   <thead>
     <tr>
-      <th>Email</th>
-      <th>Full Name</th>
-      <th>User Type</th>
+      <% @attributes.each do |attribute| %>
+        <th><%= attribute.to_s.humanize %></th>
+      <% end %>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -13,16 +13,12 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.email %></td>
-        <td><%= user.full_name %></td>
-        <td><%= user.user_type %></td>
+        <% @attributes.each do |attribute| %>
+          <td><%= user.send(attribute) %></td>
+        <% end %>
         <td><%= link_to 'Show', user %></td>
-        <!--TODO after editing controller to allow user to edit their own profile, change this-->
-        <%# if current_user == user || current_user.admin? %>
         <% if current_user.admin? %>
           <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <% end %>
-        <% if current_user.admin? %>
           <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>

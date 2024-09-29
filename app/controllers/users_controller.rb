@@ -5,11 +5,34 @@ class UsersController < AuthenticatedApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    if current_user.admin?
+      @users = User.all
+      @attributes = [
+        :email, :full_name, :user_type, :uid, :avatar_url, :phone_number, :class_year, 
+        :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, 
+        :account_complete, :created_at, :updated_at
+      ]
+    else
+      @users = User.all
+      @attributes = [:email, :full_name, :user_type]
+    end
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    @user = User.find(params[:id])
+
+    if current_user.admin?
+      @attributes = [
+        :email, :full_name, :user_type, :uid, :avatar_url, :phone_number, :class_year, 
+        :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, 
+        :account_complete, :created_at, :updated_at
+      ]
+    else
+      @attributes = [:email, :full_name, :user_type]
+    end
+  end
+  
 
   # GET /users/new
   def new
@@ -66,6 +89,18 @@ class UsersController < AuthenticatedApplicationController
     end
   end
 
+  def complete_profile; end
+
+  def update_profile
+    @user = current_user
+    if @user.update(user_params)
+      @user.update(account_complete: true)
+      redirect_to root_path, notice: 'Profile updated successfully.'
+    else
+      render :complete_profile
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -75,6 +110,10 @@ class UsersController < AuthenticatedApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type)
+    if action_name == 'update_profile'
+      params.require(:user).permit(:phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction)
+    else
+      params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type)
+    end
   end
 end

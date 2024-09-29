@@ -1,0 +1,42 @@
+<h1>Complete Your Profile</h1>
+
+<%= form_with(model: @user, url: update_profile_users_path, local: true) do |f| %>
+  <div class="field">
+    <%= f.label :phone_number %>
+    <%= f.text_field :phone_number, placeholder: "Phone Number", name: "user[phone_number]" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :class_year %>
+    <%= f.number_field :class_year, placeholder: "Class Year", name: "user[class_year]" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ring_date %>
+    <%= f.date_select :ring_date, name: "user[ring_date]" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :grad_date %>
+    <%= f.date_select :grad_date, name: "user[grad_date]" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :birthday %>
+    <%= f.date_select :birthday, name: "user[birthday]" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :shirt_size %>
+    <%= f.text_field :shirt_size, placeholder: "Shirt Size", name: "user[shirt_size]" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :dietary_restriction %>
+    <%= f.text_field :dietary_restriction, placeholder: "Dietary Restriction", name: "user[dietary_restriction]" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update Profile" %>
+  </div>
+<% end %>

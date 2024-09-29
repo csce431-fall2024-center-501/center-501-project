@@ -1,21 +1,12 @@
 <h1>User Details</h1>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+<% @attributes.each do |attribute| %>
+  <p>
+    <strong><%= attribute.to_s.humanize %>:</strong>
+    <%= @user.send(attribute) %>
+  </p>
+<% end %>
 
-<p>
-  <strong>Full Name:</strong>
-  <%= @user.full_name %>
-</p>
-
-<p>
-  <strong>User Type:</strong>
-  <%= @user.user_type %>
-</p>
-
-<%# if current_user == @user || current_user.admin? %>
 <% if current_user.admin? %>
   <%= link_to 'Edit', edit_user_path(@user) %> |
 <% end %>
