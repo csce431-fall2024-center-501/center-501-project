@@ -1,0 +1,11 @@
+<h1>Locations</h1>
+<%= link_to 'New Location', new_location_path %>
+<ul>
+  <% @locations.each do |location| %>
+    <li>
+      <%= link_to location.address, location %>
+      <%= link_to 'Edit', edit_location_path(location) %>
+      <%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>
