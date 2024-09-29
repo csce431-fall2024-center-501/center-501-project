@@ -17,7 +17,13 @@ module Users
         store_oauth_session_data(auth.credentials)
 
         flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
-        sign_in_and_redirect user, event: :authentication
+        if user.account_complete?
+          sign_in_and_redirect user, event: :authentication
+        else
+          sign_in user
+          redirect_to complete_profile_users_path
+        end
+          
       else
         flash[:alert] = t 'devise.omniauth_callbacks.failure', kind: 'Google',
                                                                reason: "#{auth.info.email} is not authorized."
