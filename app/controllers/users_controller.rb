@@ -2,35 +2,16 @@
 
 class UsersController < AuthenticatedApplicationController
   before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_attributes, only: [:index, :show]
 
   # GET /users or /users.json
   def index
-    if current_user.admin?
-      @users = User.all
-      @attributes = [
-        :email, :full_name, :user_type, :uid, :phone_number, :class_year, 
-        :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, 
-        :account_complete, :created_at, :updated_at
-      ]
-    else
-      @users = User.all
-      @attributes = [:email, :full_name, :user_type]
-    end
+    @users = User.all
   end
 
   # GET /users/1 or /users/1.json
   def show
     @user = User.find(params[:id])
-
-    if current_user.admin?
-      @attributes = [
-        :email, :full_name, :user_type, :uid, :avatar_url, :phone_number, :class_year, 
-        :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, 
-        :account_complete, :created_at, :updated_at
-      ]
-    else
-      @attributes = [:email, :full_name, :user_type]
-    end
   end
   
 
@@ -93,7 +74,38 @@ class UsersController < AuthenticatedApplicationController
 
   def update_profile
     @user = current_user
-    if @user.update(user_params)
+
+    if user_params.values.any?(&:blank?)
+      flash[:alert] = 'All fields must be filled out.'
+      render :complete_profile
+      return
+    end
+
+    processed_params = user_params.dup
+
+    begin
+      processed_params[:ring_date] = Date.new(
+        params["ring_date(1i)"].to_i,
+        params["ring_date(2i)"].to_i,
+        params["ring_date(3i)"].to_i
+      )
+      processed_params[:grad_date] = Date.new(
+        params["grad_date(1i)"].to_i,
+        params["grad_date(2i)"].to_i,
+        params["grad_date(3i)"].to_i
+      )
+      processed_params[:birthday] = Date.new(
+        params["birthday(1i)"].to_i,
+        params["birthday(2i)"].to_i,
+        params["birthday(3i)"].to_i
+      )
+    rescue ArgumentError
+      flash[:alert] = 'Invalid date provided.'
+      render :complete_profile
+      return
+    end
+
+    if @user.update(processed_params)
       @user.update(account_complete: true)
       redirect_to root_path, notice: 'Profile updated successfully.'
     else
@@ -102,6 +114,18 @@ class UsersController < AuthenticatedApplicationController
   end
 
   private
+
+  def set_attributes
+    if current_user.admin?
+      @attributes = [
+        :email, :full_name, :user_type, :uid, :phone_number, :class_year, 
+        :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, 
+        :account_complete, :created_at, :updated_at
+      ]
+    else
+      @attributes = [:email, :full_name, :user_type]
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
