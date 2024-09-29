@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
-  before_action :set_project, only: %i[ show edit update destroy ]
+  before_action :set_project, only: %i[show edit update destroy]
 
   # GET /projects or /projects.json
   def index
@@ -27,7 +29,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to project_url(@project), notice: "Project was successfully created." }
+        format.html { redirect_to project_url(@project), notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +42,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to project_url(@project), notice: "Project was successfully updated." }
+        format.html { redirect_to project_url(@project), notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,27 +61,27 @@ class ProjectsController < ApplicationController
     @project.destroy
     redirect_to projects_path, notice: 'Project was successfully deleted.'
 
-    #respond_to do |format|
+    # respond_to do |format|
     #  format.html { redirect_to projects_url, notice: "Project was successfully destroyed." }
     #  format.json { head :no_content }
-    #end
+    # end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      @project = Project.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def project_params
-      params.require(:project).permit(:projectName, :projectDesc, :locationID, :projectStartDate, :isProjectActive)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project
+    @project = Project.find(params[:id])
+  end
 
-    #def markdown_to_html(text)
-      #renderer = Redcarpet::Render::HTML.new
-      #markdown = Redcarpet::Markdown.new(renderer)
-      #markdown.render(text).html_safe
-    #end
+  # Only allow a list of trusted parameters through.
+  def project_params
+    params.require(:project).permit(:projectName, :projectDesc, :locationID, :projectStartDate, :isProjectActive)
+  end
 
+  # def markdown_to_html(text)
+  # renderer = Redcarpet::Render::HTML.new
+  # markdown = Redcarpet::Markdown.new(renderer)
+  # markdown.render(text).html_safe
+  # end
 end
