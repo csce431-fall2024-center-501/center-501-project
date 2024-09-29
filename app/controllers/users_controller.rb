@@ -8,7 +8,7 @@ class UsersController < AuthenticatedApplicationController
     if current_user.admin?
       @users = User.all
       @attributes = [
-        :email, :full_name, :user_type, :uid, :avatar_url, :phone_number, :class_year, 
+        :email, :full_name, :user_type, :uid, :phone_number, :class_year, 
         :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, 
         :account_complete, :created_at, :updated_at
       ]
