@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       get 'complete_profile'
-      post 'update_profile'
+      patch 'update_profile'
     end
   end
 

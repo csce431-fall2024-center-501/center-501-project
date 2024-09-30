@@ -1,33 +1,66 @@
-<%= form_with(model: @user, local: true) do |form| %>
-  <% if @user.errors.any? %>
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
       <ul>
-        <% @user.errors.full_messages.each do |message| %>
+        <% user.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :email %><br>
-    <%= form.email_field :email %>
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email, required: true %>
   </div>
 
-  <div>
-    <%= form.label :full_name %><br>
+  <div class="field">
+    <%= form.label :full_name %>
     <%= form.text_field :full_name %>
   </div>
 
-  <% if current_user.admin? %>
-    <div>
-      <%= form.label :user_type %><br>
-      <%= form.select :user_type, [['User', 'user'], ['Admin', 'admin']] %>
-    </div>
-  <% end %>
+  <div>
+    <%= form.label :user_type %><br>
+    <%= form.select :user_type, [['User', 'user'], ['Admin', 'admin']] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_number %>
+    <%= form.telephone_field :phone_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :class_year %>
+    <%= form.number_field :class_year %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ring_date %>
+    <%= form.date_field :ring_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :grad_date %>
+    <%= form.date_field :grad_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :birthday %>
+    <%= form.date_field :birthday %>
+  </div>
 
   <div>
+    <%= form.label :shirt_size %><br>
+    <%= form.select :shirt_size, ['XS', 'S', 'M', 'L', 'XL'] %>
+  </div>
+
+  <div>
+    <%= form.label :dietary_restriction %><br>
+    <%= form.select :dietary_restriction, ['None', 'Vegetarian', 'Vegan', 'Dairy-free', 'Nuts-free'] %>
+  </div>
+
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>

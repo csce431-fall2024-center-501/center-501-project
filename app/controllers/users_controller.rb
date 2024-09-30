@@ -30,6 +30,7 @@ class UsersController < AuthenticatedApplicationController
     # if user is not admin, do not create user
     # TODO ability to edit your own user profile even if not admin
     @user = User.new(user_params)
+    @user.account_complete = true
     respond_to do |format|
       if @user.save
         format.html { redirect_to user_url(@user), notice: 'User was successfully created.' }
@@ -69,8 +70,10 @@ class UsersController < AuthenticatedApplicationController
       format.json { head :no_content }
     end
   end
-
-  def complete_profile; end
+  
+    def complete_profile
+      @user = current_user
+    end
 
   def update_profile
     @user = current_user
@@ -81,44 +84,20 @@ class UsersController < AuthenticatedApplicationController
       return
     end
 
-    processed_params = user_params.dup
-
-    begin
-      processed_params[:ring_date] = Date.new(
-        params["ring_date(1i)"].to_i,
-        params["ring_date(2i)"].to_i,
-        params["ring_date(3i)"].to_i
-      )
-      processed_params[:grad_date] = Date.new(
-        params["grad_date(1i)"].to_i,
-        params["grad_date(2i)"].to_i,
-        params["grad_date(3i)"].to_i
-      )
-      processed_params[:birthday] = Date.new(
-        params["birthday(1i)"].to_i,
-        params["birthday(2i)"].to_i,
-        params["birthday(3i)"].to_i
-      )
-    rescue ArgumentError
-      flash[:alert] = 'Invalid date provided.'
-      render :complete_profile
-      return
-    end
-
-    if @user.update(processed_params)
+    if @user.update(user_params)
       @user.update(account_complete: true)
       redirect_to root_path, notice: 'Profile updated successfully.'
     else
       render :complete_profile
     end
   end
-
+  
   private
 
   def set_attributes
     if current_user.admin?
       @attributes = [
-        :email, :full_name, :user_type, :uid, :phone_number, :class_year, 
+        :email, :full_name, :user_type, :phone_number, :class_year, 
         :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, 
         :account_complete, :created_at, :updated_at
       ]
@@ -137,7 +116,8 @@ class UsersController < AuthenticatedApplicationController
     if action_name == 'update_profile'
       params.require(:user).permit(:phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction)
     else
-      params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type)
+      params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type,
+      :phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction)
     end
   end
 end
