@@ -2,7 +2,7 @@
 
 class UsersController < AuthenticatedApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :set_attributes, only: [:index, :show]
+  before_action :set_attributes, only: %i[index show]
 
   # GET /users or /users.json
   def index
@@ -10,10 +10,7 @@ class UsersController < AuthenticatedApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show
-    @user = User.find(params[:id])
-  end
-  
+  def show; end
 
   # GET /users/new
   def new
@@ -27,18 +24,13 @@ class UsersController < AuthenticatedApplicationController
   def create
     return unless require_admin
 
-    # if user is not admin, do not create user
-    # TODO ability to edit your own user profile even if not admin
     @user = User.new(user_params)
     @user.account_complete = true
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to user_url(@user), notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+
+    if @user.valid?
+      save_user(@user, :new)
+    else
+      render_errors(@user.errors, :new)
     end
   end
 
@@ -46,15 +38,10 @@ class UsersController < AuthenticatedApplicationController
   def update
     return unless require_admin
 
-    # if user is not admin, do not edit user
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.update(user_params)
+      save_user(@user, :edit)
+    else
+      render_errors(@user.errors, :edit)
     end
   end
 
@@ -62,62 +49,73 @@ class UsersController < AuthenticatedApplicationController
   def destroy
     return unless require_admin
 
-    # if user is not admin, do not delete user
     @user.destroy
-
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
-  
-    def complete_profile
-      @user = current_user
-    end
 
+  # GET /users/complete_profile
+  def complete_profile
+    @user = current_user
+  end
+
+  # PATCH/PUT /users/update_profile
   def update_profile
     @user = current_user
-
+  
     if user_params.values.any?(&:blank?)
       flash[:alert] = 'All fields must be filled out.'
       render :complete_profile
-      return
-    end
-
-    if @user.update(user_params)
+    elsif @user.update(user_params)
       @user.update(account_complete: true)
       redirect_to root_path, notice: 'Profile updated successfully.'
     else
+      flash[:alert] = @user.errors.full_messages.join(', ')
       render :complete_profile
     end
-  end
-  
+  end  
+
   private
 
   def set_attributes
-    if current_user.admin?
-      @attributes = [
-        :email, :full_name, :user_type, :phone_number, :class_year, 
-        :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, 
-        :account_complete, :created_at, :updated_at
-      ]
-    else
-      @attributes = [:email, :full_name, :user_type]
-    end
+    @attributes = if current_user.admin?
+                    %i[email full_name user_type phone_number class_year ring_date grad_date birthday
+                       shirt_size dietary_restriction account_complete created_at updated_at]
+                  else
+                    %i[email full_name user_type]
+                  end
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def user_params
     if action_name == 'update_profile'
       params.require(:user).permit(:phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction)
     else
-      params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type,
-      :phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction)
+      params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type, :phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction)
+    end
+  end
+
+  def save_user(user, action)
+    respond_to do |format|
+      if user.save
+        format.html { redirect_to user_url(user), notice: 'User was successfully created.' }
+        format.json { render :show, status: :created, location: user }
+      else
+        format.html { render action, status: :unprocessable_entity }
+        format.json { render json: user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def render_errors(errors, action)
+    respond_to do |format|
+      format.html { render action, status: :unprocessable_entity }
+      format.json { render json: errors, status: :unprocessable_entity }
     end
   end
 end
