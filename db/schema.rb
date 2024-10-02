@@ -61,5 +61,4 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_28_231603) do
     t.boolean "account_complete", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
-
 end
