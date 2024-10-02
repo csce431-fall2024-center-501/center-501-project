@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   get '/redirect', to: 'calendar#redirect', as: 'redirect'
   get '/callback', to: 'calendar#callback', as: 'callback'
   get '/calendars', to: 'calendar#calendars', as: 'calendars'
@@ -15,7 +14,7 @@ Rails.application.routes.draw do
   end
   resources :users
   resources :educations
-  
+
   resources :projects do
     member do
       get :delete

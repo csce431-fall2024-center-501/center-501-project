@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CalendarController < ApplicationController
   def redirect
     client = Signet::OAuth2::Client.new(client_options)
