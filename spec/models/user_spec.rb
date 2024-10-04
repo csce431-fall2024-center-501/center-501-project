@@ -6,19 +6,58 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   include TestAttributes
-
+  
   describe 'validations' do
-    it 'validates presence of email' do
-      user = User.new(invalid_attributes)
-      expect(user).not_to be_valid
+    let(:user) { User.new(email: 'test@example.com', full_name: 'John Doe', phone_number: '1234567890') }
+
+    it 'is valid with valid attributes' do
+      expect(user).to be_valid
+    end
+
+    it 'is invalid without an email' do
+      user.email = nil
+      expect(user).to_not be_valid
       expect(user.errors[:email]).to include("can't be blank")
     end
 
-    it 'validates uniqueness of email' do
-      User.create!(valid_attributes)
-      user = User.new(email: valid_attributes[:email])
-      expect(user).not_to be_valid
+    it 'is invalid with a duplicate email' do
+      User.create(email: 'test@example.com', full_name: 'Jane Doe')
+      expect(user).to_not be_valid
       expect(user.errors[:email]).to include('has already been taken')
+    end
+
+    it 'is invalid with an improperly formatted email' do
+      user.email = 'invalid-email'
+      expect(user).to_not be_valid
+      expect(user.errors[:email]).to include('must be a valid email address')
+    end
+
+    it 'is invalid without a full_name' do
+      user.full_name = nil
+      expect(user).to_not be_valid
+      expect(user.errors[:full_name]).to include("can't be blank")
+    end
+
+    it 'is invalid if the full_name is too short' do
+      user.full_name = 'A'
+      expect(user).to_not be_valid
+      expect(user.errors[:full_name]).to include('must have at least 2 characters')
+    end
+
+    it 'is valid with a valid 10-digit phone number' do
+      user.phone_number = '1234567890'
+      expect(user).to be_valid
+    end
+
+    it 'is invalid with a phone number that is not 10 digits' do
+      user.phone_number = '12345'
+      expect(user).to_not be_valid
+      expect(user.errors[:phone_number]).to include('must be a valid 10-digit phone number')
+    end
+
+    it 'is valid without a phone number' do
+      user.phone_number = nil
+      expect(user).to be_valid
     end
   end
 

@@ -20,7 +20,7 @@
   <% end %>
 </ul>
 
-<%= form_tag new_event_url do %>
+<%= form_tag new_event_url(calendar_id: @calendar_id) do %>
 <div>
   <%= label_tag :event_name, 'Event Name' %>
   <%= text_field_tag :event_name %>

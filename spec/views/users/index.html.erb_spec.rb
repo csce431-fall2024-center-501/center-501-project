@@ -2,6 +2,8 @@
 
 require 'rails_helper'
 
+# TODO - improve tests by distinguishing between user types
+
 RSpec.describe 'users/index', type: :view do
   include TestAttributes
 
@@ -10,6 +12,7 @@ RSpec.describe 'users/index', type: :view do
              User.create!(valid_attributes),
              User.create!(valid_admin_attributes)
            ])
+    assign(:attributes, %i[email full_name user_type])
     allow(view).to receive(:current_user).and_return(User.last)
   end
 
