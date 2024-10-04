@@ -43,6 +43,7 @@ class CalendarController < AuthenticatedApplicationController
     service.authorization = @client
 
     @event_list = service.list_events(params[:calendar_id])
+    @calendar_id = params[:calendar_id]
   end
 
   private
