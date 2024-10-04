@@ -1,3 +1,5 @@
+
+
 <ul>
   <% sorted_events = @event_list.items.sort_by do |event| %>
     <% if event.start.date_time %>
@@ -6,18 +8,26 @@
       <% Date.parse(event.start.date.to_s) %>
     <% end %>
   <% end %>
-
-  <% sorted_events.each do |event| %>
-    <% if event.start.date_time %>
-      <% date_time = event.start.date_time.to_s %>
-      <% date_time_obj = DateTime.parse(date_time) %>
-      <% date = date_time_obj.strftime('%Y-%m-%d') %>
-      <% time = date_time_obj.strftime('%H:%M') %>
-      <li><%= date %> | <%= time %> | <%= event.summary %></li>
-    <% else %>
-      <li><%= event.start.date %> | <%= "All Day" %> | <%= event.summary %></li>
-    <% end %>
+  <% sorted_events.reject! do |event| %>
+    <% event_date = event.start.date_time ? DateTime.parse(event.start.date_time.to_s) : Date.parse(event.start.date.to_s) %>
+    <% event_date < Date.today %>
   <% end %>
+    <% sorted_events.each do |event| %>
+    <div class="event-block">
+      <% if event.start.date_time %>
+        <% date_time = event.start.date_time.to_s %>
+        <% date_time_obj = DateTime.parse(date_time) %>
+        <% date = date_time_obj.strftime('%Y-%m-%d') %>
+        <% time = date_time_obj.strftime('%H:%M') %>
+        <div><%= event.summary %></div>
+        <div><%= date %></div>
+        <div><%= time %></div>
+      <% else %>
+        <div><%= event.summary %></div>
+        <div><%= event.start.date %></div>
+        <div><%= "All Day" %></div>
+      <% end %>
+      </div>  <% end %>
 </ul>
 
 <%= form_tag new_event_url(calendar_id: @calendar_id) do %>
