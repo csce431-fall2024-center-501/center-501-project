@@ -40,20 +40,52 @@ RSpec.describe '/users', type: :request do
   include TestAttributes
 
   describe 'GET /index' do
-    it 'renders a successful response' do
-      # signs in user with valid attributes
-      sign_in User.create! valid_attributes
-      get users_url
-      expect(response).to be_successful
+    context 'when user is admin' do
+      it 'renders a successful response with all attributes' do
+        admin = User.create! valid_admin_attributes
+        sign_in admin
+        get users_url
+        expect(response).to be_successful
+        # You can use response body assertions to check for presence of attributes
+        expect(response.body).to include(admin.email, admin.phone_number.to_s, admin.class_year.to_s)
+      end
+    end
+
+    context 'when user is not admin' do
+      it 'renders a successful response with limited attributes' do
+        user = User.create! valid_attributes
+        sign_in user
+        get users_url
+        expect(response).to be_successful
+        expect(response.body).to include(user.email)
+        # Ensure restricted attributes are not shown
+        expect(response.body).not_to include(user.phone_number.to_s, user.class_year.to_s)
+      end
     end
   end
 
   describe 'GET /show' do
-    it 'renders a successful response' do
-      user = User.create! valid_attributes
-      sign_in user
-      get user_url(user)
-      expect(response).to be_successful
+    context 'when user is admin' do
+      it 'renders a successful response with all attributes' do
+        admin = User.create! valid_admin_attributes
+        user = User.create! valid_attributes
+        sign_in admin
+        get user_url(user)
+        expect(response).to be_successful
+        expect(response.body).to include(user.email, user.phone_number.to_s, user.class_year.to_s)
+      end
+    end
+
+    context 'when user is not admin' do
+      it 'renders a successful response with limited attributes' do
+        user = User.create! valid_attributes
+        sign_in user
+        get user_url(user)
+        expect(response).to be_successful
+        expect(response.body).to include(user.email)
+        # Ensure restricted attributes are not shown
+        expect(response.body).not_to include(user.phone_number.to_s, user.class_year.to_s)
+      end
     end
   end
 
@@ -199,6 +231,76 @@ RSpec.describe '/users', type: :request do
       user = User.create! valid_admin_attributes
       delete user_url(user)
       expect(response).to redirect_to(root_path)
+    end
+  end
+
+  describe 'PATCH /update_profile' do
+    context 'with all fields completed' do
+      it 'updates the current user profile and marks account as complete' do
+        user = User.create! valid_attributes
+        sign_in user
+        patch update_profile_users_url, params: { user: {
+          phone_number: '1234567890',
+          class_year: '2024',
+          ring_date: '2024-05-15',
+          grad_date: '2024-06-10',
+          birthday: '2000-01-01',
+          shirt_size: 'M',
+          dietary_restriction: 'None'
+        } }
+
+        user.reload
+        expect(user.phone_number).to eq('1234567890')
+        expect(user.class_year).to eq(2024)
+        expect(user.ring_date).to eq(Date.parse('2024-05-15'))
+        expect(user.grad_date).to eq(Date.parse('2024-06-10'))
+        expect(user.birthday).to eq(Date.parse('2000-01-01'))
+        expect(user.shirt_size).to eq('M')
+        expect(user.dietary_restriction).to eq('None')
+        expect(user.account_complete).to be_truthy
+      end
+
+      it 'redirects to the root path with a success notice after successful update' do
+        user = User.create! valid_attributes
+        sign_in user
+        patch update_profile_users_url, params: { user: {
+          phone_number: '1234567890',
+          class_year: '2024',
+          ring_date: '2024-05-15',
+          grad_date: '2024-06-10',
+          birthday: '2000-01-01',
+          shirt_size: 'M',
+          dietary_restriction: 'None'
+        } }
+
+        expect(response).to redirect_to(root_path)
+        expect(flash[:notice]).to eq('Profile updated successfully.')
+      end
+    end
+
+    context 'with invalid parameters' do
+      it 'renders the complete_profile template with an alert' do
+        user = User.create! valid_attributes
+        sign_in user
+        patch update_profile_users_url, params: { user: { phone_number: '', class_year: '' } }
+        expect(response.body).to include('Complete Your Profile')
+        expect(flash[:alert]).to eq('All fields must be filled out.')
+      end
+    end
+  end
+
+  describe 'GET /complete_profile' do
+    it 'renders the complete_profile template for the current user' do
+      user = User.create! valid_attributes
+      sign_in user
+      get complete_profile_users_url
+      expect(response).to be_successful
+      expect(response.body).to include('Complete Your Profile')
+    end
+
+    it 'redirects to sign_in if not signed in' do
+      get complete_profile_users_url
+      expect(response).to redirect_to(new_user_session_url)
     end
   end
 end

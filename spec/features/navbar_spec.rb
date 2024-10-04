@@ -95,7 +95,7 @@ end
 
 RSpec.feature 'Navbar', type: :feature do
   scenario "'Log In' link does not have active class on non-home pages" do
-    visit root_path # Replace with a path other than root_path
+    visit root_path # visit the homepage
 
     within('nav') do
       expect(page).to have_link('Log In', href: new_user_session_path)
