@@ -16,7 +16,12 @@ Rails.application.routes.draw do
 
   resources :users
   resources :educations
-  resources :locations
+
+  resources :locations do
+    member do
+      get :delete
+    end
+  end
   
   resources :projects do
     member do
@@ -31,5 +36,6 @@ Rails.application.routes.draw do
       get :delete
     end
   end
+  
   root 'pages#home'
 end
