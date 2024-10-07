@@ -17,19 +17,24 @@ Rails.application.routes.draw do
   resources :users
   resources :educations
   resources :locations
+
+  resources :photos do
+    member do
+      get :delete
+    end
+  end
   
   resources :projects do
     member do
       get :delete
     end
   end
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
   resources :sponsorships do
     member do
       get :delete
     end
   end
+
   root 'pages#home'
 end

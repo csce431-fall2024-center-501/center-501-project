@@ -1,0 +1,28 @@
+<h1>Photos</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Photo Link</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Page Location</th>
+            <th colspan="3"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @photos.each do |photo| %>
+            <tr>
+                <td><%= link_to photo.photoLink, photo %></td>
+                <td><%= photo.photoDescription %></td>
+                <td><%= photo.photoType %></td>
+                <td><%= photo.photoPageLocation %></td>
+                <td><%= link_to 'Show', photo %></td>
+                <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
+                <td><%= link_to 'Delete', delete_photo_path(photo), method: :get %></td>
+        <% end %>
+    </tbody>
+</table>
+
+<%= link_to 'New Photo', new_photo_path %>

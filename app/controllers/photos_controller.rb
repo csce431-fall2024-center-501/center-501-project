@@ -2,14 +2,14 @@ class PhotosController < ApplicationController
 before_action :set_photo, only: %i[show edit update destroy]
 
     def index
-    @photos = Photo.all
+        @photos = Photo.all
     end
 
     def show
     end
 
     def new
-    @photo = Photo.new
+        @photo = Photo.new
     end
 
     def edit
@@ -20,11 +20,11 @@ before_action :set_photo, only: %i[show edit update destroy]
 
         respond_to do |format|
             if @photo.save
-            format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
-            format.json { render :show, status: :created, location: @photo }
+                format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
+                format.json { render :show, status: :created, location: @photo }
             else
-            format.html { render :new }
-            format.json { render json: @photo.errors, status: :unprocessable_entity }
+                format.html { render :new }
+                format.json { render json: @photo.errors, status: :unprocessable_entity }
             end
         end
     end
@@ -49,11 +49,16 @@ before_action :set_photo, only: %i[show edit update destroy]
         end
     end
 
+    def delete
+        @photo = Photo.find(params[:id])
+    end
+
+
     private
 
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
-        @photo = Photo.find(params[:photoLink])
+        @photo = Photo.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
