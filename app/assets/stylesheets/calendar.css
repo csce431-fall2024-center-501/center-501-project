@@ -1,10 +1,48 @@
+.event-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1%; 
+    margin-top: 1%;
+}
+
+.event-blocks {
+    width: 30%;
+    margin-left: 15%;
+}
+
+.event-form {
+    width: 30%; 
+    margin-left: 10%;
+    position: sticky;
+    top: 0;
+    background-color: var(--secondary-color);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.event-form input {
+    margin-bottom: 10px;
+}
+
 .event-block {
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 10px;
     background-color: var(--primary-color);
-    width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
     border-radius: 5px;
+}
+
+.event-form .add-button {
+    background-color: var(--primary-color);
+    color: var(--secondary-color); 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.event-form .add-button:hover {
+    background-color: #4d7bff;
 }

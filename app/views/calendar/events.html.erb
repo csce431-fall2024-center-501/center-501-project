@@ -1,47 +1,55 @@
 
-
-<ul>
-  <% sorted_events = @event_list.items.sort_by do |event| %>
-    <% if event.start.date_time %>
-      <% DateTime.parse(event.start.date_time.to_s) %>
-    <% else %>
-      <% Date.parse(event.start.date.to_s) %>
-    <% end %>
-  <% end %>
-  <% sorted_events.reject! do |event| %>
-    <% event_date = event.start.date_time ? DateTime.parse(event.start.date_time.to_s) : Date.parse(event.start.date.to_s) %>
-    <% event_date < Date.today %>
-  <% end %>
-    <% sorted_events.each do |event| %>
-    <div class="event-block">
+<div class = "event-container">
+    <% sorted_events = @event_list.items.sort_by do |event| %>
       <% if event.start.date_time %>
-        <% date_time = event.start.date_time.to_s %>
-        <% date_time_obj = DateTime.parse(date_time) %>
-        <% date = date_time_obj.strftime('%Y-%m-%d') %>
-        <% time = date_time_obj.strftime('%H:%M') %>
-        <div><%= event.summary %></div>
-        <div><%= date %></div>
-        <div><%= time %></div>
+        <% DateTime.parse(event.start.date_time.to_s) %>
       <% else %>
-        <div><%= event.summary %></div>
-        <div><%= event.start.date %></div>
-        <div><%= "All Day" %></div>
+        <% Date.parse(event.start.date.to_s) %>
       <% end %>
-      </div>  <% end %>
-</ul>
+    <% end %>
+    <% sorted_events.reject! do |event| %>
+      <% event_end_date = event.end.date_time ? DateTime.parse(event.end.date_time.to_s) : Date.parse(event.end.date.to_s) %>
+      <% event_end_date < Date.today %>
+    <% end %>
+    <div class="event-blocks">
+      <% sorted_events.each do |event| %>
+        <div class="event-block">
 
-<%= form_tag new_event_url(calendar_id: @calendar_id) do %>
-<div>
-  <%= label_tag :event_name, 'Event Name' %>
-  <%= text_field_tag :event_name %>
+          <% if event.start.date_time %>
+            <% start_date_time = event.start.date_time.to_s %>
+            <% end_date_time = event.end.date_time.to_s %>
+            <% start_date_time_obj = DateTime.parse(start_date_time) %>
+            <% end_date_time_obj = DateTime.parse(end_date_time) %>
+            <% start_date = start_date_time_obj.strftime('%Y-%m-%d') %>
+            <% start_time = start_date_time_obj.strftime('%H:%M') %>
+            <% end_date = end_date_time_obj.strftime('%Y-%m-%d') %>
+            <% end_time = end_date_time_obj.strftime('%H:%M') %>
+            <div><%= event.summary %></div>
+            <div>Start Time: <%= start_date %> <%= start_time %></div>
+            <div>End Time: <%= end_date %> <%= end_time %></div>
+            <div><%= event.summary %></div>
+          <% else %>
+            <div><%= event.summary %></div>
+            <div><%= event.start.date %></div>
+            <div><%= "All Day" %></div>
+          <% end %>
+          </div>  
+        <% end %>
+      </div>
+  <div class="event-form">
+    <%= form_tag new_event_url(calendar_id: @calendar_id) do %>
+    <div>
+      <%= label_tag :event_name, 'Event Name' %>
+      <%= text_field_tag :event_name %>
+    </div>
+    <div>
+      <%= label_tag :start_datetime, 'Start Date and Time' %>
+      <%= datetime_local_field_tag :start_datetime %>
+    </div>
+    <div>
+      <%= label_tag :end_datetime, 'End Date and Time' %>
+      <%= datetime_local_field_tag :end_datetime %>
+    </div>
+    <%= submit_tag 'Add event', class: 'add-button' %><% end %>
+  </div>
 </div>
-<div>
-  <%= label_tag :start_date, 'Start Date' %>
-  <%= date_field_tag :start_date %>
-</div>
-<div>
-  <%= label_tag :end_date, 'End Date' %>
-  <%= date_field_tag :end_date %>
-</div>
-<%= submit_tag 'Add event' %>
-<% end %>

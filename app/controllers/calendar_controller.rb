@@ -17,8 +17,14 @@ class CalendarController < AuthenticatedApplicationController
 
     event = Google::Apis::CalendarV3::Event.new(
       summary: params[:event_name],
-      start: Google::Apis::CalendarV3::EventDateTime.new(date: params[:start_date]),
-      end: Google::Apis::CalendarV3::EventDateTime.new(date: params[:end_date])
+      start: Google::Apis::CalendarV3::EventDateTime.new(
+        date_time: params[:start_datetime].to_datetime.rfc3339,
+        time_zone: 'America/Chicago'
+      ),
+      end: Google::Apis::CalendarV3::EventDateTime.new(
+        date_time: params[:end_datetime].to_datetime.rfc3339,
+        time_zone: 'America/Chicago'
+      )
     )
 
     service.insert_event(params[:calendar_id], event)
