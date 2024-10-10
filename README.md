@@ -5,14 +5,15 @@ This repository creates the EWB (Engineers Without Boarders) website that they a
 
 # Project Environment
 
-This code has been run and tested using the following internal and external components
+This code has been run and tested using the following internal and external components. A lot of the environment and runtime settings are
+directly available from the pulled docker image.
 
 - Tools
     - Git Hub
     - VS Code
     - Jira
     - Robocop
-    - Docker Image: FILL HERE
+    - Docker Image: [paulinewade/csce431](https://hub.docker.com/r/paulinewade/csce431)
 
 - Environment
     - Ruby version 3.1.2
@@ -35,13 +36,13 @@ This code has been run and tested using the following internal and external comp
 1. Connect to the docker image provided
 2. Open up docker in terminal
 3. Clone the Github repo inside container
-4. run 'bundle install'
+4. run `bundle install`
 5. Open up the repo and work away
 
 # Building & Development
 
-1. run 'rails server --binding=0.0.0.0'
-2. Open up app using ['localhost:3000'](http://localhost:3000/)
+1. run `rails server --binding=0.0.0.0`
+2. Open up app using [localhost:3000](http://localhost:3000/)
 3. Run any pending migrations
 
 ## Installation
@@ -51,9 +52,9 @@ This code has been run and tested using the following internal and external comp
 
 ## Environmental Variables/Files
 
-Nothing as of now 
-
-CREATE ENV HOST WE CAN PROVIDE HERE
+All needed secret variables are encrypted and stored in the `config/credentials.yml.asc` file. In order for the running program to be able to access
+these, get the master key secret from one of the developers. Then, ensure that it's value is stored in `config/master.key`
+(create this file if need be).
 
 ## Execute Code
 
@@ -74,9 +75,7 @@ The application can be seen using a browser and navigating to http://localhost:3
 
 ### Example:
 
-An RSpec test suite is available and can be ran using:
-
-`rspec spec/`
+An RSpec test suite is available and can be ran using `rspec <path>`, where path refers to the specific file/directory whose test cases you want to run.
 
 You can run all the test cases by running. This will run both the unit and integration tests.
 `rspec .`
@@ -101,5 +100,4 @@ Our product and sprint backlog can be found in [Jira](https://center-501.atlassi
 - Kevin Johnson
 - Sara Dyl
 - Pearlynn Toh
-Kaili Fogle
-
+- Kaili Fogle
