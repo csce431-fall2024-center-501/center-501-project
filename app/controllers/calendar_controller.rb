@@ -63,56 +63,6 @@ class CalendarController < AuthenticatedApplicationController
     redirect_to events_url(calendar_id: params[:calendar_id])
   end
 
-  def update_event
-    # Redirect and halt execution if calendar_id is not valid
-    unless EWB_CALENDAR_IDS.include?(params[:calendar_id])
-      flash[:alert] = 'Invalid calendar ID - only EWB calendars are supported.'
-      redirect_to calendars_path and return
-    end
-
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = @client
-
-    event = service.get_event(params[:calendar_id], params[:event_id])
-
-    event.summary = params[:event_name] if params[:event_name].present?
-    event.start = if params[:start_datetime].present?
-                    Google::Apis::CalendarV3::EventDateTime.new(
-                      date_time: (params[:start_datetime].to_datetime.to_time + 5.hours).rfc3339
-                    )
-                  elsif params[:start_date].present?
-                    Google::Apis::CalendarV3::EventDateTime.new(
-                      date: params[:start_date]
-                    )
-                  end
-    event.end = if params[:end_datetime].present?
-                  Google::Apis::CalendarV3::EventDateTime.new(
-                    date_time: (params[:end_datetime].to_datetime.to_time + 5.hours).rfc3339
-                  )
-                elsif params[:end_date].present?
-                  Google::Apis::CalendarV3::EventDateTime.new(
-                    date: params[:end_date]
-                  )
-                end
-
-    service.update_event(params[:calendar_id], event.id, event)
-    redirect_to events_url(calendar_id: params[:calendar_id])
-  end
-
-  def delete_event
-    # Redirect and halt execution if calendar_id is not valid
-    unless EWB_CALENDAR_IDS.include?(params[:calendar_id])
-      flash[:alert] = 'Invalid calendar ID - only EWB calendars are supported.'
-      redirect_to calendars_path and return
-    end
-
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = @client
-
-    service.delete_event(params[:calendar_id], params[:event_id])
-    redirect_to events_url(calendar_id: params[:calendar_id])
-  end
-
   def calendars
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = @client
