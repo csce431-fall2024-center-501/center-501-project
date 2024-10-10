@@ -7,6 +7,14 @@ class UsersController < AuthenticatedApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
+
+    # Sorting
+    @users = @users.order("#{params[:sort]} #{params[:direction]}") if params[:sort].present?
+
+    # Filtering
+    if params[:search].present?
+      @users = @users.where("full_name LIKE ?", "%#{params[:search]}%")
+    end
   end
 
   # GET /users/1 or /users/1.json

@@ -1,9 +1,23 @@
 # frozen_string_literal: true
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+require 'faker'
+
+require 'faker'
+
+20.times do
+    User.create!(
+        email: Faker::Internet.unique.email,
+        full_name: Faker::Name.name,
+        phone_number: Faker::PhoneNumber.unique.subscriber_number(length: 10).sample, # Optional phone number
+        ring_date: Faker::Date.between(from: '1990-01-01', to: Date.today).sample,   # Optional date within range
+        grad_date: Faker::Date.between(from: '1990-01-01', to: Date.today).sample,   # Optional date within range
+        birthday: Faker::Date.between(from: '1990-01-01', to: '2000-01-01'),                  # Birthday within range
+        uid: Faker::Number.unique.number(digits: 10),
+        avatar_url: Faker::Avatar.image,
+        user_type: ['user', 'admin'].sample,                                                # Randomly assigns either 'user' or 'admin'
+        class_year: Faker::Number.between(from: 1900, to: Date.today.year + 4),             # Random class year
+        shirt_size: ['S', 'M', 'L', 'XL'].sample,                                           # Random shirt size
+        dietary_restriction: ['None', 'Vegetarian', 'Vegan', 'Gluten-Free', 'Halal'].sample, # Random dietary restriction
+        account_complete: true,
+    )
+end
