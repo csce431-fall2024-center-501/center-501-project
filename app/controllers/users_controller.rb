@@ -5,13 +5,14 @@ class UsersController < AuthenticatedApplicationController
 
   # GET /users or /users.json
   def index
+    @initial_select_attributes = %i[full_name email phone_number class_year]
     if current_user.admin?
       set_full_attributes
     else
       set_attributes
     end
 
-    @select_attributes = params[:select_attributes] || @attributes
+    @select_attributes = params[:select_attributes] || @initial_attributes
 
     @users = User.all
 
@@ -108,12 +109,12 @@ class UsersController < AuthenticatedApplicationController
   private
 
   def set_full_attributes
-    @attributes = %i[email full_name user_type phone_number class_year ring_date grad_date birthday
+    @attributes = %i[full_name email user_type phone_number class_year ring_date grad_date birthday
                        shirt_size dietary_restriction account_complete created_at updated_at]
   end
 
   def set_attributes
-    @attributes = %i[email full_name user_type]
+    @attributes = %i[full_name email phone_number class_year]
   end
 
   def set_user
