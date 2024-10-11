@@ -11,14 +11,22 @@ class UsersController < AuthenticatedApplicationController
     else
       set_attributes
     end
-
-    @select_attributes = params[:select_attributes] || @initial_attributes
-
+  
+    # Convert params[:select_attributes] to an array of symbols if it's present
+    if params[:select_attributes].present?
+      select_attributes_param = params[:select_attributes].map(&:to_sym)
+    else
+      select_attributes_param = @initial_select_attributes
+    end
+  
+    # Combine user-selected attributes with allowed attributes
+    @select_attributes = select_attributes_param & @attributes
+  
     @users = User.all
-
+  
     # Sorting
     @users = @users.order("#{params[:sort]} #{params[:direction]}") if params[:sort].present?
-
+  
     # Filtering
     if params[:search].present?
       @users = @users.where("full_name LIKE ?", "%#{params[:search]}%")
@@ -60,7 +68,7 @@ class UsersController < AuthenticatedApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    return unless require_admin
+    return unless current_user.id == @user.id || require_admin
 
     if @user.update(user_params)
       save_user(@user, :edit)
