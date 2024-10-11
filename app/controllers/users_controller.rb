@@ -2,7 +2,6 @@
 
 class UsersController < AuthenticatedApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :set_attributes, only: %i[index show]
 
   # Only attributes that are selected by default
   INITIAL_SELECT_ATTRIBUTES = %i[full_name email phone_number class_year linkedin_url].freeze
