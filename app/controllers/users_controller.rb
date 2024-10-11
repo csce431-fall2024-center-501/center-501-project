@@ -28,6 +28,7 @@ class UsersController < AuthenticatedApplicationController
     @user.account_complete = true
 
     if @user.valid?
+      AdminMailer.with(user: @user).welcome_email.deliver_now
       save_user(@user, :new)
     else
       render_errors(@user.errors, :new)
@@ -64,7 +65,7 @@ class UsersController < AuthenticatedApplicationController
   # PATCH/PUT /users/update_profile
   def update_profile
     @user = current_user
-  
+
     if user_params.values.any?(&:blank?)
       flash[:alert] = 'All fields must be filled out.'
       render :complete_profile
@@ -75,7 +76,7 @@ class UsersController < AuthenticatedApplicationController
       flash[:alert] = @user.errors.full_messages.join(', ')
       render :complete_profile
     end
-  end  
+  end
 
   private
 
@@ -94,9 +95,11 @@ class UsersController < AuthenticatedApplicationController
 
   def user_params
     if action_name == 'update_profile'
-      params.require(:user).permit(:phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction)
+      params.require(:user).permit(:phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size,
+                                   :dietary_restriction)
     else
-      params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type, :phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction)
+      params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type, :phone_number, :class_year,
+                                   :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction)
     end
   end
 
