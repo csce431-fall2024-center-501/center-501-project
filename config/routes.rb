@@ -16,6 +16,9 @@ Rails.application.routes.draw do
       get 'complete_profile'
       patch 'update_profile'
     end
+    member do
+      get :delete
+    end
   end
 
   resources :educations

@@ -10,7 +10,8 @@ module TestAttributes
       avatar_url: 'http://example.com/avatar.jpg',
       user_type: 'user',
       phone_number: '1234567890',
-      class_year: 2020
+      class_year: 2020,
+      dietary_restriction: 'Vegan',
     }
   end
   
