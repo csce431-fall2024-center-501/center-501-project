@@ -1,10 +1,16 @@
 <h1>User Details</h1>
 
 <% @attributes.each do |attribute| %>
-  <p>
-    <strong><%= attribute.to_s.humanize %>:</strong>
-    <%= @user.send(attribute) %>
-  </p>
+  <% if attribute == :linkedin_url %>
+    <p>
+      <td><%= link_to image_tag('linkedin.svg', alt: 'LinkedIn', width: 24, height: 24), @user.send(attribute), target: '_blank' %></td>
+    </p>
+  <% else %>
+    <p>
+      <strong><%= attribute.to_s.humanize %>:</strong>
+      <%= @user.send(attribute) %>
+    </p>
+  <% end %>
 <% end %>
 
 <% if current_user.admin? || current_user.id == @user.id%>

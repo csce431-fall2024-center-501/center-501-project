@@ -19,5 +19,6 @@ require 'faker'
         shirt_size: ['S', 'M', 'L', 'XL'].sample,                                           # Random shirt size
         dietary_restriction: ['None', 'Vegetarian', 'Vegan', 'Gluten-Free', 'Halal'].sample, # Random dietary restriction
         account_complete: true,
+        linkedin_url: Faker::Internet.url
     )
 end

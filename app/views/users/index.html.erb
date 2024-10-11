@@ -59,7 +59,16 @@
       <% @users.each do |user| %>
         <tr>
           <% @select_attributes&.each do |attribute| %>
-            <td><%= user.send(attribute) %></td>
+            <% value = user.send(attribute) %>
+            <% if attribute == :linkedin_url %>
+              <td><%= link_to image_tag('linkedin.svg', alt: 'LinkedIn', width: 24, height: 24), value, target: '_blank' %></td>
+            <% elsif attribute == :grad_date %>
+              <td><%= value.strftime("%B %Y") %></td>
+            <% elsif value.is_a?(DateTime) || value.is_a?(Date) %>
+              <td><%= value.strftime("%B #{value.day.ordinalize}, %Y") %></td>
+            <% else %>
+              <td><%= value %></td>
+            <% end %>
           <% end %>
           <td><%= link_to 'Show', user %></td>
           <% if current_user.admin? %>
