@@ -2,10 +2,15 @@
 
 class UsersController < AuthenticatedApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :set_attributes, only: %i[index show]
 
   # GET /users or /users.json
   def index
+    if current_user.admin?
+      set_full_attributes
+    else
+      set_attributes
+    end
+
     @select_attributes = params[:select_attributes] || @attributes
 
     @users = User.all
@@ -20,7 +25,13 @@ class UsersController < AuthenticatedApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    if current_user.admin? || current_user.id == @user.id
+      set_full_attributes
+    else
+      set_attributes
+    end
+  end
 
   # GET /users/new
   def new
@@ -28,7 +39,9 @@ class UsersController < AuthenticatedApplicationController
   end
 
   # GET /users/1/edit
-  def edit; end
+  def edit
+    return unless current_user.id == @user.id || require_admin
+  end
 
   # POST /users or /users.json
   def create
@@ -53,6 +66,11 @@ class UsersController < AuthenticatedApplicationController
     else
       render_errors(@user.errors, :edit)
     end
+  end
+
+  def delete
+    return unless require_admin
+    @user = User.find(params[:id])
   end
 
   # DELETE /users/1 or /users/1.json
@@ -89,13 +107,13 @@ class UsersController < AuthenticatedApplicationController
 
   private
 
-  def set_attributes
-    @attributes = if current_user.admin?
-                    %i[email full_name user_type phone_number class_year ring_date grad_date birthday
+  def set_full_attributes
+    @attributes = %i[email full_name user_type phone_number class_year ring_date grad_date birthday
                        shirt_size dietary_restriction account_complete created_at updated_at]
-                  else
-                    %i[email full_name user_type]
-                  end
+  end
+
+  def set_attributes
+    @attributes = %i[email full_name user_type]
   end
 
   def set_user
