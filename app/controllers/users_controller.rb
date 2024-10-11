@@ -6,6 +6,8 @@ class UsersController < AuthenticatedApplicationController
 
   # GET /users or /users.json
   def index
+    @select_attributes = params[:select_attributes] || @attributes
+
     @users = User.all
 
     # Sorting

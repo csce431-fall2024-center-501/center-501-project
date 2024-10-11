@@ -4,13 +4,13 @@ require 'faker'
 
 require 'faker'
 
-20.times do
+100.times do
     User.create!(
         email: Faker::Internet.unique.email,
         full_name: Faker::Name.name,
-        phone_number: Faker::PhoneNumber.unique.subscriber_number(length: 10).sample, # Optional phone number
-        ring_date: Faker::Date.between(from: '1990-01-01', to: Date.today).sample,   # Optional date within range
-        grad_date: Faker::Date.between(from: '1990-01-01', to: Date.today).sample,   # Optional date within range
+        phone_number: Faker::PhoneNumber.unique.subscriber_number(length: 10), # Phone number
+        ring_date: Faker::Date.between(from: '1990-01-01', to: Date.today),   # Date within range
+        grad_date: Faker::Date.between(from: '1990-01-01', to: Date.today),   # Date within range
         birthday: Faker::Date.between(from: '1990-01-01', to: '2000-01-01'),                  # Birthday within range
         uid: Faker::Number.unique.number(digits: 10),
         avatar_url: Faker::Avatar.image,
