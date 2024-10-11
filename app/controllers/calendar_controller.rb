@@ -66,9 +66,7 @@ class CalendarController < AuthenticatedApplicationController
   def calendars
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = @client
-
     @calendar_list = service.list_calendar_lists.items.select { |calendar| EWB_CALENDAR_IDS.include?(calendar.id) }
-
     redirect_to events_url(calendar_id: @calendar_list.first.id) if @calendar_list.length == 1
   end
 

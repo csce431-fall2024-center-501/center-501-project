@@ -125,7 +125,6 @@ RSpec.describe '/users', type: :request do
     end
   end
   
-  
   describe 'GET /show' do
     context 'when user is admin' do
       it 'renders a successful response with all attributes' do
