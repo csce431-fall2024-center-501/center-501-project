@@ -1,0 +1,18 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "fingerprint": "a32affa30b00e0dd8fba45679bc99d136bf025f60fc67463e031a527c3e97646",
+      "file": "app/views/users/index.html.erb",
+      "line": 64,
+      "message": "Potentially unsafe model attribute in link_to href"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "fingerprint": "bb9bc0d82b375fc5e06560a056bc19fab36acbfdd887331bfd63991f39be7b54",
+      "file": "app/views/users/show.html.erb",
+      "line": 6,
+      "message": "Potentially unsafe model attribute in link_to href"
+    }
+  ]
+}
