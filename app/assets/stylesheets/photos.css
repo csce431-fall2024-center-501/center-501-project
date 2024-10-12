@@ -1,0 +1,102 @@
+/* Photo Page Styles */
+.photo-container {
+    max-width: 800px;
+    margin: 10 auto;
+    padding: 20px;
+    background-color: var(--secondary-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.photo-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.photo-details p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+.photo-details strong {
+    color: #555;
+}
+
+/* Link Styling */
+a,
+.photo-link {
+    color: var(--primary-color);
+    /* Set the primary color for all links */
+    text-decoration: none;
+    font-weight: bold;
+    word-break: break-all;
+}
+
+a:hover,
+a:focus,
+a:active,
+.photo-link:hover {
+    color: var(--tertiary-color);
+    /* Change link color on click or hover to tertiary */
+    text-decoration: underline;
+}
+
+/* Photo Action Buttons */
+.photo-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.photo-actions a {
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.photo-actions a:hover,
+.photo-actions a:active {
+    background-color: var(--tertiary-color);
+    /* Change button background on hover/click */
+}
+
+.photo-actions .delete {
+    background-color: #e53935;
+}
+
+.photo-actions .delete:hover,
+.photo-actions .delete:active {
+    background-color: #d32f2f;
+}
+
+/* Table for the index page */
+.table-photos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table-photos th,
+.table-photos td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.table-photos th {
+    background-color: var(--quaternary-color);
+    color: white;
+}
+
+.table-photos td {
+    font-size: 1rem;
+}
+
+.table-photos tr:hover {
+    background-color: var(--secondary-color);
+}

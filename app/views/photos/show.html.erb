@@ -1,8 +1,13 @@
 <h1>Photo Details</h1>
 
 <p>
+  <strong>Image:</strong><br>
+  <%= image_tag(@photo.photoLink, alt: @photo.photoDescription) %>
+</p>
+
+<p>
     <strong>Link:</strong>
-    <%= @photo.photoLink %>
+    <%= link_to truncate(@photo.photoLink, length: 30), @photo.photoLink, target: '_blank' %>
 </p>
 
 <p>
