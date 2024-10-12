@@ -61,7 +61,7 @@
           <% @select_attributes&.each do |attribute| %>
             <% value = user.send(attribute) %>
             <% if attribute == :linkedin_url %>
-              <td><%= link_to image_tag('linkedin.svg', alt: 'LinkedIn', width: 24, height: 24), value, target: '_blank' %></td>
+              <td><%= link_to image_tag('linkedin.svg', alt: 'LinkedIn', width: 24, height: 24), "https://www.linkedin.com/in/#{value}", target: '_blank' %></td>
             <% elsif attribute == :grad_date %>
               <td><%= value.strftime("%B %Y") %></td>
             <% elsif value.is_a?(DateTime) || value.is_a?(Date) %>

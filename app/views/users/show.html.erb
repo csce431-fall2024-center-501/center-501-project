@@ -3,7 +3,7 @@
 <% @attributes.each do |attribute| %>
   <% if attribute == :linkedin_url %>
     <p>
-      <td><%= link_to image_tag('linkedin.svg', alt: 'LinkedIn', width: 24, height: 24), @user.send(attribute), target: '_blank' %></td>
+      <td><%= link_to image_tag('linkedin.svg', alt: 'LinkedIn', width: 24, height: 24), "https://www.linkedin.com/in/#{@user.send(attribute)}", target: '_blank' %></td>
     </p>
   <% else %>
     <p>
