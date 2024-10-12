@@ -343,32 +343,35 @@ RSpec.describe '/users', type: :request do
           grad_date: '2024-06-10', 
           birthday: '2000-01-01', 
           shirt_size: 'M', 
-          dietary_restriction: 'None' 
-        } }
+          dietary_restriction: 'None',
+          linkedin_url: 'https://www.linkedin.com/in/testuser' 
+          } }
+          
+          user.reload
+          expect(user.phone_number).to eq('1234567890')
+          expect(user.class_year).to eq(2024)
+          expect(user.ring_date).to eq(Date.parse('2024-05-15'))
+          expect(user.grad_date).to eq(Date.parse('2024-06-10'))
+          expect(user.birthday).to eq(Date.parse('2000-01-01'))
+          expect(user.shirt_size).to eq('M')
+          expect(user.dietary_restriction).to eq('None')
+          expect(user.linkedin_url).to eq('testuser')
+          expect(user.account_complete).to be_truthy
+        end
         
-        user.reload
-        expect(user.phone_number).to eq('1234567890')
-        expect(user.class_year).to eq(2024)
-        expect(user.ring_date).to eq(Date.parse('2024-05-15'))
-        expect(user.grad_date).to eq(Date.parse('2024-06-10'))
-        expect(user.birthday).to eq(Date.parse('2000-01-01'))
-        expect(user.shirt_size).to eq('M')
-        expect(user.dietary_restriction).to eq('None')
-        expect(user.account_complete).to be_truthy
-      end
-  
-      it 'redirects to the root path with a success notice after successful update' do
-        user = User.create! valid_attributes
-        sign_in user
-        patch update_profile_users_url, params: { user: { 
-          phone_number: '1234567890', 
-          class_year: '2024', 
-          ring_date: '2024-05-15',
-          grad_date: '2024-06-10', 
-          birthday: '2000-01-01', 
-          shirt_size: 'M', 
-          dietary_restriction: 'None' 
-        } }
+        it 'redirects to the root path with a success notice after successful update' do
+          user = User.create! valid_attributes
+          sign_in user
+          patch update_profile_users_url, params: { user: { 
+            phone_number: '1234567890', 
+            class_year: '2024', 
+            ring_date: '2024-05-15',
+            grad_date: '2024-06-10', 
+            birthday: '2000-01-01', 
+            shirt_size: 'M', 
+            dietary_restriction: 'None',
+            linkedin_url: 'https://www.linkedin.com/in/testuser' 
+            } }
         
         expect(response).to redirect_to(root_path)
         expect(flash[:notice]).to eq('Profile updated successfully.')
