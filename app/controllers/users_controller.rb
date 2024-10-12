@@ -118,7 +118,10 @@ class UsersController < AuthenticatedApplicationController
     if user_params.values.any?(&:blank?)
       flash[:alert] = 'All fields must be filled out.'
       render :complete_profile
-    elsif @user.update(user_params)
+    elsif !valid_linkedin_url?(user_params[:linkedin_url])
+      flash[:alert] = 'LinkedIn URL must be a valid LinkedIn profile URL.'
+      render :complete_profile
+    elsif @user.update(user_params.merge(linkedin_url: process_linkedin_url(user_params[:linkedin_url])))
       @user.update(account_complete: true)
       redirect_to root_path, notice: 'Profile updated successfully.'
     else
@@ -157,5 +160,17 @@ class UsersController < AuthenticatedApplicationController
       format.html { render action, status: :unprocessable_entity }
       format.json { render json: errors, status: :unprocessable_entity }
     end
+  end
+
+  # Validation function to check if the LinkedIn URL is valid
+  def valid_linkedin_url?(url)
+    uri = URI.parse(url) rescue nil
+    uri && uri.host&.include?('linkedin.com') && uri.path.start_with?('/in/')
+  end
+
+  # Processor function to extract the unique postfix from the LinkedIn URL
+  def process_linkedin_url(url)
+    uri = URI.parse(url)
+    uri.path.split('/in/').last
   end
 end
