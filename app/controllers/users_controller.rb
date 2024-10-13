@@ -2,15 +2,58 @@
 
 class UsersController < AuthenticatedApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :set_attributes, only: %i[index show]
+
+  # Only attributes that are selected by default
+  INITIAL_SELECT_ATTRIBUTES = %i[full_name email phone_number class_year linkedin_url].freeze
+
+  # Attributes that admins can access
+  ADMIN_ACCESS_ATTRIBUTES = %i[full_name email user_type phone_number class_year ring_date grad_date birthday
+                                shirt_size dietary_restriction account_complete created_at updated_at linkedin_url].freeze
+
+  # Attributes that officers can access
+  OFFICER_ACCESS_ATTRIBUTES = %i[full_name email user_type phone_number class_year ring_date grad_date birthday
+                                  shirt_size dietary_restriction account_complete created_at updated_at linkedin_url].freeze
+
+  # Attributes that users can access
+  USER_ACCESS_ATTRIBUTES = %i[full_name email phone_number class_year linkedin_url].freeze
 
   # GET /users or /users.json
   def index
+    if current_user.admin?
+      @attributes = ADMIN_ACCESS_ATTRIBUTES
+    else
+      @attributes = USER_ACCESS_ATTRIBUTES
+    end
+  
+    # Convert params[:select_attributes] to an array of symbols if it's present
+    if params[:select_attributes].present?
+      select_attributes_param = params[:select_attributes].map(&:to_sym)
+    else
+      select_attributes_param = INITIAL_SELECT_ATTRIBUTES
+    end
+  
+    # Combine user-selected attributes with allowed attributes
+    @select_attributes = select_attributes_param & @attributes
+  
     @users = User.all
+  
+    # Sorting
+    @users = @users.order("#{params[:sort]} #{params[:direction]}") if params[:sort].present?
+  
+    # Filtering
+    if params[:search].present?
+      @users = @users.where("full_name LIKE ?", "%#{params[:search]}%")
+    end
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    if current_user.admin? || current_user.id == @user.id
+      @attributes = ADMIN_ACCESS_ATTRIBUTES
+    else
+      @attributes = USER_ACCESS_ATTRIBUTES
+    end
+  end
 
   # GET /users/new
   def new
@@ -18,7 +61,9 @@ class UsersController < AuthenticatedApplicationController
   end
 
   # GET /users/1/edit
-  def edit; end
+  def edit
+    return unless current_user.id == @user.id || require_admin
+  end
 
   # POST /users or /users.json
   def create
@@ -36,13 +81,18 @@ class UsersController < AuthenticatedApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    return unless require_admin
+    return unless current_user.id == @user.id || require_admin
 
     if @user.update(user_params)
       save_user(@user, :edit)
     else
       render_errors(@user.errors, :edit)
     end
+  end
+
+  def delete
+    return unless require_admin
+    @user = User.find(params[:id])
   end
 
   # DELETE /users/1 or /users/1.json
@@ -68,7 +118,10 @@ class UsersController < AuthenticatedApplicationController
     if user_params.values.any?(&:blank?)
       flash[:alert] = 'All fields must be filled out.'
       render :complete_profile
-    elsif @user.update(user_params)
+    elsif !valid_linkedin_url?(user_params[:linkedin_url])
+      flash[:alert] = 'LinkedIn URL must be a valid LinkedIn profile URL.'
+      render :complete_profile
+    elsif @user.update(user_params.merge(linkedin_url: process_linkedin_url(user_params[:linkedin_url])))
       @user.update(account_complete: true)
       redirect_to root_path, notice: 'Profile updated successfully.'
     else
@@ -78,25 +131,15 @@ class UsersController < AuthenticatedApplicationController
   end  
 
   private
-
-  def set_attributes
-    @attributes = if current_user.admin?
-                    %i[email full_name user_type phone_number class_year ring_date grad_date birthday
-                       shirt_size dietary_restriction account_complete created_at updated_at]
-                  else
-                    %i[email full_name user_type]
-                  end
-  end
-
   def set_user
     @user = User.find(params[:id])
   end
 
   def user_params
     if action_name == 'update_profile'
-      params.require(:user).permit(:phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction)
+      params.require(:user).permit(:phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, :linkedin_url)
     else
-      params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type, :phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction)
+      params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type, :phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction , :linkedin_url)
     end
   end
 
@@ -117,5 +160,17 @@ class UsersController < AuthenticatedApplicationController
       format.html { render action, status: :unprocessable_entity }
       format.json { render json: errors, status: :unprocessable_entity }
     end
+  end
+
+  # Validation function to check if the LinkedIn URL is valid
+  def valid_linkedin_url?(url)
+    uri = URI.parse(url) rescue nil
+    uri && uri.host&.include?('linkedin.com') && uri.path.start_with?('/in/')
+  end
+
+  # Processor function to extract the unique postfix from the LinkedIn URL
+  def process_linkedin_url(url)
+    uri = URI.parse(url)
+    uri.path.split('/in/').last
   end
 end

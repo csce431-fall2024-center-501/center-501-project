@@ -95,10 +95,10 @@ RSpec.describe 'CalendarController', type: :request do
       allow(calendar_service).to receive(:list_calendar_lists).and_return(calendar_list_response)
     end
 
-    it 'retrieves calendars successfully' do
+    it 'retrieves calendars successfully and redirects to events' do
       get calendars_path
 
-      expect(response).to be_successful
+      expect(response).to redirect_to(events_url(calendar_id: valid_calendar_id))
     end
   end
 
