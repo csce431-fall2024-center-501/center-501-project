@@ -1,7 +1,7 @@
 /* Photo Page Styles */
 .photo-container {
     max-width: 800px;
-    margin: 10 auto;
+    margin: 0 auto;
     padding: 20px;
     background-color: var(--secondary-color);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -89,7 +89,7 @@ a:active,
 }
 
 .table-photos th {
-    background-color: var(--quaternary-color);
+    background-color: var(--primary-color);
     color: white;
 }
 

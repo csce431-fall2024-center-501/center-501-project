@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
     # ensure location is set b4 performing any actions on it
-    before_action :set_location, only: %i[show edit update destroy]
+    before_action :set_location, only: %i[show edit update destroy delete]
 
     # list all locations
     def index
@@ -53,6 +53,10 @@ class LocationsController < ApplicationController
             format.html { redirect_to locations_url, notice: 'Location was successfully destroyed.' }
             format.json { head :no_content }
         end
+    end
+
+    def delete
+        @location = Location.find(params[:id])
     end
 
     # find location based on id parameter
