@@ -1,8 +1,6 @@
-<!-- app/views/locations/index.html.erb -->
-
 <h1>Locations</h1>
 
-<table>
+<table class="table-locations">
   <thead>
     <tr>
       <th>Address</th>
@@ -17,17 +15,17 @@
   <tbody>
     <% @locations.each do |location| %>
       <tr>
-        <td><%= link_to location.address, location %></td>
+        <td><%= link_to location.address, location, class: "location-link" %></td>
         <td><%= location.city %></td>
         <td><%= location.state %></td>
         <td><%= location.zip_code %></td>
         <td><%= location.country %></td>
-        <td><%= link_to 'Show', location %></td>
-        <td><%= link_to 'Edit', edit_location_path(location) %></td>
-        <td><%= link_to 'Delete', delete_location_path(location), method: :get %></td>
+        <td><%= link_to 'Show', location, class: "location-link" %></td>
+        <td><%= link_to 'Edit', edit_location_path(location), class: "location-link" %></td>
+        <td><%= link_to 'Delete', delete_location_path(location), method: :get, class: "location-link delete" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New Location', new_location_path %>
+<%= link_to 'New Location', new_location_path, class: "location-link" %>
