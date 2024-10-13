@@ -55,9 +55,188 @@
     margin-right: 0; /* Remove margin for the last field */
 }
 
+.sponsorships-actions input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sponsorships-actions input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* General layout for index page */
+.sponsorships-index {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sponsorships-index h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sponsorships-index table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.sponsorships-index th,
+.sponsorships-index td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.sponsorships-index th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.sponsorships-index p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
 .sponsorship-embed {
     display: block;
     margin: 20px auto;
     border: 1px solid #ddd;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* General layout for show page */
+.sponsorship-show {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sponsorship-show h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sponsorship-show table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.sponsorship-show th,
+.sponsorship-show td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.sponsorship-show th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+/* General button styling */
+.btn {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-family: inherit;
+}
+
+.btn:hover {
+    background-color: #218838;
+}
+
+/* Button in table for 'Show' link */
+.show-btn {
+    background-color: #007bff;
+}
+
+.show-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Button for 'Donate' link */
+.donate-btn {
+    background-color: #ffc107;
+}
+
+.donate-btn:hover {
+    background-color: #e0a800;
+}
+
+/* Back Button */
+.sponsorship-back-btn a {
+    display: inline-block;
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
+    font-family: inherit;
+}
+
+.sponsorship-back-btn a:hover {
+    background-color: #5a6268;
+}
+
+/* Action buttons (Edit, Delete) */
+.sponsorship-actions {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sponsorship-action {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 0 10px;
+    color: white;
+}
+
+.sponsorship-action.edit {
+    background-color: #007bff;
+}
+
+.sponsorship-action.edit:hover {
+    background-color: #0056b3;
+}
+
+.sponsorship-action.delete {
+    background-color: #dc3545;
+}
+
+.sponsorship-action.delete:hover {
+    background-color: #c82333;
 }

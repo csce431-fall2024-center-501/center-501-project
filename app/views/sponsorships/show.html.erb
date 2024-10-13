@@ -1,13 +1,15 @@
-<%= link_to 'Back', sponsorships_path %>
+<div class="sponsorship-back-btn">
+    <%= link_to 'Back', sponsorships_path %>
+</div>
 
 <p id="notice"><%= notice %></p>
 
-<div class="sponsorship show">
+<div class="sponsorship-show">
     <h2>Show Sponsorship</h2>
 
-    <div class="actions">
-        <%= link_to("Edit", edit_sponsorship_path(@sponsorship), class: 'action edit') %>
-        <%= link_to("Delete", delete_sponsorship_path(@sponsorship), class: 'action delete') %>
+    <div class="sponsorship-actions">
+        <%= link_to("Edit", edit_sponsorship_path(@sponsorship), class: 'sponsorship-action edit') %>
+        <%= link_to("Delete", delete_sponsorship_path(@sponsorship), class: 'sponsorship-action delete') %>
     </div>
 
     <table summary="Sponsorship detail view">

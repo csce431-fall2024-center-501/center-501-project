@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<div class="sponsorships index">
+<div class="sponsorships-index">
     <h1>Sponsorships</h1>
 
-    <%= link_to 'New Sponsorship', new_sponsorship_path %>
+    <%= button_to 'New Sponsorship', new_sponsorship_path, method: :get, class: 'btn' %>
 
     <table>
         <thead>
@@ -17,13 +17,13 @@
             <% @sponsorships.each do |sponsorship| %>
                 <tr>
                     <td><%= sponsorship.sponsor_name %></td>
-                    <td><%= link_to 'Show', sponsorship %></td>
+                    <td><%= button_to 'Show', sponsorship, method: :get, class: 'btn show-btn' %></td>
                 </tr>
             <% end %>
         </tbody>
     </table>
 
-    <p><%= link_to 'Donate', 'https://support.ewb-usa.org/give/565525/#!/donation/checkout', target: '_blank' %><p>
+    <%= button_to 'Donate', 'https://support.ewb-usa.org/give/565525/#!/donation/checkout', method: :get, target: '_blank', class: 'btn donate-btn' %>
 
     <p>For long-term impact, consider contributing to the EWB Endowment:<p>
     <p>popham@tamu.edu</p>
