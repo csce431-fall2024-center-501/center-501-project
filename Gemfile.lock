@@ -139,10 +139,8 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
-    httpclient (2.8.3)
-    globalid (1.2.1)
-      activesupport (>= 6.1)
     hashie (5.0.0)
+    httpclient (2.8.3)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.1)
@@ -176,9 +174,9 @@ GEM
     minitest (5.25.1)
     msgpack (1.7.2)
     multi_json (1.15.0)
-    mutex_m (0.2.0)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
+    mutex_m (0.2.0)
     net-http (0.4.1)
       uri
     net-imap (0.4.16)
@@ -193,7 +191,6 @@ GEM
     nio4r (2.7.3)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
-    os (1.1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
       jwt (>= 1.0, < 3.0)
@@ -217,6 +214,7 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
+    os (1.1.4)
     parallel (1.26.3)
     parser (3.3.5.0)
       ast (~> 2.4.1)
@@ -266,6 +264,7 @@ GEM
     rake (13.2.1)
     rdoc (6.7.0)
       psych (>= 4.0.0)
+    redcarpet (3.6.0)
     regexp_parser (2.9.2)
     reline (0.5.10)
       io-console (~> 0.5)
@@ -273,10 +272,10 @@ GEM
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
-    retriable (3.1.2)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
+    retriable (3.1.2)
     rexml (3.3.7)
     rspec-core (3.13.1)
       rspec-support (~> 3.13.0)
@@ -382,8 +381,8 @@ DEPENDENCIES
   brakeman
   capybara
   debug
-  google-api-client
   devise
+  google-api-client
   importmap-rails
   jbuilder
   omniauth
@@ -392,6 +391,7 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.3)
+  redcarpet
   rexml
   rspec-rails
   rubocop

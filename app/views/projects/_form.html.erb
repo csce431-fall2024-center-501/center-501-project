@@ -18,7 +18,7 @@
 
   <div>
     <%= form.label :projectDesc, "Project Description", style: "display: block" %>
-    <%= form.text_area :projectDesc, rows: 10, cols: 50 %>
+    <%= form.text_area :projectDesc, rows: 8, cols: 80 %>
   </div>
 
   <div>
@@ -37,6 +37,16 @@
   </div>
 
   <div>
+    <%= form.label :markdownBody, "Markdown Body", style: "display: block" %>
+    <%= form.text_area :markdownBody, rows: 8, cols: 80, id: "markdown_body" %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
+
+  <div id="markdown_preview" style="border: 1px solid #ddd; padding: 10px; margin-top: 20px;">
+    <!-- Live preview will be shown here -->
+  </div>
+
 <% end %>

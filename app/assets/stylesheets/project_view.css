@@ -1,39 +1,41 @@
-header {
+.project-view-header {
   text-align: center;
   /* border-style: dashed; */
   border-radius: 4px;
 }
 
-header h1{
+.project-view-header h1{
   font-size: 36px;
 }
 
-header p{
+.project-view-header p{
   font-size: 24px;
 }
 
-gallery {
+.project-view-gallery {
   /* border-style: dashed;
   border-radius: 4px; */
   align-items: center;
 }
 
-summary {
+.project-view-body {
   /* border-style: dashed; */
   border-radius: 4px;
 }
 
-summary h1{
+.project-view-body h1{
   font-size: 24px;
   text-decoration: underline;
   text-align: center;
 }
 
-summary p{
+.project-view-body p{
   font-size: 18px;
+  text-align: justify;
+  text-
 }
 
-actions {
+.project-actions {
   display: flex;
   justify-content: space-between;
   width: 20%;

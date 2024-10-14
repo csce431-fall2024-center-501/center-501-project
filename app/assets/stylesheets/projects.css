@@ -1,13 +1,18 @@
-header {
+.projects-header{
 
 }
 
-body h1{
+.projects-body{
+
+}
+
+.projects-body h1{
   font-size: 26px;
   font-weight: bold;
   text-decoration: underline;
 }
 
-body p{
+.projects-body p{
+  text-align: justify;
   font-size: 18px;
 }
