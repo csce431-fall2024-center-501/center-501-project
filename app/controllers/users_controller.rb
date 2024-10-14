@@ -28,7 +28,6 @@ class UsersController < AuthenticatedApplicationController
     @user.account_complete = true
 
     if @user.valid?
-      AdminMailer.with(user: @user).welcome_email.deliver_now
       save_user(@user, :new)
     else
       render_errors(@user.errors, :new)
