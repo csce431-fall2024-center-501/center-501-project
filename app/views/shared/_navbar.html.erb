@@ -8,7 +8,9 @@
         <% if current_user %>
             <li><%= link_to 'Member Directory', users_path, class: current_page?(users_path) ? 'active' : '' %></li>
             <li><%= link_to 'Calendar', calendars_path, class: current_page?(calendars_path) ? 'active' : '' %></li>
-            <li><%= link_to 'Email', email_path, class: current_page?(email_path) ? 'active' : '' %></li>
+            <% if current_user.admin? %>
+                <li><%= link_to 'Email', email_path, class: current_page?(email_path) ? 'active' : '' %></li>
+            <% end %>
             <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
         <% else %>
             <li><%= link_to 'Log In', new_user_session_path, class: current_page?(new_user_session_path) ? 'active' : '' %></li>
