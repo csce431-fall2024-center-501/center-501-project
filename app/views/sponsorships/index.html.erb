@@ -16,7 +16,10 @@
         <tbody>
             <% @sponsorships.each do |sponsorship| %>
                 <tr>
-                    <td><%= sponsorship.sponsor_name %></td>
+                    <td class="sponsor-info">
+                        <%= image_tag 'sponsor_placeholder.png', class: 'sponsor-image' %>
+                        <%= sponsorship.sponsor_name %>
+                    </td>
                     <td><%= button_to 'Show', sponsorship, method: :get, class: 'btn show-btn' %></td>
                 </tr>
             <% end %>
