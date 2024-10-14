@@ -11,7 +11,11 @@ Rails.application.routes.draw do
     get 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
   end
 
-  resources :locations
+  resources :locations do
+    member do
+      get :delete
+    end
+  end
 
   resources :photos do
     member do

@@ -1,0 +1,31 @@
+/* Table for the index page */
+.table-locations {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table-locations th,
+.table-locations td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+/* Header background color */
+.table-locations th {
+    background-color: var(--quaternary-color);
+    /* Set background to secondary color */
+    color: white;
+    /* Text color */
+}
+
+/* Table row hover effect */
+.table-locations tr:hover {
+    background-color: var(--secondary-color);
+    /* Keep hover for rows only */
+}
+
+.table-locations td {
+    font-size: 1rem;
+}
