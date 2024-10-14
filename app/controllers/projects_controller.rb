@@ -51,11 +51,11 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1 or /projects/1.json
   def delete
     @project = Project.find(params[:id])
   end
-
+  
+  # DELETE /projects/1 or /projects/1.json
   def destroy
     @project = Project.find(params[:id])
     @project.destroy

@@ -23,6 +23,8 @@
 :root {
     --primary-color: #77a0ef;
     --secondary-color: #eae7e7;
+    --tertiary-color: #4c7cdc;
+    --quaternary-color: #bebebe;
 }
 
  /* Reset body margin and padding */
