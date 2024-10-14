@@ -1,0 +1,22 @@
+<h1>Send Mail</h1>
+
+<%= form_with url: send_email_path, method: :post, local: true do |form| %>
+    <div class="field">
+        <%= form.label :to, "To:" %>
+        <%= form.text_field :to %>
+    </div>
+
+    <div class="field">
+        <%= form.label :subject, "Subject:" %>
+        <%= form.text_field :subject %>
+    </div>
+
+    <div class="field">
+        <%= form.label :body, "Body:" %>
+        <%= form.text_area :body %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit "Send" %>
+    </div>
+<% end %>

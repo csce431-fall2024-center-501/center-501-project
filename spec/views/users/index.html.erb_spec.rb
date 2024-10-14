@@ -2,8 +2,6 @@
 
 require 'rails_helper'
 
-# TODO: - improve tests by distinguishing between user types
-
 RSpec.describe 'users/index', type: :view do
   include TestAttributes
 
@@ -13,6 +11,7 @@ RSpec.describe 'users/index', type: :view do
              User.create!(valid_admin_attributes)
            ])
     assign(:attributes, %i[email full_name user_type])
+    assign :select_attributes, %i[email full_name user_type]
     allow(view).to receive(:current_user).and_return(User.last)
   end
 
@@ -21,15 +20,22 @@ RSpec.describe 'users/index', type: :view do
     'div>p'
   end
 
-  it 'displays user names' do
+  it 'displays selected attributes' do
     render
     expect(rendered).to match(/#{valid_attributes[:name]}/)
     expect(rendered).to match(/#{valid_admin_attributes[:name]}/)
-  end
-
-  it 'displays user emails' do
-    render
     expect(rendered).to match(/#{valid_attributes[:email]}/)
     expect(rendered).to match(/#{valid_admin_attributes[:email]}/)
+    expect(rendered).to match(/#{valid_attributes[:user_type]}/)
+    expect(rendered).to match(/#{valid_admin_attributes[:user_type]}/)
+  end
+
+  it 'doesn\'t display unselected attributes' do
+    render
+    expect(rendered).not_to match(/#{valid_attributes[:phone_number]}/)
+    expect(rendered).not_to match(/#{valid_admin_attributes[:phone_number]}/)
+    expect(rendered).not_to match(/#{valid_attributes[:class_year]}/)
+    expect(rendered).not_to match(/#{valid_admin_attributes[:class_year]}/)
+    expect(rendered).not_to match(/#{valid_attributes[:dietary_restriction]}/)
   end
 end

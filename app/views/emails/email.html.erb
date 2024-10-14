@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag 'email', media: 'all' %>
+<%= form_with url: send_email_path, method: :post, local: true do |form| %>
+    <div class="email-container">
+        <div class="email-header">
+            <%= form.label :recipients, "Recipients" %>
+            <%= form.collection_select :recipients, @users, :email, :email, {}, { multiple: true, class: "form-control" } %>
+        </div>
+
+        <div class="email-header">
+            <%= form.label :subject, "Subject" %>
+            <%= form.text_field :subject, placeholder: "Enter email subject" %>
+        </div>
+
+        <div class="email-body">
+            <%= form.label :message, "Message" %>
+            <%= form.text_area :message, placeholder: "Enter email message" %>
+        </div>
+
+        <div class="form-group">
+            <%= form.submit "Send Email", class: "send-button" %>
+        </div>
+    </div>
+<% end %>

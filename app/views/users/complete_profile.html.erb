@@ -24,6 +24,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :linkedin_url %><br>
+    <%= f.text_field :linkedin_url, placeholder: "LinkedIn URL" %>
+  </div>
+
+  <div class="field">
     <%= f.label :ring_date %>
     <%= f.date_select :ring_date %>
   </div>
@@ -35,7 +40,7 @@
 
   <div class="field">
     <%= f.label :birthday %>
-    <%= f.date_select :birthday %>
+    <%= f.date_select :birthday, start_year: 1999, end_year: 2007 %>
   </div>
 
   <div class="field">
