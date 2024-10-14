@@ -50,7 +50,7 @@ RSpec.describe '/users', type: :request do
         expect(response.body).to include(admin.email, admin.phone_number.to_s, admin.class_year.to_s)
       end
     end
-  
+
     context 'when user is not admin' do
       it 'renders a successful response with limited attributes' do
         user = User.create! valid_attributes
@@ -63,7 +63,7 @@ RSpec.describe '/users', type: :request do
       end
     end
   end
-  
+
   describe 'GET /show' do
     context 'when user is admin' do
       it 'renders a successful response with all attributes' do
@@ -75,7 +75,7 @@ RSpec.describe '/users', type: :request do
         expect(response.body).to include(user.email, user.phone_number.to_s, user.class_year.to_s)
       end
     end
-  
+
     context 'when user is not admin' do
       it 'renders a successful response with limited attributes' do
         user = User.create! valid_attributes
@@ -88,7 +88,6 @@ RSpec.describe '/users', type: :request do
       end
     end
   end
-  
 
   describe 'GET /new' do
     it 'renders a successful response' do
@@ -240,16 +239,16 @@ RSpec.describe '/users', type: :request do
       it 'updates the current user profile and marks account as complete' do
         user = User.create! valid_attributes
         sign_in user
-        patch update_profile_users_url, params: { user: { 
-          phone_number: '1234567890', 
-          class_year: '2024', 
+        patch update_profile_users_url, params: { user: {
+          phone_number: '1234567890',
+          class_year: '2024',
           ring_date: '2024-05-15',
-          grad_date: '2024-06-10', 
-          birthday: '2000-01-01', 
-          shirt_size: 'M', 
-          dietary_restriction: 'None' 
+          grad_date: '2024-06-10',
+          birthday: '2000-01-01',
+          shirt_size: 'M',
+          dietary_restriction: 'None'
         } }
-        
+
         user.reload
         expect(user.phone_number).to eq('1234567890')
         expect(user.class_year).to eq(2024)
@@ -260,25 +259,25 @@ RSpec.describe '/users', type: :request do
         expect(user.dietary_restriction).to eq('None')
         expect(user.account_complete).to be_truthy
       end
-  
+
       it 'redirects to the root path with a success notice after successful update' do
         user = User.create! valid_attributes
         sign_in user
-        patch update_profile_users_url, params: { user: { 
-          phone_number: '1234567890', 
-          class_year: '2024', 
+        patch update_profile_users_url, params: { user: {
+          phone_number: '1234567890',
+          class_year: '2024',
           ring_date: '2024-05-15',
-          grad_date: '2024-06-10', 
-          birthday: '2000-01-01', 
-          shirt_size: 'M', 
-          dietary_restriction: 'None' 
+          grad_date: '2024-06-10',
+          birthday: '2000-01-01',
+          shirt_size: 'M',
+          dietary_restriction: 'None'
         } }
-        
+
         expect(response).to redirect_to(root_path)
         expect(flash[:notice]).to eq('Profile updated successfully.')
       end
     end
-  
+
     context 'with invalid parameters' do
       it 'renders the complete_profile template with an alert' do
         user = User.create! valid_attributes
@@ -298,7 +297,7 @@ RSpec.describe '/users', type: :request do
       expect(response).to be_successful
       expect(response.body).to include('Complete Your Profile')
     end
-  
+
     it 'redirects to sign_in if not signed in' do
       get complete_profile_users_url
       expect(response).to redirect_to(new_user_session_url)

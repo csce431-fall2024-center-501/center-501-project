@@ -1,12 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "calendar/events", type: :view do
+RSpec.describe 'calendar/events', type: :view do
   before do
     assign(:event_list, double('EventList', items: [
-      double('Event', summary: 'Event 1', start: double('Start', date_time: DateTime.new(2024, 9, 25, 10, 0), date: nil)),
-      double('Event', summary: 'Event 2', start: double('Start', date_time: nil, date: '2024-09-26'))
-    ]))
-    assign(:calendar_id, 'abc123')  # The calendar_id is required for the form action
+                                 double('Event', summary: 'Event 1',
+                                                 start: double('Start', date_time: DateTime.new(2024, 9, 25, 10, 0), date: nil)),
+                                 double('Event', summary: 'Event 2',
+                                                 start: double('Start', date_time: nil, date: '2024-09-26'))
+                               ]))
+    assign(:calendar_id, 'abc123') # The calendar_id is required for the form action
   end
 
   it 'displays the events list with correct date and time' do
@@ -14,7 +18,7 @@ RSpec.describe "calendar/events", type: :view do
 
     # Check for the event with a specific time
     expect(rendered).to include('2024-09-25 | 10:00 | Event 1')
-    
+
     # Check for the event that is all-day
     expect(rendered).to include('2024-09-26 | All Day | Event 2')
   end

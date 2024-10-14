@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-# TODO - improve tests by distinguishing between user types
+# TODO: - improve tests by distinguishing between user types
 
 RSpec.describe 'users/show', type: :view do
   include TestAttributes

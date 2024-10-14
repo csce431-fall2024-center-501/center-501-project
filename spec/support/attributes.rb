@@ -13,7 +13,7 @@ module TestAttributes
       class_year: 2020
     }
   end
-  
+
   def valid_admin_attributes
     {
       email: 'testuser-admin@example.com',

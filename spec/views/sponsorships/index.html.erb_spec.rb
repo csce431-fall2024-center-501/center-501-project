@@ -38,7 +38,7 @@ RSpec.describe 'sponsorships/index.html.erb', type: :view do
   end
 
   it 'displays a New Sponsorship button' do
-    expect(rendered).to have_selector("form button", text: 'New Sponsorship')
+    expect(rendered).to have_selector('form button', text: 'New Sponsorship')
   end
 
   it 'renders a table with sponsorships' do
@@ -49,14 +49,14 @@ RSpec.describe 'sponsorships/index.html.erb', type: :view do
   end
 
   it 'displays the Show button for each sponsorship' do
-    expect(rendered).to have_selector("form button", text: 'Show', count: 2)
+    expect(rendered).to have_selector('form button', text: 'Show', count: 2)
   end
 
   it "displays the 'Donate' button" do
-    expect(rendered).to have_selector("form button", text: 'Donate')
+    expect(rendered).to have_selector('form button', text: 'Donate')
   end
 
-  it "displays donation information" do
+  it 'displays donation information' do
     expect(rendered).to have_text('$50')
     expect(rendered).to have_text('10 sq. ft. of road in the Dominican Republic')
     expect(rendered).to have_text('$400')
@@ -69,7 +69,7 @@ RSpec.describe 'sponsorships/index.html.erb', type: :view do
     expect(rendered).to have_text('Your Expertise')
   end
 
-  it "displays the EWB Endowment section" do
+  it 'displays the EWB Endowment section' do
     expect(rendered).to have_text('EWB Endowment')
     expect(rendered).to have_text('popham@tamu.edu')
   end
