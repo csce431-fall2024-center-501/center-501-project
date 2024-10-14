@@ -28,6 +28,42 @@
 
     <%= button_to 'Donate', 'https://support.ewb-usa.org/give/565525/#!/donation/checkout', method: :get, target: '_blank', class: 'btn donate-btn' %>
 
+    <div class="donations-info">
+        <h2>What Do Your Donations Go Toward?</h2>
+        
+        <div class="donation-item">
+            <img src="<%= asset_path('road_icon.png') %>" alt="Road icon" class="donation-icon">
+            <span class="donation-amount">$50</span>
+            <p>10 sq. ft. of road in the Dominican Republic</p>
+        </div>
+
+        <div class="donation-item">
+            <img src="<%= asset_path('toilet_icon.png') %>" alt="Toilet icon" class="donation-icon">
+            <span class="donation-amount">$400</span>
+            <p>1 latrine in Rwanda</p>
+        </div>
+    </div>
+
+    <div class="contribution-info">
+        <h2>Ways to Contribute</h2>
+        
+        <div class="contribution-methods">
+            <div class="contribution-item">
+                <img src="<%= asset_path('donation_icon.png') %>" alt="Donation icon" class="contribution-icon">
+                <h3>One-time/Monthly Donations</h3>
+                <p>Travel scholarships, workshops, project costs, etc.</p>
+            </div>
+            
+            <div class="contribution-item">
+                <img src="<%= asset_path('expertise_icon.png') %>" alt="Expertise icon" class="contribution-icon">
+                <h3>Your Expertise</h3>
+                <p>Be a guest speaker, share your experiences, host a workshop, let's connect!<br>
+                professionalrelations@ewb-tamu.org</p>
+            </div>
+        </div>
+    </div>
+
+    <h2>EWB Endowment</h2>
     <p>For long-term impact, consider contributing to the EWB Endowment:<p>
     <p>popham@tamu.edu</p>
 

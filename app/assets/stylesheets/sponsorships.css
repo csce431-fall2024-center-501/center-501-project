@@ -56,7 +56,7 @@
 }
 
 .sponsorships-actions input[type="submit"] {
-    background-color: #28a745;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -66,7 +66,7 @@
 }
 
 .sponsorships-actions input[type="submit"]:hover {
-    background-color: #218838;
+    background-color: #0056b3;
 }
 
 /* General layout for index page */
@@ -168,7 +168,7 @@
 /* General button styling */
 .btn {
     display: inline-block;
-    background-color: #28a745;
+    background-color: var(--primary-color);
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -182,7 +182,7 @@
 }
 
 .btn:hover {
-    background-color: #218838;
+    background-color: #0056b3;
 }
 
 /* Button in table for 'Show' link */
@@ -195,13 +195,61 @@
 }
 
 /* Button for 'Donate' link */
-.donate-btn {
-    background-color: #ffc107;
+/* .donate-btn {
+    background-color: var(--primary-color);
 }
 
 .donate-btn:hover {
-    background-color: #e0a800;
+    background-color: #0056b3;
+} */
+
+.donations-info, .contribution-info {
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
 }
+  
+.donations-info h2 {
+    font-size: 2rem;
+    margin: 20px 0;
+    font-family: "CustomFont", sans-serif;
+}
+  
+.donation-item, .contribution-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.donation-icon, .contribution-icon {
+    width: 60px;
+    height: auto;
+    margin-right: 15px;
+}
+  
+.donation-amount {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.contribution-methods {
+    /* display: flex;
+    justify-content: space-around;
+    margin-top: 40px; */
+    text-align: center;
+}
+  
+.contribution-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.contribution-item p {
+    font-size: 1rem;
+}  
 
 /* Back Button */
 .sponsorship-back-btn a {
