@@ -65,7 +65,7 @@ RSpec.describe 'sponsorships/index.html.erb', type: :view do
 
   it "displays the 'Ways to Contribute' section" do
     expect(rendered).to have_text('Ways to Contribute')
-    expect(rendered).to have_text('One-time/Monthly Donations')
+    expect(rendered).to have_text('One-time / Monthly Donations')
     expect(rendered).to have_text('Your Expertise')
   end
 
