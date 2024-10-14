@@ -30,9 +30,6 @@ This is a **simple website** designed to showcase some *cool features*. Let's ex
    - `Code snippets`
    - ~~Strikethrough~~
    - ==Highlighting==
-   - Blockquotes:
-
-     > "This is a blockquote to highlight important text."
 
 ## Code Example
 
