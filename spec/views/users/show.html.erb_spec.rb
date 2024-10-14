@@ -2,12 +2,15 @@
 
 require 'rails_helper'
 
+# TODO - improve tests by distinguishing between user types
+
 RSpec.describe 'users/show', type: :view do
   include TestAttributes
 
   before(:each) do
     assign(:user, User.create!(valid_admin_attributes))
     allow(view).to receive(:current_user).and_return(User.create!(valid_attributes))
+    assign(:attributes, %i[email full_name user_type])
   end
 
   it 'displays user name' do

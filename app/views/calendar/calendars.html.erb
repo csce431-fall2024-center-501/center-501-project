@@ -1,10 +1,8 @@
 <ul>
-  <% @calendar_list.items.each do |calendar| %>
-    <% if calendar.id == "c_35657eacaf7df0315b9988c9b68e72be62b3d78e730edd6583459300f61320db@group.calendar.google.com" %>
+  <% @calendar_list.each do |calendar| %>
       <li>
         <%= calendar.summary %>
         <button onclick="window.location.href='<%= events_path(calendar.id) %>'">Open</button>
       </li>
-    <% end %>
   <% end %>
 </ul>
