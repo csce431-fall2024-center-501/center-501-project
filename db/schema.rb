@@ -22,6 +22,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_11_161421) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.string "photoLink"
+    t.string "photoDescription"
+    t.string "photoType"
+    t.string "photoPageLocation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "projectName"
     t.string "projectDesc"

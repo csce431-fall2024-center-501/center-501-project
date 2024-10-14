@@ -1,0 +1,28 @@
+<h1>Are you sure you want to delete this photo?</h1>
+
+<p>
+    <strong>Photo Link:</strong>
+    <%= @photo.photoLink %>
+</p>
+
+<p>
+    <strong>Description:</strong>
+    <%= @photo.photoDescription %>
+</p>
+
+<p>
+    <strong>Type:</strong>
+    <%= @photo.photoType %>
+</p>
+
+<p>
+    <strong>Page Location:</strong>
+    <%= @photo.photoPageLocation %>
+</p>
+
+<%= form_with url: photo_path(@photo), method: :delete, local: true do %>
+    <div class="actions">
+        <%= submit_tag 'Delete Photo', data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Cancel', photos_path %>
+    </div>
+<% end %>
