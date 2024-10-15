@@ -20,9 +20,9 @@ class User < ApplicationRecord
   }
 
   # Date validations with upper and lower bounds
-  validates :ring_date, :grad_date, inclusion: { 
-    in: Date.new(1900, 1, 1)..Date.new(Date.today.year + 4, 12, 31), 
-    message: "must be between 1900 and #{Date.today.year + 4}" 
+  validates :ring_date, :grad_date, inclusion: {
+    in: Date.new(1900, 1, 1)..Date.new(Date.today.year + 4, 12, 31),
+    message: "must be between 1900 and #{Date.today.year + 4}"
   }, allow_blank: true
 
   validates :birthday, inclusion: {

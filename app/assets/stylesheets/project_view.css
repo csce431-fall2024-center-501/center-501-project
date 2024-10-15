@@ -1,40 +1,83 @@
-header {
+.show-project{
+  font-size: calc(14px + 0.2vw);
+}
+
+.project-view-header {
   text-align: center;
   /* border-style: dashed; */
   border-radius: 4px;
 }
 
-header h1{
-  font-size: 36px;
-}
-
-header p{
-  font-size: 24px;
-}
-
-gallery {
-  /* border-style: dashed;
-  border-radius: 4px; */
+.project-view-gallery {
   align-items: center;
 }
 
-summary {
+.project-view-body {
   /* border-style: dashed; */
-  border-radius: 4px;
+  padding: 0px 250px;
 }
 
-summary h1{
-  font-size: 24px;
-  text-decoration: underline;
+.project-view-body h1{
   text-align: center;
 }
 
-summary p{
-  font-size: 18px;
+.project-view-body p{
+  text-align: justify;
 }
 
-actions {
+.project-view-body ul, ol{
+  text-align: left;
+  list-style-position: inside;
+}
+
+.project-actions {
   display: flex;
-  justify-content: space-between;
-  width: 20%;
+  flex-direction: row;
+  justify-content: center;
+  padding: 30px 0px;
+  gap: 50px;
+}
+
+.project-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.project-form textarea{
+  resize: none;
+}
+
+.form {
+  width: 50%;
+}
+
+.preview {
+  width: 50%;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: calc(12px + 0.1vw);
+  overflow-y: auto;
+}
+
+.preview h1{
+  text-align: center;
+}
+
+.preview p{
+  text-align: justify;
+}
+
+.preview ul, ol{
+  text-align: left;
+  list-style-position: inside;
+}
+
+@media (max-width: 1280px) {
+  .project-form {
+    flex-direction: column;
+  }
+  .form, .preview{
+    width: 100%;
+  }
 }
