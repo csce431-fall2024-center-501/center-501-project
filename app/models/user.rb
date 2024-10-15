@@ -2,21 +2,21 @@
 
 class User < ApplicationRecord
   # Validates that the email is present, unique, and properly formatted
-  validates :email, presence: true, uniqueness: true, format: { 
-    with: URI::MailTo::EMAIL_REGEXP, 
+  validates :email, presence: true, uniqueness: true, format: {
+    with: URI::MailTo::EMAIL_REGEXP,
     message: 'must be a valid email address'
   }
 
   # Validates that the full_name is present and has a minimum length of 2 characters
-  validates :full_name, presence: true, length: { 
-    minimum: 2, 
-    too_short: 'must have at least %{count} characters' 
+  validates :full_name, presence: true, length: {
+    minimum: 2,
+    too_short: 'must have at least %<count>s characters'
   }
 
   # Validates that the phone number is optional but must be 10 digits if provided
-  validates :phone_number, allow_blank: true, format: { 
-    with: /\A\d{10}\z/, 
-    message: 'must be a valid 10-digit phone number' 
+  validates :phone_number, allow_blank: true, format: {
+    with: /\A\d{10}\z/,
+    message: 'must be a valid 10-digit phone number'
   }
 
   # Date validations with upper and lower bounds

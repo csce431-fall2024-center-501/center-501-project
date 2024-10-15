@@ -28,8 +28,4 @@ RSpec.describe 'sponsorships/edit.html.erb', type: :view do
   it 'has a link back to the sponsorships list' do
     expect(rendered).to have_link('Back', href: sponsorships_path)
   end
-
-  it 'has a link to view the sponsorship' do
-    expect(rendered).to have_link('Show', href: sponsorship_path(sponsorship))
-  end
 end

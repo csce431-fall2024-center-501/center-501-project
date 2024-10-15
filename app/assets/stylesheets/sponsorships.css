@@ -1,0 +1,301 @@
+#sponsorship-form {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#sponsorship-form table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#sponsorship-form th, td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+#sponsorship-form th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+#sponsorship-form td input[type="text"],
+#sponsorship-form td input[type="number"],
+#sponsorship-form td input[type="date"],
+#sponsorship-form td select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.sponsorship-date-select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sponsorship-date-select select {
+    flex: 1;
+    margin-right: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.sponsorship-date-select select:last-child {
+    margin-right: 0; /* Remove margin for the last field */
+}
+
+.sponsorships-actions input[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sponsorships-actions input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* General layout for index page */
+.sponsorships-index {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sponsorships-index h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sponsorships-index table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.sponsorships-index th,
+.sponsorships-index td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.sponsorships-index th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.sponsorships-index p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.sponsorship-embed {
+    display: block;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* General layout for show page */
+.sponsorship-show {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sponsorship-show h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sponsorship-show table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.sponsorship-show th,
+.sponsorship-show td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.sponsorship-show th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.sponsor-info {
+    display: flex;
+    align-items: center;
+}
+
+.sponsor-image {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover; /* Ensures image covers the circle properly */
+}
+
+/* General button styling */
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-family: inherit;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Button in table for 'Show' link */
+.show-btn {
+    background-color: #007bff;
+}
+
+.show-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Button for 'Donate' link */
+/* .donate-btn {
+    background-color: var(--primary-color);
+}
+
+.donate-btn:hover {
+    background-color: #0056b3;
+} */
+
+.donations-info, .contribution-info {
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+}
+  
+.donations-info h2 {
+    font-size: 2rem;
+    margin: 20px 0;
+    font-family: "CustomFont", sans-serif;
+}
+  
+.donation-item, .contribution-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.donation-icon, .contribution-icon {
+    width: 60px;
+    height: auto;
+    margin-right: 15px;
+}
+  
+.donation-amount {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.contribution-methods {
+    text-align: center;
+}
+  
+.contribution-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.contribution-item p {
+    font-size: 1rem;
+}  
+
+/* Back Button */
+.sponsorship-back-btn a {
+    display: inline-block;
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
+    font-family: inherit;
+}
+
+.sponsorship-back-btn a:hover {
+    background-color: #5a6268;
+}
+
+/* Action buttons (Edit, Delete) */
+.sponsorship-actions {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sponsorship-action {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 0 10px;
+    color: white;
+}
+
+.sponsorship-action.edit {
+    background-color: #007bff;
+}
+
+.sponsorship-action.edit:hover {
+    background-color: #0056b3;
+}
+
+.sponsorship-action.delete {
+    background-color: #dc3545;
+}
+
+.sponsorship-action.delete:hover {
+    background-color: #c82333;
+}

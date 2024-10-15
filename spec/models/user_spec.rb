@@ -6,7 +6,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   include TestAttributes
-  
+
   describe 'validations' do
     let(:user) { User.new(email: 'test@example.com', full_name: 'John Doe', phone_number: '1234567890') }
 

@@ -1,4 +1,6 @@
-<%= link_to 'Back', sponsorships_path %>
+<div class="sponsorship-back-btn">
+    <%= link_to 'Back', sponsorships_path %>
+</div>
 
 <div class="sponsorship delete">
     <h2>Delete Sponsorship</h2>
@@ -9,7 +11,7 @@
 
         <p class="reference-name"><%= f.object.sponsor_name %></p>
 
-        <div class="form-buttons">
+        <div class="sponsorships-actions">
             <%= f.submit("Delete Sponsorship") %>
         </div>
     <% end %>

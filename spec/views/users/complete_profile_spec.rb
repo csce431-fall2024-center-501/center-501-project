@@ -1,19 +1,21 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "users/complete_profile", type: :view do
+RSpec.describe 'users/complete_profile', type: :view do
   before do
     assign(:user, User.new(
-      phone_number: '1234567890',
-      class_year: 2024,
-      ring_date: Date.today,
-      grad_date: Date.today + 1.year,
-      birthday: Date.today - 20.years,
-      shirt_size: 'M',
-      dietary_restriction: 'None'
-    ))
+                    phone_number: '1234567890',
+                    class_year: 2024,
+                    ring_date: Date.today,
+                    grad_date: Date.today + 1.year,
+                    birthday: Date.today - 20.years,
+                    shirt_size: 'M',
+                    dietary_restriction: 'None'
+                  ))
   end
 
-  it "displays the correct form fields" do
+  it 'displays the correct form fields' do
     render
 
     # Check for form elements
@@ -32,13 +34,13 @@ RSpec.describe "users/complete_profile", type: :view do
     expect(rendered).to have_selector("input[type='submit'][value='Update Profile']")
   end
 
-  it "displays flash messages if present" do
-    flash[:notice] = "Profile updated successfully"
-    flash[:alert] = "There was an error updating the profile"
+  it 'displays flash messages if present' do
+    flash[:notice] = 'Profile updated successfully'
+    flash[:alert] = 'There was an error updating the profile'
 
     render
 
-    expect(rendered).to have_selector("div.flash.notice", text: "Profile updated successfully")
-    expect(rendered).to have_selector("div.flash.alert", text: "There was an error updating the profile")
+    expect(rendered).to have_selector('div.flash.notice', text: 'Profile updated successfully')
+    expect(rendered).to have_selector('div.flash.alert', text: 'There was an error updating the profile')
   end
 end
