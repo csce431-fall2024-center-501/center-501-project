@@ -10,7 +10,7 @@ class User < ApplicationRecord
   # Validates that the full_name is present and has a minimum length of 2 characters
   validates :full_name, presence: true, length: {
     minimum: 2,
-    too_short: 'must have at least %{count} characters'
+    too_short: 'must have at least %<count>s characters'
   }
 
   # Validates that the phone number is optional but must be 10 digits if provided

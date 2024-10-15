@@ -161,7 +161,6 @@ RSpec.describe '/users', type: :request do
     end
   end
 
-
   describe 'GET /new' do
     it 'renders a successful response' do
       # signs in user with valid attributes
