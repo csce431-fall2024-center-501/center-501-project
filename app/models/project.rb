@@ -6,7 +6,7 @@ class Project < ApplicationRecord
   validates :projectStartDate, presence: { message: 'Starting Date for the project must be provided.' }
   validates :locationID, numericality: { greater_than: 0, message: 'Location ID must be greater than 0.' }
   validates :isProjectActive, inclusion: { in: [true, false] }
-  validates :markdownBody, presence: { message: 'Markdown Body cannot be left blank.' }
+  validates :markdownBody, presence: false
 
   def self.human_attribute_name(attr, _options = {})
     case attr
