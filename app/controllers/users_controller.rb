@@ -8,51 +8,51 @@ class UsersController < AuthenticatedApplicationController
 
   # Attributes that admins can access
   ADMIN_ACCESS_ATTRIBUTES = %i[full_name email user_type phone_number class_year ring_date grad_date birthday
-                                shirt_size dietary_restriction account_complete created_at updated_at linkedin_url].freeze
+                               shirt_size dietary_restriction account_complete created_at updated_at linkedin_url].freeze
 
   # Attributes that officers can access
   OFFICER_ACCESS_ATTRIBUTES = %i[full_name email user_type phone_number class_year ring_date grad_date birthday
-                                  shirt_size dietary_restriction account_complete created_at updated_at linkedin_url].freeze
+                                 shirt_size dietary_restriction account_complete created_at updated_at linkedin_url].freeze
 
   # Attributes that users can access
   USER_ACCESS_ATTRIBUTES = %i[full_name email phone_number class_year linkedin_url].freeze
 
   # GET /users or /users.json
   def index
-    if current_user.admin?
-      @attributes = ADMIN_ACCESS_ATTRIBUTES
-    else
-      @attributes = USER_ACCESS_ATTRIBUTES
-    end
-  
+    @attributes = if current_user.admin?
+                    ADMIN_ACCESS_ATTRIBUTES
+                  else
+                    USER_ACCESS_ATTRIBUTES
+                  end
+
     # Convert params[:select_attributes] to an array of symbols if it's present
-    if params[:select_attributes].present?
-      select_attributes_param = params[:select_attributes].map(&:to_sym)
-    else
-      select_attributes_param = INITIAL_SELECT_ATTRIBUTES
-    end
-  
+    select_attributes_param = if params[:select_attributes].present?
+                                params[:select_attributes].map(&:to_sym)
+                              else
+                                INITIAL_SELECT_ATTRIBUTES
+                              end
+
     # Combine user-selected attributes with allowed attributes
     @select_attributes = select_attributes_param & @attributes
-  
+
     @users = User.all
-  
+
     # Sorting
     @users = @users.order("#{params[:sort]} #{params[:direction]}") if params[:sort].present?
-  
+
     # Filtering
-    if params[:search].present?
-      @users = @users.where("full_name LIKE ?", "%#{params[:search]}%")
-    end
+    return unless params[:search].present?
+
+    @users = @users.where('full_name LIKE ?', "%#{params[:search]}%")
   end
 
   # GET /users/1 or /users/1.json
   def show
-    if current_user.admin? || current_user.id == @user.id
-      @attributes = ADMIN_ACCESS_ATTRIBUTES
-    else
-      @attributes = USER_ACCESS_ATTRIBUTES
-    end
+    @attributes = if current_user.admin? || current_user.id == @user.id
+                    ADMIN_ACCESS_ATTRIBUTES
+                  else
+                    USER_ACCESS_ATTRIBUTES
+                  end
   end
 
   # GET /users/new
@@ -62,7 +62,7 @@ class UsersController < AuthenticatedApplicationController
 
   # GET /users/1/edit
   def edit
-    return unless current_user.id == @user.id || require_admin
+    nil unless current_user.id == @user.id || require_admin
   end
 
   # POST /users or /users.json
@@ -92,6 +92,7 @@ class UsersController < AuthenticatedApplicationController
 
   def delete
     return unless require_admin
+
     @user = User.find(params[:id])
   end
 
@@ -114,7 +115,7 @@ class UsersController < AuthenticatedApplicationController
   # PATCH/PUT /users/update_profile
   def update_profile
     @user = current_user
-  
+
     if user_params.values.any?(&:blank?)
       flash[:alert] = 'All fields must be filled out.'
       render :complete_profile
@@ -128,18 +129,21 @@ class UsersController < AuthenticatedApplicationController
       flash[:alert] = @user.errors.full_messages.join(', ')
       render :complete_profile
     end
-  end  
+  end
 
   private
+
   def set_user
     @user = User.find(params[:id])
   end
 
   def user_params
     if action_name == 'update_profile'
-      params.require(:user).permit(:phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, :linkedin_url)
+      params.require(:user).permit(:phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size,
+                                   :dietary_restriction, :linkedin_url)
     else
-      params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type, :phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction , :linkedin_url)
+      params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type, :phone_number, :class_year,
+                                   :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, :linkedin_url)
     end
   end
 
@@ -164,7 +168,11 @@ class UsersController < AuthenticatedApplicationController
 
   # Validation function to check if the LinkedIn URL is valid
   def valid_linkedin_url?(url)
-    uri = URI.parse(url) rescue nil
+    uri = begin
+      URI.parse(url)
+    rescue StandardError
+      nil
+    end
     uri && uri.host&.include?('linkedin.com') && uri.path.start_with?('/in/')
   end
 

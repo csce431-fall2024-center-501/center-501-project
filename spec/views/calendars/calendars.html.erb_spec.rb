@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "calendar/calendars", type: :view do
+RSpec.describe 'calendar/calendars', type: :view do
   before do
     assign(:calendar_list, [
-      double('Calendar', id: 1, summary: 'Calendar 1'),
-      double('Calendar', id: 2, summary: 'Calendar 2')
-    ])
+             double('Calendar', id: 1, summary: 'Calendar 1'),
+             double('Calendar', id: 2, summary: 'Calendar 2')
+           ])
   end
 
   it 'displays the calendar summaries' do

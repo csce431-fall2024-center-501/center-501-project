@@ -9,7 +9,8 @@ RSpec.describe 'projects/new', type: :view do
                        projectDesc: 'MyString',
                        projectStartDate: Date.today,
                        locationID: 1,
-                       isProjectActive: false
+                       isProjectActive: false,
+                       markdownBody: ''
                      ))
   end
 
@@ -26,6 +27,8 @@ RSpec.describe 'projects/new', type: :view do
       assert_select 'input[name=?][type=?]', 'project[locationID]', 'number'
 
       assert_select 'input[name=?][type=?]', 'project[isProjectActive]', 'checkbox'
+
+      assert_select 'textarea[name=?]', 'project[markdownBody]'
     end
   end
 end

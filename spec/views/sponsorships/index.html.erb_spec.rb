@@ -37,8 +37,8 @@ RSpec.describe 'sponsorships/index.html.erb', type: :view do
     expect(rendered).to have_selector('h1', text: 'Sponsorships')
   end
 
-  it 'has a link to create a new sponsorship' do
-    expect(rendered).to have_link('New Sponsorship', href: new_sponsorship_path)
+  it 'displays a New Sponsorship button' do
+    expect(rendered).to have_selector('form button', text: 'New Sponsorship')
   end
 
   it 'renders a table with sponsorships' do
@@ -48,8 +48,29 @@ RSpec.describe 'sponsorships/index.html.erb', type: :view do
     expect(rendered).to have_selector('td', text: 'Test Sponsor')
   end
 
-  it 'renders a Show link for each sponsorship' do
-    expect(rendered).to have_link('Show', href: sponsorship_path(sponsorship1))
-    expect(rendered).to have_link('Show', href: sponsorship_path(sponsorship2))
+  it 'displays the Show button for each sponsorship' do
+    expect(rendered).to have_selector('form button', text: 'Show', count: 2)
+  end
+
+  it "displays the 'Donate' button" do
+    expect(rendered).to have_selector('form button', text: 'Donate')
+  end
+
+  it 'displays donation information' do
+    expect(rendered).to have_text('$50')
+    expect(rendered).to have_text('10 sq. ft. of road in the Dominican Republic')
+    expect(rendered).to have_text('$400')
+    expect(rendered).to have_text('1 latrine in Rwanda')
+  end
+
+  it "displays the 'Ways to Contribute' section" do
+    expect(rendered).to have_text('Ways to Contribute')
+    expect(rendered).to have_text('One-time / Monthly Donations')
+    expect(rendered).to have_text('Your Expertise')
+  end
+
+  it 'displays the EWB Endowment section' do
+    expect(rendered).to have_text('EWB Endowment')
+    expect(rendered).to have_text('popham@tamu.edu')
   end
 end

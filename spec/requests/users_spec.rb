@@ -42,34 +42,34 @@ RSpec.describe '/users', type: :request do
   describe 'GET /index' do
     context 'when user is admin' do
       let(:admin) { User.create!(valid_admin_attributes) }
-  
+
       before do
         sign_in admin
       end
-  
+
       it 'renders a successful response with all attributes by default' do
         get users_url
         expect(response).to be_successful
         expect(response.body).to include(admin.full_name, admin.email, admin.phone_number.to_s, admin.class_year.to_s)
       end
-  
+
       it 'allows selection of specific attributes' do
         get users_url, params: { select_attributes: %w[email full_name] }
         expect(response).to be_successful
         expect(response.body).to include(admin.email, admin.full_name)
         expect(response.body).not_to include(admin.phone_number.to_s, admin.class_year.to_s)
       end
-  
+
       it 'sorts users by the selected attribute' do
         other_admin = User.create!(valid_admin_attributes.merge(full_name: 'Zach', email: 'test-email2@email.com'))
         get users_url, params: { sort: 'full_name', direction: 'asc' }
         expect(response).to be_successful
         response_body = response.body
-        
+
         # Make sure the users are displayed in the correct order (simple string check)
         expect(response_body.index(admin.full_name)).to be < response_body.index(other_admin.full_name)
       end
-      
+
       it 'filters users by full name' do
         other_admin = User.create!(valid_admin_attributes.merge(full_name: 'Zach', email: 'test-email2@email.com'))
         get users_url, params: { search: admin.full_name }
@@ -78,43 +78,43 @@ RSpec.describe '/users', type: :request do
         expect(response.body).not_to include(User.last.full_name)
       end
     end
-  
+
     context 'when user is not admin' do
       let(:user) { User.create!(valid_attributes) }
-  
+
       before do
         sign_in user
       end
-  
+
       it 'renders a successful response with limited attributes by default' do
         get users_url
         expect(response).to be_successful
         expect(response.body).to include(user.full_name, user.email, user.phone_number.to_s, user.class_year.to_s)
       end
-  
+
       it 'allows selection of specific attributes for non-admin' do
         get users_url, params: { select_attributes: %w[email full_name] }
         expect(response).to be_successful
         expect(response.body).to include(user.email, user.full_name)
         expect(response.body).not_to include(user.phone_number.to_s, user.class_year.to_s)
       end
-      
+
       it 'doesn\'t allow selection of privileged attributes' do
         get users_url, params: { select_attributes: %w[dietary_restriction] }
         expect(response).to be_successful
         expect(response.body).not_to include(user.dietary_restriction)
       end
-      
+
       it 'sorts users by selected attribute for non-admin' do
         other_user = User.create!(valid_attributes.merge(full_name: 'Zach', email: 'test-email2@example.com'))
         get users_url, params: { sort: 'full_name', direction: 'asc' }
         expect(response).to be_successful
         response_body = response.body
-        
+
         # Make sure the users are displayed in the correct order (simple string check)
         expect(response_body.index(user.full_name)).to be < response_body.index(other_user.full_name)
       end
-      
+
       it 'filters users by full name for non-admin' do
         get users_url, params: { search: user.full_name }
         other_user = User.create!(valid_attributes.merge(full_name: 'Zach', email: 'test-email2@example.com'))
@@ -124,7 +124,7 @@ RSpec.describe '/users', type: :request do
       end
     end
   end
-  
+
   describe 'GET /show' do
     context 'when user is admin' do
       it 'renders a successful response with all attributes' do
@@ -136,7 +136,7 @@ RSpec.describe '/users', type: :request do
         expect(response.body).to include(user.email, user.phone_number.to_s, user.class_year.to_s)
       end
     end
-  
+
     context 'when user is not admin' do
       it 'renders a successful response with limited attributes' do
         main_user = User.create! alternative_valid_attributes
@@ -160,7 +160,6 @@ RSpec.describe '/users', type: :request do
       end
     end
   end
-  
 
   describe 'GET /new' do
     it 'renders a successful response' do
@@ -270,14 +269,14 @@ RSpec.describe '/users', type: :request do
           expect(user.send(key)).to eq(value)
         end
       end
-      
+
       it 'does not allow user to change other users if not admin and redirects to root' do
         sign_in User.create! alternative_valid_attributes
         user = User.create! valid_attributes
         patch user_url(user), params: { user: new_attributes }
         expect(response).to redirect_to(root_path)
       end
-      
+
       it 'does allow user to his own profile' do
         user = User.create! valid_attributes
         sign_in user
@@ -336,17 +335,17 @@ RSpec.describe '/users', type: :request do
       it 'updates the current user profile and marks account as complete' do
         user = User.create! valid_attributes
         sign_in user
-        patch update_profile_users_url, params: { user: { 
-          phone_number: '1234567890', 
-          class_year: '2024', 
+        patch update_profile_users_url, params: { user: {
+          phone_number: '1234567890',
+          class_year: '2024',
           ring_date: '2024-05-15',
-          grad_date: '2024-06-10', 
-          birthday: '2000-01-01', 
-          shirt_size: 'M', 
+          grad_date: '2024-06-10',
+          birthday: '2000-01-01',
+          shirt_size: 'M',
           dietary_restriction: 'None',
-          linkedin_url: 'https://www.linkedin.com/in/testuser' 
+          linkedin_url: 'https://www.linkedin.com/in/testuser'
           } }
-          
+
           user.reload
           expect(user.phone_number).to eq('1234567890')
           expect(user.class_year).to eq(2024)
@@ -358,26 +357,26 @@ RSpec.describe '/users', type: :request do
           expect(user.linkedin_url).to eq('testuser')
           expect(user.account_complete).to be_truthy
         end
-        
+
         it 'redirects to the root path with a success notice after successful update' do
           user = User.create! valid_attributes
           sign_in user
-          patch update_profile_users_url, params: { user: { 
-            phone_number: '1234567890', 
-            class_year: '2024', 
+          patch update_profile_users_url, params: { user: {
+            phone_number: '1234567890',
+            class_year: '2024',
             ring_date: '2024-05-15',
-            grad_date: '2024-06-10', 
-            birthday: '2000-01-01', 
-            shirt_size: 'M', 
+            grad_date: '2024-06-10',
+            birthday: '2000-01-01',
+            shirt_size: 'M',
             dietary_restriction: 'None',
-            linkedin_url: 'https://www.linkedin.com/in/testuser' 
+            linkedin_url: 'https://www.linkedin.com/in/testuser'
             } }
-        
+
         expect(response).to redirect_to(root_path)
         expect(flash[:notice]).to eq('Profile updated successfully.')
       end
     end
-  
+
     context 'with invalid parameters' do
       it 'renders the complete_profile template with an alert' do
         user = User.create! valid_attributes
@@ -397,7 +396,7 @@ RSpec.describe '/users', type: :request do
       expect(response).to be_successful
       expect(response.body).to include('Complete Your Profile')
     end
-  
+
     it 'redirects to sign_in if not signed in' do
       get complete_profile_users_url
       expect(response).to redirect_to(new_user_session_url)

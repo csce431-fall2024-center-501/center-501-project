@@ -1,6 +1,6 @@
 # Introduction
 
-This repository creates the EWB (Engineers Without Boarders) website that they are able to use both internally and externally. The website uses Google OAuth for the users login. The login allows for Calendar and Email permissions that varies on the users status in the organization. The website also hosts much of the EWB information including their projects, sponsorship, and about pages. 
+This repository creates the EWB (Engineers Without Boarders) website that they are able to use both internally and externally. The website uses Google OAuth for the users login. The login allows for Calendar and Email permissions that varies on the users status in the organization. The website also hosts much of the EWB information including their projects, sponsorship, and about pages.
 
 
 # Project Environment
@@ -84,7 +84,7 @@ You can run all the test cases by running. This will run both the unit and integ
 
 1. Start docker and work in the terminal
 2. Login and open the Heroku Dashboard for monitoring the deployment
-3. Merge the dev branch into the test branch 
+3. Merge the dev branch into the test branch
 4. Merge the test branch into the main branch
 4. Heroku should automatically deploy once the code is pushed
 
@@ -92,7 +92,7 @@ You can run all the test cases by running. This will run both the unit and integ
 
 ### Example:
 
-Our product and sprint backlog can be found in [Jira](https://center-501.atlassian.net/jira/software/projects/EWB/boards/1/backlog) 
+Our product and sprint backlog can be found in [Jira](https://center-501.atlassian.net/jira/software/projects/EWB/boards/1/backlog)
 
 # Our Team
 

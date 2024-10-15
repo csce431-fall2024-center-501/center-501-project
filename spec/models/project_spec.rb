@@ -9,7 +9,8 @@ RSpec.describe Project, type: :model do
       projectDesc: 'This is a test project.',
       projectStartDate: Date.today,
       locationID: 100,
-      isProjectActive: true
+      isProjectActive: true,
+      markdownBody: ''
     )
 
     expect(@project.projectName).to be_empty
@@ -23,7 +24,8 @@ RSpec.describe Project, type: :model do
       projectDesc: '',
       projectStartDate: Date.today,
       locationID: 100,
-      isProjectActive: true
+      isProjectActive: true,
+      markdownBody: ''
     )
 
     expect(@project.projectDesc).to be_empty
@@ -37,7 +39,8 @@ RSpec.describe Project, type: :model do
       projectDesc: 'This is a test project.',
       projectStartDate: nil,
       locationID: 100,
-      isProjectActive: true
+      isProjectActive: true,
+      markdownBody: ''
     )
 
     expect(@project.projectStartDate).to be_nil
@@ -51,7 +54,8 @@ RSpec.describe Project, type: :model do
       projectDesc: 'This is a test project.',
       projectStartDate: Date.today,
       locationID: 0,
-      isProjectActive: true
+      isProjectActive: true,
+      markdownBody: ''
     )
 
     expect(@project.locationID).to eq(0)

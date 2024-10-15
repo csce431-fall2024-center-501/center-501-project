@@ -8,6 +8,7 @@ class CreateProjects < ActiveRecord::Migration[7.0]
       t.integer :locationID
       t.date :projectStartDate
       t.boolean :isProjectActive
+      t.text :markdownBody
 
       t.timestamps
     end

@@ -3,22 +3,36 @@
 <p style="color: green"><%= notice %></p>
 
 <body>
-  <div id="projects">
+  <div class="projects-header">
+    <h1> Projects </h1>
+    <h2> EWB_TAMU involves itself in many projects!
+      Try one or all of them out to see where you belong! </h2>
+    <hr>
+  </div>
+
+  <div class="projects-list">
 
     <h1> Current Projects </h1>
 
     <% @projects.each do |project| %>
       <% if project.isProjectActive %>
-        <p>
-          <b> <%= project.projectName %>: </b>
-          <br>
-          <%= project.projectDesc %>
-          <ul>
-            <b> - Project Start Date: </b> <%= project.projectStartDate %> <br>
-            <b> - Location: </b> <%= project.locationID %> <br>
-          </ul>
-        </p>
-        <p> <%= link_to "Show this project", project %> </p>
+      <div class="project-entry">
+        <div class="project-image">
+          <%= image_tag('logo.png', alt: 'Engineers Without Borders Logo', style: "background-color: #444444; width: 200px; height: 200px;") %>
+        </div>
+        <div class="project-body">
+          <p>
+            <b> <%= project.projectName %>: </b>
+            <br>
+            <%= project.projectDesc %>
+            <ul>
+              <b> - Project Start Date: </b> <%= project.projectStartDate %> <br>
+              <b> - Location: </b> <%= project.locationID %> <br>
+            </ul>
+          </p>
+          <p> <%= link_to "Show this project", project %> </p>
+        </div>
+      </div>
       <% end %>
     <% end %>
 
@@ -26,16 +40,23 @@
 
     <% @projects.each do |project| %>
       <% if !project.isProjectActive %>
-        <p>
-          <b> <%= project.projectName %>: </b>
-          <br>
-          <%= project.projectDesc %>
-          <ul>
-            <b> - Project Start Date: </b> <%= project.projectStartDate %> <br>
-            <b> - Location: </b> <%= project.locationID %> <br>
-          </ul>
-        </p>
-        <p> <%= link_to "Show this project", project %> </p>
+        <div class="project-entry">
+          <div class="project-image">
+            <%= image_tag('logo.png', alt: 'Engineers Without Borders Logo', style: "background-color: #444444; width: 200px; height: 200px;") %>
+          </div>
+          <div class="project-body">
+            <p>
+              <b> <%= project.projectName %>: </b>
+              <br>
+              <%= project.projectDesc %>
+              <ul>
+                <b> - Project Start Date: </b> <%= project.projectStartDate %> <br>
+                <b> - Location: </b> <%= project.locationID %> <br>
+              </ul>
+            </p>
+            <p> <%= link_to "Show this project", project %> </p>
+          </div>
+        </div>
       <% end %>
     <% end %>
 

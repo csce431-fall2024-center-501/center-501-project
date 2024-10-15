@@ -14,7 +14,7 @@ module TestAttributes
       dietary_restriction: 'Vegan',
     }
   end
-  
+
   def valid_admin_attributes
     {
       email: 'testuser-admin@example.com',

@@ -48,7 +48,7 @@ gem "rexml"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
- 
+
 gem 'google-api-client', require: 'google/apis/calendar_v3'
 
 group :development, :test do
@@ -96,3 +96,6 @@ gem 'sassc-rails'
 
 # bxSlider for slideshow
 gem 'bxslider-rails'
+
+# Markdown Processor
+gem 'redcarpet'
