@@ -1,32 +1,32 @@
-<p style="color: green"><%= notice %></p>
+<%= stylesheet_link_tag "project_view", media: "all"%>
+  <p style="color: green"><%= notice %></p>
 
-<div>
-  <body>
-    <header>
-      <h1> <%= @project.projectName %> </h1>
-      <p> <%= @project.projectStartDate %> </p>
-    </header>
+<div class="show-project">
 
-    <gallery>
-      <p> Image gallery goes here. </p>
-    </gallery>
+  <div class = "project-view-header">
+    <h1> <%= @project.projectName %> </h1>
+    <h2> <%= @project.projectStartDate %> </h2>
+  </div>
 
-    <summary>
-      <h1> PROJECT INFO </h1>
-      <div>
-        <p> Body of the page goes here. </p>
-      </div>
+  <div class="project-view-gallery">
+    <%= render 'shared/slideshow' %>
+  </div>
 
-    </summary>
+  <div class="project-view-body">
+    <p> <%= @html_output %> </p>
 
-    <actions>
-    <%= link_to("Edit this Project", edit_project_path(@project)) %>
+    <hr>
 
-    <%= link_to("Delete this Project", delete_project_path(@project)) %>
+    <div class = "project-actions">
 
-    <%= link_to("View other Projects", projects_path) %>
-    </actions>
+      <%= link_to("Edit this Project", edit_project_path(@project)) %>
 
-  </body>
+      <%= link_to("Delete this Project", delete_project_path(@project)) %>
+
+      <%= link_to("View other Projects", projects_path) %>
+
+    </div>
+
+  </div>
 
 </div>

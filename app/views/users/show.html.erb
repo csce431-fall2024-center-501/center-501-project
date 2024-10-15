@@ -1,22 +1,19 @@
 <h1>User Details</h1>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+<% @attributes.each do |attribute| %>
+  <% if attribute == :linkedin_url %>
+    <p>
+      <td><%= link_to image_tag('linkedin.svg', alt: 'LinkedIn', width: 24, height: 24), "https://www.linkedin.com/in/#{@user.send(attribute)}", target: '_blank' %></td>
+    </p>
+  <% else %>
+    <p>
+      <strong><%= attribute.to_s.humanize %>:</strong>
+      <%= @user.send(attribute) %>
+    </p>
+  <% end %>
+<% end %>
 
-<p>
-  <strong>Full Name:</strong>
-  <%= @user.full_name %>
-</p>
-
-<p>
-  <strong>User Type:</strong>
-  <%= @user.user_type %>
-</p>
-
-<%# if current_user == @user || current_user.admin? %>
-<% if current_user.admin? %>
+<% if current_user.admin? || current_user.id == @user.id%>
   <%= link_to 'Edit', edit_user_path(@user) %> |
 <% end %>
 <%= link_to 'Back', users_path %>

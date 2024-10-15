@@ -12,9 +12,10 @@
  *
  *= require_tree .
  *= require_self
+ *= require bxslider
  */
 
- 
+
 /*
  *= require navbar
  */
@@ -22,6 +23,8 @@
 :root {
     --primary-color: #77a0ef;
     --secondary-color: #eae7e7;
+    --tertiary-color: #4c7cdc;
+    --quaternary-color: #bebebe;
 }
 
  /* Reset body margin and padding */
@@ -30,4 +33,24 @@ body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
     text-align: center;
+}
+
+.flash.notice {
+    background-color: #d4edda; /* Green background for success */
+    color: #155724; /* Dark green text */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    width: 25%;
+    display: inline-block;
+}
+
+.flash.alert {
+    background-color: #f8d7da; /* Red background for error */
+    color: #721c24; /* Dark red text */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    width: 25%;
+    display: inline-block;
 }

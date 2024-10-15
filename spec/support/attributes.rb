@@ -8,7 +8,10 @@ module TestAttributes
       full_name: 'Test User',
       uid: '1234567890',
       avatar_url: 'http://example.com/avatar.jpg',
-      user_type: 'user'
+      user_type: 'user',
+      phone_number: '1234567890',
+      class_year: 2020,
+      dietary_restriction: 'Vegan',
     }
   end
 
@@ -18,7 +21,9 @@ module TestAttributes
       full_name: 'Test User',
       uid: '1234567890',
       avatar_url: 'http://example.com/avatar.jpg',
-      user_type: 'admin'
+      user_type: 'admin',
+      phone_number: '1234567890',
+      class_year: 2020
     }
   end
 

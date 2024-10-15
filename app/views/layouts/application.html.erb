@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GoogleOauthDevise</title>
+    <title>EWB</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
+
+    <script src="<%= asset_path 'slideshow.js' %>"></script>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <style>
@@ -18,7 +24,7 @@
     <header>
       <%= render "shared/navbar" %>
     </header>
-    
+
     <main>
       <%= yield %>
     </main>

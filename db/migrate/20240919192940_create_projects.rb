@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateProjects < ActiveRecord::Migration[7.0]
   def change
     create_table :projects do |t|
@@ -6,6 +8,7 @@ class CreateProjects < ActiveRecord::Migration[7.0]
       t.integer :locationID
       t.date :projectStartDate
       t.boolean :isProjectActive
+      t.text :markdownBody
 
       t.timestamps
     end
