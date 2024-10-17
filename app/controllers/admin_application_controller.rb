@@ -1,0 +1,3 @@
+class AdminApplicationController < AuthenticatedApplicationController
+  before_action :require_admin
+end

@@ -1,4 +1,4 @@
-class EmailsController < ApplicationController
+class EmailsController < AdminApplicationController
   def email
     @users = User.all
   end
