@@ -36,10 +36,30 @@ class ApplicationController < ActionController::Base
         if response.is_a?(Net::HTTPSuccess)
             response_body = JSON.parse(response.body)
             session[:google_access_token] = response_body['access_token']
-            session[:google_expires_at] = Time.now + response_body['expires_in'].to_i.seconds
+            session[:google_expires_at] = (Time.now + response_body['expires_in'].to_i).to_i
         else
             puts "Error: #{response.code} - #{response.message}"
             nil
         end
+    end
+
+    # Checks if the user is an admin, and redirects if not
+    def require_admin
+        unless current_user && current_user&.admin?
+          flash[:alert] = 'You must be an admin to access this section.'
+          redirect_to root_path # Redirect non-admin users
+          return false
+        end
+        true
+      end
+    
+    # Checks if the user is an officer OR admin, and redirects if not
+    def require_officer
+        unless current_user && (current_user&.officer? || current_user&.admin?)
+            flash[:alert] = 'You must be an officer to access this section.'
+            redirect_to root_path # Redirect non-officer users
+            return false
+        end
+        true
     end
 end

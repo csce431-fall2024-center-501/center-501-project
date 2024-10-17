@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CalendarController < AuthenticatedApplicationController
+class CalendarController < OfficerApplicationController
   EWB_CALENDAR_IDS = ['c_35657eacaf7df0315b9988c9b68e72be62b3d78e730edd6583459300f61320db@group.calendar.google.com'].freeze
 
   before_action :initialize_google_calendar_client
