@@ -67,7 +67,7 @@ class UsersController < AuthenticatedApplicationController
 
   # GET /users/1/edit
   def edit
-    if !(current_user.officer? || current_user.id == @user.id)
+    if !(current_user.officer? || current_user.admin? || current_user.id == @user.id)
       redirect_to root_path
     end
   end
