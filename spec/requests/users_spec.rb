@@ -42,10 +42,10 @@ RSpec.describe '/users', type: :request do
 
   describe 'GET /index' do
     context 'when user is admin' do
-      let(:admin) { User.create!(valid_admin_attributes) }
+      let(:officer) { User.create!(valid_officer_attributes) }
 
       before do
-        sign_in admin
+        sign_in officer
       end
 
       it 'renders a successful response with all attributes by default' do
