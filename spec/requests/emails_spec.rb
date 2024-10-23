@@ -4,11 +4,14 @@ require 'rails_helper'
 
 RSpec.describe 'Emails', type: :request do
   describe 'POST /emails/send_email' do
+    include TestAttributes
+
     let(:recipients) { 'test1@example.com,test2@example.com' }
     let(:subject) { 'Test Subject' }
     let(:message) { 'Test Message' }
 
     before do
+      sign_in User.create!(valid_admin_attributes)
       allow(AdminMailer).to receive_message_chain(:blast_email, :deliver_now)
     end
 

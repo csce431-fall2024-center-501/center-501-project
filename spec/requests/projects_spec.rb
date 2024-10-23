@@ -41,13 +41,7 @@ RSpec.describe '/projects', type: :request do
   end
 
   describe 'GET /index' do
-    context 'when regular user is logged in' do
-      let(:user) { User.create!(valid_attributes) }
-
-      before do
-        sign_in user
-      end
-
+    context 'when no one is logged in' do
       it 'renders a successful response' do
         Project.create! valid_project_attributes
         get projects_url
@@ -57,13 +51,7 @@ RSpec.describe '/projects', type: :request do
   end
 
   describe 'GET /show' do
-    context 'when regular user is logged in' do
-      let(:user) { User.create!(valid_attributes) }
-
-      before do
-        sign_in user
-      end
-
+    context 'when no one is logged in' do
       it 'renders a successful response' do
         project = Project.create! valid_project_attributes
         get project_url(project)

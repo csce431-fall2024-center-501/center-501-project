@@ -9,6 +9,7 @@ module RequestHelpers
         expect(response.body).to include(alert_message)
       end
     end
+    
     def test_redirect_to_signin(target_url, alert_message)
       get target_url
       expect(response).to redirect_to(new_user_session_path)
