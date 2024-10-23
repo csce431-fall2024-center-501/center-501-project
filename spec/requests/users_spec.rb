@@ -51,31 +51,31 @@ RSpec.describe '/users', type: :request do
       it 'renders a successful response with all attributes by default' do
         get users_url
         expect(response).to be_successful
-        expect(response.body).to include(admin.full_name, admin.email, admin.phone_number.to_s, admin.class_year.to_s)
+        expect(response.body).to include(officer.full_name, officer.email, officer.phone_number.to_s, officer.class_year.to_s)
       end
 
       it 'allows selection of specific attributes' do
         get users_url, params: { select_attributes: %w[email full_name] }
         expect(response).to be_successful
-        expect(response.body).to include(admin.email, admin.full_name)
-        expect(response.body).not_to include(admin.phone_number.to_s, admin.class_year.to_s)
+        expect(response.body).to include(officer.email, officer.full_name)
+        expect(response.body).not_to include(officer.phone_number.to_s, officer.class_year.to_s)
       end
 
       it 'sorts users by the selected attribute' do
-        other_admin = User.create!(valid_admin_attributes.merge(full_name: 'Zach', email: 'test-email2@email.com'))
+        other_officer = User.create!(valid_officer_attributes.merge(full_name: 'Zach', email: 'test-email2@email.com'))
         get users_url, params: { sort: 'full_name', direction: 'asc' }
         expect(response).to be_successful
         response_body = response.body
 
         # Make sure the users are displayed in the correct order (simple string check)
-        expect(response_body.index(admin.full_name)).to be < response_body.index(other_admin.full_name)
+        expect(response_body.index(officer.full_name)).to be < response_body.index(other_officer.full_name)
       end
 
       it 'filters users by full name' do
-        other_admin = User.create!(valid_admin_attributes.merge(full_name: 'Zach', email: 'test-email2@email.com'))
-        get users_url, params: { search: admin.full_name }
+        other_officer = User.create!(valid_officer_attributes.merge(full_name: 'Zach', email: 'test-email2@email.com'))
+        get users_url, params: { search: officer.full_name }
         expect(response).to be_successful
-        expect(response.body).to include(admin.full_name)
+        expect(response.body).to include(officer.full_name)
         expect(response.body).not_to include(User.last.full_name)
       end
     end
