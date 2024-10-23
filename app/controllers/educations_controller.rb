@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EducationsController < OfficerApplicationController
+class EducationsController < AuthenticatedApplicationController
   # Set the education object for specific actions
   before_action :set_education, only: %i[show edit update destroy]
 

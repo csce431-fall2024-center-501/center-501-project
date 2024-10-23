@@ -19,7 +19,6 @@ RSpec.describe '/educations', type: :request do
   # Education. As you add validations to Education, be sure to
   # adjust the attributes here as well.
   include TestAttributes
-  include RequestHelpers
 
   let(:valid_education_attributes) do
     {
@@ -38,171 +37,66 @@ RSpec.describe '/educations', type: :request do
   end
 
   describe 'GET /index' do
-    context 'when officer is logged in' do
-      let(:officer) { User.create!(valid_officer_attributes) }
-
-      before do
-        sign_in officer
-      end
-
-      it 'renders a successful response' do
-        Education.create! valid_education_attributes
-        get educations_url
-        expect(response).to be_successful
-      end
-    end
-
-    context 'when regular user is logged in' do
-      let(:user) { User.create!(valid_attributes) }
-
-      before do
-        sign_in user
-      end
-
-      it 'redirects to root' do
-        test_redirect_to_root(educations_url, nil)
-      end
-    end
-
-    context 'when user is not logged in' do
-      it 'redirects to signin' do
-        test_redirect_to_signin(educations_url, nil)
-      end
+    it 'renders a successful response' do
+      sign_in User.create! valid_attributes
+      Education.create! valid_education_attributes
+      get educations_url
+      expect(response).to be_successful
     end
   end
 
   describe 'GET /show' do
-    context 'when officer is logged in' do
-      let(:officer) { User.create!(valid_officer_attributes) }
-
-      before do
-        sign_in officer
-      end
-      it 'renders a successful response' do
-        education = Education.create! valid_education_attributes
-        get education_url(education)
-        expect(response).to be_successful
-      end
-    end
-
-    context 'when regular user is logged in' do
-      let(:user) { User.create!(valid_attributes) }
-
-      before do
-        sign_in user
-      end
-      it 'redirects to root' do
-        education = Education.create! valid_education_attributes
-        test_redirect_to_root(education_url(education), nil)
-      end
-    end
-
-    context 'when user is not logged in' do
-      it 'redirects to signin' do
-        education = Education.create! valid_education_attributes
-        test_redirect_to_signin(education_url(education), nil)
-      end
+    it 'renders a successful response' do
+      sign_in User.create! valid_attributes
+      education = Education.create! valid_education_attributes
+      get education_url(education)
+      expect(response).to be_successful
     end
   end
 
   describe 'GET /new' do
-    context 'when officer is logged in' do
-      let(:officer) { User.create!(valid_officer_attributes) }
-
-      before do
-        sign_in officer
-      end
-      it 'renders a successful response' do
-        get new_education_url
-        expect(response).to be_successful
-      end
-    end
-
-    context 'when regular user is logged in' do
-      let(:user) { User.create!(valid_attributes) }
-
-      before do
-        sign_in user
-      end
-      it 'redirects to root' do
-        test_redirect_to_root(new_education_url, nil)
-      end
-    end
-
-    context 'when user is not logged in' do
-      it 'redirects to signin' do
-        test_redirect_to_signin(new_education_url, nil)
-      end
+    it 'renders a successful response' do
+      sign_in User.create! valid_attributes
+      get new_education_url
+      expect(response).to be_successful
     end
   end
 
   describe 'GET /edit' do
-    context 'when officer is logged in' do
-      let(:officer) { User.create!(valid_officer_attributes) }
-
-      before do
-        sign_in officer
-      end
-      it 'renders a successful response' do
-        education = Education.create! valid_education_attributes
-        get edit_education_url(education)
-        expect(response).to be_successful
-      end
-    end
-
-    context 'when regular user is logged in' do
-      let(:user) { User.create!(valid_attributes) }
-
-      before do
-        sign_in user
-      end
-      it 'redirects to root' do
-        education = Education.create! valid_education_attributes
-        test_redirect_to_root(edit_education_url(education), nil)
-      end
-    end
-
-    context 'when user is not logged in' do
-      it 'redirects to signin' do
-        education = Education.create! valid_education_attributes
-        test_redirect_to_signin(edit_education_url(education), nil)
-      end
+    it 'renders a successful response' do
+      sign_in User.create! valid_attributes
+      education = Education.create! valid_education_attributes
+      get edit_education_url(education)
+      expect(response).to be_successful
     end
   end
 
   describe 'POST /create' do
-    
-    context 'with valid parameters and officer is logged in' do
-      let(:officer) { User.create!(valid_officer_attributes) }
-
-      before do
-        sign_in officer
-      end
+    context 'with valid parameters' do
       it 'creates a new Education' do
+        sign_in User.create! valid_attributes
         expect do
           post educations_url, params: { education: valid_education_attributes }
         end.to change(Education, :count).by(1)
       end
 
       it 'redirects to the created education' do
+        sign_in User.create! valid_attributes
         post educations_url, params: { education: valid_education_attributes }
         expect(response).to redirect_to(education_url(Education.last))
       end
     end
 
-    context 'with invalid parameters and officer is logged in' do
-      let(:officer) { User.create!(valid_officer_attributes) }
-
-      before do
-        sign_in officer
-      end
+    context 'with invalid parameters' do
       it 'does not create a new Education' do
+        sign_in User.create! valid_attributes
         expect do
           post educations_url, params: { education: invalid_education_attributes }
         end.to change(Education, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
+        sign_in User.create! valid_attributes
         post educations_url, params: { education: invalid_education_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -210,7 +104,7 @@ RSpec.describe '/educations', type: :request do
   end
 
   describe 'PATCH /update' do
-    context 'with valid parameters and officer is logged in' do
+    context 'with valid parameters' do
       let(:new_attributes) do
         {
           educationName: 'Software Engineering',
@@ -219,13 +113,8 @@ RSpec.describe '/educations', type: :request do
         }
       end
 
-      let(:officer) { User.create!(valid_officer_attributes) }
-
-      before do
-        sign_in officer
-      end
-
       it 'updates the requested education' do
+        sign_in User.create! valid_attributes
         education = Education.create! valid_education_attributes
         patch education_url(education), params: { education: new_attributes }
         education.reload
@@ -235,6 +124,7 @@ RSpec.describe '/educations', type: :request do
       end
 
       it 'redirects to the education' do
+        sign_in User.create! valid_attributes
         education = Education.create! valid_education_attributes
         patch education_url(education), params: { education: new_attributes }
         education.reload
@@ -242,13 +132,9 @@ RSpec.describe '/educations', type: :request do
       end
     end
 
-    context 'with invalid parameters but officer is logged in' do
-      let(:officer) { User.create!(valid_officer_attributes) }
-
-      before do
-        sign_in officer
-      end
+    context 'with invalid parameters' do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
+        sign_in User.create! valid_attributes
         education = Education.create! valid_education_attributes
         patch education_url(education), params: { education: invalid_education_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
@@ -257,25 +143,19 @@ RSpec.describe '/educations', type: :request do
   end
 
   describe 'DELETE /destroy' do
-    context 'when officer is logged in' do
-      let(:officer) { User.create!(valid_officer_attributes) }
-
-      before do
-        sign_in officer
-      end
-
-      it 'destroys the requested education' do
-        education = Education.create! valid_education_attributes
-        expect do
-          delete education_url(education)
-        end.to change(Education, :count).by(-1)
-      end
-
-      it 'redirects to the educations list' do
-        education = Education.create! valid_education_attributes
+    it 'destroys the requested education' do
+      sign_in User.create! valid_attributes
+      education = Education.create! valid_education_attributes
+      expect do
         delete education_url(education)
-        expect(response).to redirect_to(educations_url)
-      end
+      end.to change(Education, :count).by(-1)
+    end
+
+    it 'redirects to the educations list' do
+      sign_in User.create! valid_attributes
+      education = Education.create! valid_education_attributes
+      delete education_url(education)
+      expect(response).to redirect_to(educations_url)
     end
   end
 end

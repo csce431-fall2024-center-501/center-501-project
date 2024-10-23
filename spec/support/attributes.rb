@@ -15,18 +15,6 @@ module TestAttributes
     }
   end
 
-  def valid_officer_attributes
-    {
-      email: 'testuser-admin@example.com',
-      full_name: 'Test User',
-      uid: '1234567890',
-      avatar_url: 'http://example.com/avatar.jpg',
-      user_type: 'officer',
-      phone_number: '1234567890',
-      class_year: 2020
-    }
-  end
-
   def valid_admin_attributes
     {
       email: 'testuser-admin@example.com',

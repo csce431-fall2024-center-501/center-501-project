@@ -40,11 +40,6 @@ class User < ApplicationRecord
     create_with(uid:, full_name:, avatar_url:, user_type:).find_or_create_by!(email:)
   end
 
-  # Quick officer check
-  def officer?
-    user_type == 'officer'
-  end
-
   # Quick admin check
   def admin?
     user_type == 'admin'

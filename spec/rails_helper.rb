@@ -69,12 +69,5 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  
   config.include Devise::Test::IntegrationHelpers, type: :request
-
-  config.before(:each, type: :request) do
-    # Ensure tokens are refreshed if needed
-    allow_any_instance_of(ApplicationController).to receive(:refresh_token_if_needed).and_return(true)
-  end
-  
 end

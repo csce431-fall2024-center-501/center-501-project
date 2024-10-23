@@ -1,4 +1,4 @@
-class PhotosController < OfficerApplicationController
+class PhotosController < ApplicationController
     before_action :set_photo, only: %i[show edit update destroy]
     
         def index
@@ -17,7 +17,7 @@ class PhotosController < OfficerApplicationController
     
         def create
             @photo = Photo.new(photo_params)
-
+    
             respond_to do |format|
                 if @photo.save
                     format.html { redirect_to @photo, notice: 'Photo was successfully created.' }

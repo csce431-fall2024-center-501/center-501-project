@@ -61,7 +61,7 @@ module Users
       # Storing access token, refresh token, and expiration in the session
       session[:google_access_token] = credentials.token
       session[:google_refresh_token] = credentials.refresh_token
-      session[:google_expires_at] = credentials.expires_at.to_i.seconds
+      session[:google_expires_at] = credentials.expires_at
     end
   end
 end

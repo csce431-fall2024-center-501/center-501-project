@@ -10,21 +10,16 @@ class SponsorshipsController < ApplicationController
   def show; end
 
   def new
-    return unless require_officer
     @sponsorship = Sponsorship.new
   end
 
-  def edit
-    return unless require_officer
-  end
+  def edit; end
 
   def delete
-    return unless require_officer
     @sponsorship = Sponsorship.find(params[:id])
   end
 
   def create
-    return unless require_officer
     @sponsorship = Sponsorship.new(sponsorship_params)
 
     respond_to do |format|
@@ -38,7 +33,6 @@ class SponsorshipsController < ApplicationController
   end
 
   def update
-    return unless require_officer
     respond_to do |format|
       if @sponsorship.update(sponsorship_params)
         format.html { redirect_to sponsorships_path, notice: 'Sponsorship record was successfully updated.' }
@@ -50,7 +44,6 @@ class SponsorshipsController < ApplicationController
   end
 
   def destroy
-    return unless require_officer
     @sponsorship.destroy
     redirect_to sponsorships_path
   end

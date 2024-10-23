@@ -1,4 +1,4 @@
-class LocationsController < OfficerApplicationController
+class LocationsController < ApplicationController
     # ensure location is set b4 performing any actions on it
     before_action :set_location, only: %i[show edit update destroy delete]
 
