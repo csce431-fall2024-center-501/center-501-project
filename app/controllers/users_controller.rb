@@ -21,6 +21,8 @@ class UsersController < AuthenticatedApplicationController
   def index
     @attributes = if current_user.admin?
                     ADMIN_ACCESS_ATTRIBUTES
+                  elsif current_user.officer?
+                    OFFICER_ACCESS_ATTRIBUTES
                   else
                     USER_ACCESS_ATTRIBUTES
                   end
@@ -50,6 +52,8 @@ class UsersController < AuthenticatedApplicationController
   def show
     @attributes = if current_user.admin? || current_user.id == @user.id
                     ADMIN_ACCESS_ATTRIBUTES
+                  elsif current_user.officer?
+                    OFFICER_ACCESS_ATTRIBUTES
                   else
                     USER_ACCESS_ATTRIBUTES
                   end
@@ -57,17 +61,20 @@ class UsersController < AuthenticatedApplicationController
 
   # GET /users/new
   def new
+    return unless require_officer
     @user = User.new
   end
 
   # GET /users/1/edit
   def edit
-    nil unless current_user.id == @user.id || require_admin
+    if !(current_user.officer? || current_user.admin? || current_user.id == @user.id)
+      redirect_to root_path
+    end
   end
 
   # POST /users or /users.json
   def create
-    return unless require_admin
+    return unless require_officer
 
     @user = User.new(user_params)
     @user.account_complete = true
@@ -81,7 +88,7 @@ class UsersController < AuthenticatedApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    return unless current_user.id == @user.id || require_admin
+    return unless current_user.id == @user.id || require_officer
 
     if @user.update(user_params)
       save_user(@user, :edit)
@@ -91,14 +98,14 @@ class UsersController < AuthenticatedApplicationController
   end
 
   def delete
-    return unless require_admin
+    return unless require_officer
 
     @user = User.find(params[:id])
   end
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    return unless require_admin
+    return unless require_officer
 
     @user.destroy
     respond_to do |format|
