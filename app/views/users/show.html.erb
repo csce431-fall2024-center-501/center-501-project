@@ -13,7 +13,12 @@
   <% end %>
 <% end %>
 
-<% if current_user.admin? || current_user.id == @user.id%>
+<h2>Projects</h2>
+<% @projects.each do |project| %>
+  <p><%= project.projectName %></p>
+<% end %>
+
+<% if current_user.atleast_officer? || current_user.id == @user.id %>
   <%= link_to 'Edit', edit_user_path(@user) %> |
 <% end %>
 <%= link_to 'Back', users_path %>

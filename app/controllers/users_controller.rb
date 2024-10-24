@@ -2,7 +2,8 @@
 
 class UsersController < AuthenticatedApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-
+  before_action :set_projects, only: %i[edit new]
+  
   # Only attributes that are selected by default
   INITIAL_SELECT_ATTRIBUTES = %i[full_name email phone_number class_year linkedin_url].freeze
 
@@ -12,7 +13,7 @@ class UsersController < AuthenticatedApplicationController
 
   # Attributes that officers can access
   OFFICER_ACCESS_ATTRIBUTES = %i[full_name email user_type phone_number class_year ring_date grad_date birthday
-                                 shirt_size dietary_restriction account_complete created_at updated_at linkedin_url].freeze
+                                 shirt_size dietary_restriction account_complete created_at updated_at linkedin_u].freeze
 
   # Attributes that users can access
   USER_ACCESS_ATTRIBUTES = %i[full_name email phone_number class_year linkedin_url].freeze
@@ -57,6 +58,7 @@ class UsersController < AuthenticatedApplicationController
                   else
                     USER_ACCESS_ATTRIBUTES
                   end
+    @projects = @user.projects
   end
 
   # GET /users/new
@@ -144,13 +146,17 @@ class UsersController < AuthenticatedApplicationController
     @user = User.find(params[:id])
   end
 
+  def set_projects
+    @projects = Project.all
+  end
+
   def user_params
     if action_name == 'update_profile'
       params.require(:user).permit(:phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size,
                                    :dietary_restriction, :linkedin_url)
     else
       params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type, :phone_number, :class_year,
-                                   :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, :linkedin_url)
+                                   :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, :linkedin_url, project_ids: [])
     end
   end
 
