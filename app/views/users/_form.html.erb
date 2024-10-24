@@ -65,6 +65,11 @@
     <%= form.select :dietary_restriction, ['None', 'Vegetarian', 'Vegan', 'Dairy-free', 'Nuts-free'] %>
   </div>
 
+  <div>
+    <%= form.label :projects %>
+    <%= form.collection_select :project_ids, @projects, :id, :projectName, {}, { multiple: true } %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

@@ -71,7 +71,7 @@
             <% end %>
           <% end %>
           <td><%= link_to 'Show', user %></td>
-          <% if current_user.admin? %>
+          <% if current_user.atleast_officer? %>
             <td><%= link_to 'Edit', edit_user_path(user) %></td>
             <td><%= link_to 'Delete', delete_user_path(user) %></td>
           <% end %>

@@ -48,4 +48,26 @@ module TestAttributes
       user_type: 'invalid_type'
     }
   end
+
+  def valid_project_attributes
+    {
+      projectName: 'Delta Research',
+      projectDesc: 'Initiating new research projects under the Delta initiative.',
+      projectStartDate: Date.new(2024, 12, 5),
+      locationID: 4,
+      isProjectActive: true,
+      markdownBody: '# Delta Research\nResearch objectives and timelines.'
+    }
+  end
+
+  def valid_project_attributes2
+    {
+      projectName: 'Epsilon Closure',
+      projectDesc: 'Formal closure of the Epsilon facility.',
+      projectStartDate: Date.new(2025, 3, 30),
+      locationID: 5,
+      isProjectActive: false,
+      markdownBody: nil
+    }
+  end
 end

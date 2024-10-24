@@ -12,6 +12,7 @@ RSpec.describe 'users/edit', type: :view do
   before(:each) do
     assign(:user, user)
     allow(view).to receive(:current_user).and_return(User.create!(valid_admin_attributes))
+    assign(:projects, [Project.create!(valid_project_attributes), Project.create!(valid_project_attributes2)])
   end
 
   it 'renders the edit user form' do
@@ -21,5 +22,11 @@ RSpec.describe 'users/edit', type: :view do
       assert_select 'input[name=?]', 'user[full_name]'
       assert_select 'input[type=?]', 'submit'
     end
+  end
+
+  it 'displays available projects' do
+    render
+    expect(rendered).to match(/#{valid_project_attributes[:projectName]}/)
+    expect(rendered).to match(/#{valid_project_attributes2[:projectName]}/)
   end
 end

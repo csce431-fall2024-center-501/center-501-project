@@ -34,6 +34,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
+  has_many :user_projects
+  has_many :projects, through: :user_projects
+
   # Create a user from Google OAuth and return it if the email doesn't already exist
   # If email is already in the database, it simply returns the user
   def self.from_google(email:, full_name:, uid:, avatar_url:, user_type:)
@@ -43,6 +46,10 @@ class User < ApplicationRecord
   # Quick officer check
   def officer?
     user_type == 'officer'
+  end
+
+  def atleast_officer?
+    user_type == 'officer' || user_type == 'admin'
   end
 
   # Quick admin check
