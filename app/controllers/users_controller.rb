@@ -76,6 +76,7 @@ class UsersController < AuthenticatedApplicationController
 
   # POST /users or /users.json
   def create
+    @projects = []
     return unless require_officer
 
     @user = User.new(user_params)
@@ -90,6 +91,7 @@ class UsersController < AuthenticatedApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    @projects = []
     return unless current_user.id == @user.id || require_officer
 
     if @user.update(user_params)
