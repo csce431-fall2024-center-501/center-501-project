@@ -1,5 +1,15 @@
+# frozen_string_literal: true
+
 class EmailsController < AdminApplicationController
-  def email
+  def individual_email
+    @users = User.all
+  end
+
+  def active_member_email
+    @users = User.where('graduation_date > ?', Date.today)
+  end
+
+  def active_inactive_member_email
     @users = User.all
   end
 
@@ -7,7 +17,21 @@ class EmailsController < AdminApplicationController
     recipients = params[:recipients].split(',')
     subject = params[:subject]
     message = params[:message]
-    AdminMailer.blast_email(recipients, subject, message).deliver_now
+    AdminMailer.indiviual_email(recipients, subject, message).deliver_now
+    redirect_to email_path, notice: 'Email sent successfully.'
+  end
+
+  def send_active_member_email
+    subject = params[:subject]
+    message = params[:message]
+    AdminMailer.active_member_email(subject, message).deliver_now
+    redirect_to email_path, notice: 'Email sent successfully.'
+  end
+
+  def send_active_inactive_member_email
+    subject = params[:subject]
+    message = params[:message]
+    AdminMailer.active_inactive_member_email(subject, message).deliver_now
     redirect_to email_path, notice: 'Email sent successfully.'
   end
 end

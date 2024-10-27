@@ -1,0 +1,19 @@
+<h1> Send Active Members Email </h1>
+
+<h2> This email is send to all members who have their graduation date set to a future date. </h2>
+
+<%= form_with url: send_active_member_email_path, method: :post, local: true do |form| %>
+    <div class="field">
+        <%= form.label :subject, "Subject:" %>
+        <%= form.text_field :subject %>
+    </div>
+
+    <div class="field">
+        <%= form.label :body, "Body:" %>
+        <%= form.text_area :body %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit "Send" %>
+    </div>
+<% end %>
