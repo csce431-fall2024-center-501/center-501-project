@@ -55,5 +55,7 @@ Rails.application.routes.draw do
       get :delete
     end
   end
+
+  get 'members', to: 'members#index'
   root 'pages#home'
 end

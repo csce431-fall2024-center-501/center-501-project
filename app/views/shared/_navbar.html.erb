@@ -3,7 +3,7 @@
         <li class="logo"><%= image_tag('logo.png', alt: 'Engineers Without Borders Logo') %></li>
         <li><%= link_to 'Home', root_path, class: current_page?(root_path) ? 'active' : '' %></li>
         <li><%= link_to 'Projects', projects_path, class: current_page?(projects_path) ? 'active' : '' %></li>
-        <li><%= 'Members' %></li>
+        <li><%= link_to 'Members', members_path, class: current_page?(members_path) ? 'active' : '' %></li>
         <li><%= link_to 'Sponsors & Donations', sponsorships_path, class: current_page?(sponsorships_path) ? 'active' : '' %></li>
         <% if current_user %>
             <li><%= link_to 'Member Directory', users_path, class: current_page?(users_path) ? 'active' : '' %></li>
