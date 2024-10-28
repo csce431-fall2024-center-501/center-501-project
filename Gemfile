@@ -100,3 +100,9 @@ gem 'bxslider-rails'
 gem 'redcarpet'
 
 gem "faker"
+
+# Cloudinary for photo upload
+gem 'cloudinary'
+
+# Dotenv for environment variables
+gem 'dotenv-rails'
