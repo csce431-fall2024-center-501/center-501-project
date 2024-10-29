@@ -5,50 +5,51 @@
   <div class="form">
     <%= form_with(model: project) do |form| %>
       <% if project.errors.any? %>
-        <div style="color: red">
+        <div class="flash alert", style="width:100%;  box-sizing: border-box;">
           <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
           <ul>
             <% project.errors.each do |error| %>
-              <li><%= error.full_message %></li>
+              <li style="text-align: left"><%= error.full_message %></li>
             <% end %>
           </ul>
         </div>
       <% end %>
 
-      <div>
-        <%= form.label :projectName, "Project Name", style: "display: block" %>
-        <%= form.text_field :projectName %>
-      </div>
+      <table class="form_table">
+          <tr>
+            <th class = "form_th"> <%= form.label :projectName, "Project Name", style: "text-align: left; display: block; padding-left: 10px" %> </th>
+            <td> <%= form.text_field :projectName, style: "width: 100%; box-sizing: border-box" %> </td>
+          </tr>
 
-      <div>
-        <%= form.label :projectDesc, "Project Description", style: "display: block" %>
-        <%= form.text_area :projectDesc, rows: 8, cols: 80 %>
-      </div>
+          <tr>
+            <th class = "form_th"> <%= form.label :projectDesc, "Project Description", style: "text-align: left; display: block; padding-left: 10px" %> </th>
+            <td> <%= form.text_area :projectDesc, rows: 8, cols: 80, style: "width: 100%; box-sizing: border-box" %> </td>
+          </tr>
 
-      <div>
-        <%= form.label :locationID, "Location ID", style: "display: block" %>
-        <%= form.select :locationID, Location.all.collect { |l| [l.state + ", " + l.country, l.id]}, include_blank: "Please Assign a Location" %>
-      </div>
+          <tr>
+            <th class = "form_th"> <%= form.label :locationID, "Location ID", style: "text-align: left; display: block; padding-left: 10px" %> </th>
+            <td> <%= form.select :locationID, Location.all.collect { |l| [l.state + ", " + l.country, l.id]}, include_blank: "Please Assign a Location" %> </td>
+          </tr>
 
-      <div>
-        <%= form.label :projectStartDate, "Project Start Date", style: "display: block" %>
-        <%= form.date_field :projectStartDate %>
-      </div>
+          <tr>
+            <th class = "form_th"> <%= form.label :projectStartDate, "Project Start Date", style: "text-align: left; display: block; padding-left: 10px" %> </th>
+            <td> <%= form.date_field :projectStartDate %> </td>
+          </tr>
 
-      <div>
-        <%= form.label :isProjectActive, "Is the Project Active?", style: "display: block" %>
-        <%= form.check_box :isProjectActive %>
-      </div>
+          <tr>
+            <th class = "form_th"> <%= form.label :isProjectActive, "Is the Project Active?", style: "text-align: left; display: block; padding-left: 10px" %> </th>
+            <td> <%= form.check_box :isProjectActive %> </td>
+          </tr>
 
-      <div>
-        <%= form.label :markdownBody, "Markdown Body", style: "display: block" %>
-        <%= form.text_area :markdownBody, rows: 16, cols: 80, id: "markdown_body" %>
-      </div>
+          <tr>
+            <th class = "form_th"> <%= form.label :markdownBody, "Markdown Body", style: "text-align: left; display: block; padding-left: 10px;" %> </th>
+            <td> <%= form.text_area :markdownBody, rows: 16, cols: 80, id: "markdown_body", style: "width: 100%; box-sizing: border-box" %> </td>
+          </tr>
+      </table>
 
-      <div>
-        <%= form.submit %>
-      </div>
+        <div>
+            <%= form.submit %>
+        </div>
 
     <% end %>
 
