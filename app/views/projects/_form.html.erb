@@ -28,7 +28,7 @@
 
       <div>
         <%= form.label :locationID, "Location ID", style: "display: block" %>
-        <%= form.number_field :locationID %>
+        <%= form.select :locationID, Location.all.collect { |l| [l.state + ", " + l.country, l.id]}, include_blank: "Please Assign a Location" %>
       </div>
 
       <div>
