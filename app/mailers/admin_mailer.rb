@@ -6,7 +6,7 @@ class AdminMailer < ApplicationMailer
 
   def active_member_email(subject, message)
     @message = message
-    @users = User.where('graduation_date > ?', Date.today)
+    @users = User.where('grad_date > ?', Date.today)
     mail(to: @users.pluck(:email), subject:)
   end
 
@@ -14,5 +14,11 @@ class AdminMailer < ApplicationMailer
     @message = message
     @users = User.all
     mail(to: @users.pluck(:email), subject:)
+  end
+
+  def birthday_email(person)
+    @person = person
+    @users = User.where('grad_date > ?', Date.today)
+    mail(to: @users.pluck(:email), subject: "Happy Birthday#{person.full_name}!")
   end
 end

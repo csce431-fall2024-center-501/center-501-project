@@ -6,7 +6,7 @@ class EmailsController < AdminApplicationController
   end
 
   def active_member_email
-    @users = User.where('graduation_date > ?', Date.today)
+    @users = User.where('grad_date > ?', Date.today)
   end
 
   def active_inactive_member_email
