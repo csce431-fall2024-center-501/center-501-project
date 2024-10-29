@@ -71,8 +71,13 @@ RSpec.configure do |config|
 
   
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :feature
 
   config.before(:each, type: :request) do
+    # Ensure tokens are refreshed if needed
+    allow_any_instance_of(ApplicationController).to receive(:refresh_token_if_needed).and_return(true)
+  end
+  config.before(:each, type: :feature) do
     # Ensure tokens are refreshed if needed
     allow_any_instance_of(ApplicationController).to receive(:refresh_token_if_needed).and_return(true)
   end
