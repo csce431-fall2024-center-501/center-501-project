@@ -65,6 +65,49 @@ MARKDOWN
   }
 ])
 
+Project.create!([
+  {
+    projectName: 'Alpha Expansion',
+    projectDesc: 'Expansion of the Alpha site to accommodate new equipment.',
+    projectStartDate: Date.new(2024, 11, 1),
+    locationID: 1,
+    isProjectActive: true,
+    markdownBody: '# Alpha Expansion\nDetails about the expansion will be documented here.'
+  },
+  {
+    projectName: 'Beta Migration',
+    projectDesc: 'Migrating Beta site operations to the new facility.',
+    projectStartDate: Date.new(2025, 1, 15),
+    locationID: 2,
+    isProjectActive: false,
+    markdownBody: '## Migration Plan\nSteps to migrate Beta site operations are outlined here.'
+  },
+  {
+    projectName: 'Gamma Renovation',
+    projectDesc: 'Complete renovation of the Gamma project area.',
+    projectStartDate: Date.new(2025, 5, 20),
+    locationID: 3,
+    isProjectActive: true,
+    markdownBody: nil
+  },
+  {
+    projectName: 'Delta Research',
+    projectDesc: 'Initiating new research projects under the Delta initiative.',
+    projectStartDate: Date.new(2024, 12, 5),
+    locationID: 4,
+    isProjectActive: true,
+    markdownBody: '# Delta Research\nResearch objectives and timelines.'
+  },
+  {
+    projectName: 'Epsilon Closure',
+    projectDesc: 'Formal closure of the Epsilon facility.',
+    projectStartDate: Date.new(2025, 3, 30),
+    locationID: 5,
+    isProjectActive: false,
+    markdownBody: nil
+  }
+])
+
 100.times do
     User.create!(
         email: Faker::Internet.unique.email,

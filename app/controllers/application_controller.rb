@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
     
     # Checks if the user is an officer OR admin, and redirects if not
     def require_officer
-        unless current_user && (current_user&.officer? || current_user&.admin?)
+        unless current_user && current_user&.atleast_officer?
             flash[:alert] = 'You must be an officer to access this section.'
             redirect_to root_path # Redirect non-officer users
             return false
