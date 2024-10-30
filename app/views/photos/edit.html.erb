@@ -1,5 +1,7 @@
 <h1><%= action_name.capitalize %> Photo</h1>
 
+<p> <%= @photo.url %> </p>
+
 <%= render 'form', photo: @photo %>
 
 <%= link_to 'Back', photos_path %>

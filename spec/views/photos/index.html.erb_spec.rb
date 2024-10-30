@@ -4,8 +4,8 @@ require 'rails_helper'
 RSpec.describe "photos/index", type: :view do
   before do
     assign(:photos, [
-      Photo.create!(photoLink: "https://example.com/photo1", photoDescription: "Description 1", photoType: "Type1", photoPageLocation: "Home"),
-      Photo.create!(photoLink: "https://example.com/photo2", photoDescription: "Description 2", photoType: "Type2", photoPageLocation: "Gallery")
+      Photo.create!(url: "https://example.com/photo1", photo_description: "Description 1", photo_type: "Type1", photoPageLocation: "Home"),
+      Photo.create!(url: "https://example.com/photo2", photo_description: "Description 2", photo_type: "Type2", photoPageLocation: "Gallery")
     ])
     render
   end

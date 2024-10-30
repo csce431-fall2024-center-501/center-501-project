@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "photos/delete", type: :view do
   before do
-    @photo = assign(:photo, Photo.create!(photoLink: "https://example.com/photo", photoDescription: "A sample photo", photoType: "Landscape", photoPageLocation: "Home"))
+    @photo = assign(:photo, Photo.create!(url: "https://example.com/photo", photo_description: "A sample photo", photo_type: "Landscape", photoPageLocation: "Home"))
     render
   end
 

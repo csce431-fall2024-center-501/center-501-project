@@ -8,7 +8,7 @@ RSpec.describe "photos/new", type: :view do
 
   it "displays the form fields for creating a new photo" do
     render
-    expect(rendered).to have_selector("input[name='photo[photoLink]']")
+    expect(rendered).to have_selector("input[name='photo[photo_description]']")
   end
 end
 

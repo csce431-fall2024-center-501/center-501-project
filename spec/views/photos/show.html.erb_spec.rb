@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe "photos/show", type: :view do
   before do
-    @photo = assign(:photo, Photo.create!(photoLink: "https://example.com/photo1", photoDescription: "Description 1", photoType: "Type1", photoPageLocation: "Home"))
+    @photo = assign(:photo, Photo.create!(url: "https://example.com/photo1", photo_description: "Description 1", photo_type: "Type1", photoPageLocation: "Home"))
     render
   end
 
