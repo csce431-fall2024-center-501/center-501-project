@@ -2,7 +2,8 @@
 
 class UsersController < AuthenticatedApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-
+  before_action :set_projects, only: %i[edit new]
+  
   # Only attributes that are selected by default
   INITIAL_SELECT_ATTRIBUTES = %i[full_name email phone_number class_year linkedin_url].freeze
 
@@ -12,7 +13,7 @@ class UsersController < AuthenticatedApplicationController
 
   # Attributes that officers can access
   OFFICER_ACCESS_ATTRIBUTES = %i[full_name email user_type phone_number class_year ring_date grad_date birthday
-                                 shirt_size dietary_restriction account_complete created_at updated_at linkedin_url].freeze
+                                 shirt_size dietary_restriction account_complete created_at updated_at linkedin_u].freeze
 
   # Attributes that users can access
   USER_ACCESS_ATTRIBUTES = %i[full_name email phone_number class_year linkedin_url].freeze
@@ -21,6 +22,8 @@ class UsersController < AuthenticatedApplicationController
   def index
     @attributes = if current_user.admin?
                     ADMIN_ACCESS_ATTRIBUTES
+                  elsif current_user.officer?
+                    OFFICER_ACCESS_ATTRIBUTES
                   else
                     USER_ACCESS_ATTRIBUTES
                   end
@@ -50,24 +53,31 @@ class UsersController < AuthenticatedApplicationController
   def show
     @attributes = if current_user.admin? || current_user.id == @user.id
                     ADMIN_ACCESS_ATTRIBUTES
+                  elsif current_user.officer?
+                    OFFICER_ACCESS_ATTRIBUTES
                   else
                     USER_ACCESS_ATTRIBUTES
                   end
+    @projects = @user.projects
   end
 
   # GET /users/new
   def new
+    return unless require_officer
     @user = User.new
   end
 
   # GET /users/1/edit
   def edit
-    nil unless current_user.id == @user.id || require_admin
+    if !(current_user.officer? || current_user.admin? || current_user.id == @user.id)
+      redirect_to root_path
+    end
   end
 
   # POST /users or /users.json
   def create
-    return unless require_admin
+    @projects = []
+    return unless require_officer
 
     @user = User.new(user_params)
     @user.account_complete = true
@@ -81,7 +91,8 @@ class UsersController < AuthenticatedApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    return unless current_user.id == @user.id || require_admin
+    @projects = []
+    return unless current_user.id == @user.id || require_officer
 
     if @user.update(user_params)
       save_user(@user, :edit)
@@ -91,14 +102,14 @@ class UsersController < AuthenticatedApplicationController
   end
 
   def delete
-    return unless require_admin
+    return unless require_officer
 
     @user = User.find(params[:id])
   end
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    return unless require_admin
+    return unless require_officer
 
     @user.destroy
     respond_to do |format|
@@ -137,13 +148,17 @@ class UsersController < AuthenticatedApplicationController
     @user = User.find(params[:id])
   end
 
+  def set_projects
+    @projects = Project.all
+  end
+
   def user_params
     if action_name == 'update_profile'
       params.require(:user).permit(:phone_number, :class_year, :ring_date, :grad_date, :birthday, :shirt_size,
                                    :dietary_restriction, :linkedin_url)
     else
       params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type, :phone_number, :class_year,
-                                   :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, :linkedin_url)
+                                   :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, :linkedin_url, project_ids: [])
     end
   end
 
