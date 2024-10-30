@@ -15,6 +15,18 @@ module TestAttributes
     }
   end
 
+  def valid_officer_attributes
+    {
+      email: 'testuser-admin@example.com',
+      full_name: 'Test User',
+      uid: '1234567890',
+      avatar_url: 'http://example.com/avatar.jpg',
+      user_type: 'officer',
+      phone_number: '1234567890',
+      class_year: 2020
+    }
+  end
+
   def valid_admin_attributes
     {
       email: 'testuser-admin@example.com',
@@ -34,6 +46,28 @@ module TestAttributes
       uid: nil,
       avatar_url: 'not_a_valid_url',
       user_type: 'invalid_type'
+    }
+  end
+
+  def valid_project_attributes
+    {
+      projectName: 'Delta Research',
+      projectDesc: 'Initiating new research projects under the Delta initiative.',
+      projectStartDate: Date.new(2024, 12, 5),
+      locationID: 4,
+      isProjectActive: true,
+      markdownBody: '# Delta Research\nResearch objectives and timelines.'
+    }
+  end
+
+  def valid_project_attributes2
+    {
+      projectName: 'Epsilon Closure',
+      projectDesc: 'Formal closure of the Epsilon facility.',
+      projectStartDate: Date.new(2025, 3, 30),
+      locationID: 5,
+      isProjectActive: false,
+      markdownBody: nil
     }
   end
 end

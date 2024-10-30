@@ -27,7 +27,7 @@
             <%= project.projectDesc %>
             <ul>
               <b> - Project Start Date: </b> <%= project.projectStartDate %> <br>
-              <b> - Location: </b> <%= project.locationID %> <br>
+              <b> - Location: </b> <%= Location.find_by(id: project.locationID).state.to_s + ", " + Location.find_by(id: project.locationID).country.to_s %> <br>
             </ul>
           </p>
           <p> <%= link_to "Show this project", project %> </p>

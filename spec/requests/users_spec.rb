@@ -38,43 +38,44 @@ RSpec.describe '/users', type: :request do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   include TestAttributes
+  include RequestHelpers
 
   describe 'GET /index' do
     context 'when user is admin' do
-      let(:admin) { User.create!(valid_admin_attributes) }
+      let(:officer) { User.create!(valid_officer_attributes) }
 
       before do
-        sign_in admin
+        sign_in officer
       end
 
       it 'renders a successful response with all attributes by default' do
         get users_url
         expect(response).to be_successful
-        expect(response.body).to include(admin.full_name, admin.email, admin.phone_number.to_s, admin.class_year.to_s)
+        expect(response.body).to include(officer.full_name, officer.email, officer.phone_number.to_s, officer.class_year.to_s)
       end
 
       it 'allows selection of specific attributes' do
         get users_url, params: { select_attributes: %w[email full_name] }
         expect(response).to be_successful
-        expect(response.body).to include(admin.email, admin.full_name)
-        expect(response.body).not_to include(admin.phone_number.to_s, admin.class_year.to_s)
+        expect(response.body).to include(officer.email, officer.full_name)
+        expect(response.body).not_to include(officer.phone_number.to_s, officer.class_year.to_s)
       end
 
       it 'sorts users by the selected attribute' do
-        other_admin = User.create!(valid_admin_attributes.merge(full_name: 'Zach', email: 'test-email2@email.com'))
+        other_officer = User.create!(valid_officer_attributes.merge(full_name: 'Zach', email: 'test-email2@email.com'))
         get users_url, params: { sort: 'full_name', direction: 'asc' }
         expect(response).to be_successful
         response_body = response.body
 
         # Make sure the users are displayed in the correct order (simple string check)
-        expect(response_body.index(admin.full_name)).to be < response_body.index(other_admin.full_name)
+        expect(response_body.index(officer.full_name)).to be < response_body.index(other_officer.full_name)
       end
 
       it 'filters users by full name' do
-        other_admin = User.create!(valid_admin_attributes.merge(full_name: 'Zach', email: 'test-email2@email.com'))
-        get users_url, params: { search: admin.full_name }
+        other_officer = User.create!(valid_officer_attributes.merge(full_name: 'Zach', email: 'test-email2@email.com'))
+        get users_url, params: { search: officer.full_name }
         expect(response).to be_successful
-        expect(response.body).to include(admin.full_name)
+        expect(response.body).to include(officer.full_name)
         expect(response.body).not_to include(User.last.full_name)
       end
     end
@@ -123,6 +124,12 @@ RSpec.describe '/users', type: :request do
         expect(response.body).not_to include(User.last.full_name)
       end
     end
+
+    context 'when user is not logged in' do
+      it 'redirects to signin page' do
+        test_redirect_to_signin(users_url, nil)
+      end
+    end
   end
 
   describe 'GET /show' do
@@ -160,21 +167,30 @@ RSpec.describe '/users', type: :request do
       end
     end
   end
-
-  describe 'GET /new' do
-    it 'renders a successful response' do
-      # signs in user with valid attributes
-      sign_in User.create! valid_attributes
-      get new_user_url
-      expect(response).to be_successful
+  
+    describe 'GET /new' do
+      it 'renders a successful response response if atleast officer' do
+        # signs in user with valid attributes
+        sign_in User.create! valid_officer_attributes
+        get new_user_url
+        expect(response).to be_successful
+      end
     end
-  end
-
+  
+    describe 'GET /new' do
+      it 'redirects to root if not atleast officer' do
+        # signs in user with valid attributes
+        user = User.create! alternative_valid_attributes
+        sign_in User.create! valid_attributes
+        test_redirect_to_root(edit_user_url(user), nil)
+      end
+    end
+  
   describe 'GET /edit' do
-    it 'renders a successful response if admin' do
-      admin = User.create! valid_admin_attributes
+    it 'renders a successful response if atleast officer' do
+      officer = User.create! valid_officer_attributes
       user = User.create! valid_attributes
-      sign_in admin
+      sign_in officer
       get edit_user_url(user)
       expect(response).to be_successful
     end
@@ -189,22 +205,21 @@ RSpec.describe '/users', type: :request do
     it 'redirects to root if user is not admin and not editing their own profile' do
       user = User.create! valid_attributes
       sign_in User.create! alternative_valid_attributes
-      get edit_user_url(user)
-      expect(response).to redirect_to(root_path)
+      test_redirect_to_root(edit_user_url(user), nil)
     end
   end
 
   describe 'POST /create' do
     context 'with valid parameters' do
       it 'creates a new User' do
-        sign_in User.create! valid_admin_attributes
+        sign_in User.create! valid_officer_attributes
         expect do
           post users_url, params: { user: valid_attributes }
         end.to change(User, :count).by(1)
       end
 
       it 'redirects to the created user' do
-        sign_in User.create! valid_admin_attributes
+        sign_in User.create! valid_officer_attributes
         post users_url, params: { user: valid_attributes }
         expect(response).to redirect_to(user_url(User.last))
       end
@@ -227,14 +242,14 @@ RSpec.describe '/users', type: :request do
 
     context 'with invalid parameters' do
       it 'does not create a new User' do
-        sign_in User.create! valid_admin_attributes
+        sign_in User.create! valid_officer_attributes
         expect do
           post users_url, params: { user: invalid_attributes }
         end.to change(User, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        sign_in User.create! valid_admin_attributes
+        sign_in User.create! valid_officer_attributes
         post users_url, params: { user: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -244,7 +259,7 @@ RSpec.describe '/users', type: :request do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       it 'updates the requested user' do
-        sign_in User.create! valid_admin_attributes
+        sign_in User.create! valid_officer_attributes
         user = User.create! valid_attributes
         patch user_url(user), params: { user: new_attributes }
         user.reload
@@ -254,7 +269,7 @@ RSpec.describe '/users', type: :request do
       end
 
       it 'redirects to the user' do
-        sign_in User.create! valid_admin_attributes
+        sign_in User.create! valid_officer_attributes
         user = User.create! valid_attributes
         patch user_url(user), params: { user: new_attributes }
         user.reload
@@ -290,7 +305,7 @@ RSpec.describe '/users', type: :request do
 
     context 'with invalid parameters' do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        sign_in User.create! valid_admin_attributes
+        sign_in User.create! valid_officer_attributes
         user = User.create! valid_attributes
         patch user_url(user), params: { user: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
@@ -300,7 +315,7 @@ RSpec.describe '/users', type: :request do
 
   describe 'DELETE /destroy' do
     it 'destroys the requested user' do
-      sign_in User.create! valid_admin_attributes
+      sign_in User.create! valid_officer_attributes
       user = User.create! valid_attributes
       expect do
         delete user_url(user)
@@ -308,7 +323,7 @@ RSpec.describe '/users', type: :request do
     end
 
     it 'redirects to the users list' do
-      sign_in User.create! valid_admin_attributes
+      sign_in User.create! valid_officer_attributes
       user = User.create! valid_attributes
       delete user_url(user)
       expect(response).to redirect_to(users_url)
