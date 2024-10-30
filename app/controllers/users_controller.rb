@@ -142,6 +142,15 @@ class UsersController < AuthenticatedApplicationController
     end
   end
 
+  def csv
+    return unless require_admin
+
+    csv_data = User.to_csv %w[full_name email user_type phone_number class_year ring_date grad_date birthday
+    shirt_size dietary_restriction account_complete created_at updated_at linkedin_url]
+
+    send_data csv_data, filename: "users-#{Date.today}.csv", type: 'text/csv'
+  end
+
   private
 
   def set_user
