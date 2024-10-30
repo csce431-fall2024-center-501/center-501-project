@@ -115,3 +115,32 @@
     font-weight: bold;
 }
 
+.faqs {
+    padding: 20px;
+    margin: 40px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 80%;
+}
+
+.faqs h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.faqs ul {
+    display: inline-flex;
+    /* Center the list as a block */
+    flex-direction: column;
+    align-items: flex-start;
+    /* Left-aligns bullets and text */
+    list-style-position: inside;
+    padding-left: 0;
+    margin-top: 0
+}
+
+.faqs p {
+    text-align: center;
+}
