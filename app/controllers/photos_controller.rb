@@ -63,6 +63,6 @@ class PhotosController < ApplicationController
     
         # Only allow a list of trusted parameters through.
         def photo_params
-            params.require(:photo).permit(:photoLink, :photoDescription, :photoType, :photoPageLocation)
+            params.require(:photo).permit(:photoLink, :photoDescription, :photoType, :photoPageLocation, :image_url)
         end
     end

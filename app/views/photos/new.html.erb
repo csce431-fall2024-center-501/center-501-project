@@ -1,5 +1,33 @@
 <h1><%= action_name.capitalize %> Photo</h1>
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const uploadButton = document.getElementById("upload_widget");
+    const imageUrlField = document.getElementById("image_url");
+
+    console.log("Upload button found:", uploadButton); 
+    if (!uploadButton) {
+      console.error("Upload button not found!");
+      return;
+    }
+
+    uploadButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      console.log("Upload button clicked");
+
+      cloudinary.openUploadWidget(
+        { cloudName: "<%= ENV['CLOUDINARY_CLOUD_NAME'] %>", uploadPreset: "uw_test" },
+        (error, result) => {
+          if (!error && result && result.event === "success") {
+            console.log("Image uploaded successfully:", result.info.secure_url);
+            imageUrlField.value = result.info.secure_url;
+          }
+        }
+      );
+    });
+  });
+</script>
+
 <%= form_with(model: @photo, local: true) do |form| %>
     <% if @photo.errors.any? %>
         <div id="error_explanation">
@@ -11,6 +39,11 @@
             </ul>
         </div>
     <% end %>
+
+<div>
+    <%= button_tag "Upload Image", id: "upload_widget", type: "button", data: { cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] } %>
+    <%= form.hidden_field :image_url, id: "image_url" %>
+</div>
 
 <div class="field">
     <%= form.label :photoLink %>

@@ -2,6 +2,6 @@
 
 class PagesController < ApplicationController
   def home; 
-    @photos = Photo.all
+    @photos = Photo.where(photoPageLocation: 'Home')
   end
 end

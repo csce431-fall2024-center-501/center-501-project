@@ -39,5 +39,5 @@ client_secret.apps.googleusercontent.com.json
 # Ignore the default vs code settings
 .vscode/*
 
-# Ignore API Keys
-/config/credentials.yml.enc
+# Ignore environment file
+.env

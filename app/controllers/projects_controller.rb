@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1 or /projects/1.json
   def show
     @project = Project.find(params[:id])
-    @photos = Photo.all
+    @photos = Photo.where(photoPageLocation: 'Projects')
 
     @html_output = markdown_to_html(@project.markdownBody.to_s)
   end
