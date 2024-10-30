@@ -94,7 +94,9 @@ class UsersController < AuthenticatedApplicationController
     @projects = []
     return unless current_user.id == @user.id || require_officer
 
-    if @user.update(user_params)
+    if !valid_linkedin_url?(user_params[:linkedin_url])
+      flash[:alert] = 'LinkedIn URL must be a valid LinkedIn profile URL.'
+    elsif @user.update(user_params.merge(linkedin_url: process_linkedin_url(user_params[:linkedin_url])))
       save_user(@user, :edit)
     else
       render_errors(@user.errors, :edit)
@@ -143,7 +145,7 @@ class UsersController < AuthenticatedApplicationController
   end
 
   def csv
-    return unless require_admin
+    return unless require_officer
 
     csv_data = User.to_csv %w[full_name email user_type phone_number class_year ring_date grad_date birthday
     shirt_size dietary_restriction account_complete created_at updated_at linkedin_url]

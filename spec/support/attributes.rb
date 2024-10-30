@@ -12,6 +12,7 @@ module TestAttributes
       phone_number: '1234567890',
       class_year: 2020,
       dietary_restriction: 'Vegan',
+      linkedin_url: 'https://linkedin.com/in/testuser'
     }
   end
 
@@ -23,7 +24,8 @@ module TestAttributes
       avatar_url: 'http://example.com/avatar.jpg',
       user_type: 'officer',
       phone_number: '1234567890',
-      class_year: 2020
+      class_year: 2020,
+      linkedin_url: 'https://linkedin.com/in/testuser'
     }
   end
 
@@ -35,7 +37,8 @@ module TestAttributes
       avatar_url: 'http://example.com/avatar.jpg',
       user_type: 'admin',
       phone_number: '1234567890',
-      class_year: 2020
+      class_year: 2020,
+      linkedin_url: 'https://linkedin.com/in/testuser'
     }
   end
 
@@ -45,7 +48,8 @@ module TestAttributes
       full_name: '',
       uid: nil,
       avatar_url: 'not_a_valid_url',
-      user_type: 'invalid_type'
+      user_type: 'invalid_type',
+      linkedin_url: 'https://linkedin.com/in/testuser'
     }
   end
 

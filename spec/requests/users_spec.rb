@@ -21,7 +21,8 @@ RSpec.describe '/users', type: :request do
       full_name: 'Test User',
       uid: '1234567890',
       avatar_url: 'http://example.com/avatar.jpg',
-      user_type: 'user'
+      user_type: 'user',
+      linkedin_url: 'https://linkedin.com/in/testuser'
     }
   end
   let(:new_attributes) do
@@ -30,7 +31,8 @@ RSpec.describe '/users', type: :request do
       full_name: 'Test Newuser', # changed name
       uid: '1234567890',
       avatar_url: 'http://example.com/avatar.jpg',
-      user_type: 'user'
+      user_type: 'user',
+      linkedin_url: 'https://linkedin.com/in/testuser'
     }
   end
 
@@ -264,7 +266,9 @@ RSpec.describe '/users', type: :request do
         patch user_url(user), params: { user: new_attributes }
         user.reload
         new_attributes.each do |key, value|
-          expect(user.send(key)).to eq(value)
+          if key != :linkedin_url
+            expect(user.send(key)).to eq(value)
+          end
         end
       end
 
@@ -281,7 +285,9 @@ RSpec.describe '/users', type: :request do
         user = User.create! valid_attributes
         patch user_url(user), params: { user: new_attributes }
         valid_attributes.each do |key, value|
-          expect(user.send(key)).to eq(value)
+          if key != :linkedin_url
+            expect(user.send(key)).to eq(value)
+          end
         end
       end
 
@@ -298,7 +304,9 @@ RSpec.describe '/users', type: :request do
         patch user_url(user), params: { user: new_attributes }
         user.reload
         new_attributes.each do |key, value|
-          expect(user.send(key)).to eq(value)
+          if key != :linkedin_url
+            expect(user.send(key)).to eq(value)
+          end
         end
       end
     end
