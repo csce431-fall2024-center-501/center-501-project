@@ -54,6 +54,7 @@ RSpec.describe '/projects', type: :request do
     context 'when no one is logged in' do
       it 'renders a successful response' do
         Project.create! valid_project_attributes
+        Location.create! location_info
         get projects_url
         expect(response).to be_successful
       end
