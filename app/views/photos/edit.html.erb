@@ -1,40 +1,41 @@
 <h1><%= action_name.capitalize %> Photo</h1>
+<div class="form-container"
+    <%= form_with(model: @photo, local: true) do |form| %>
+        <% if @photo.errors.any? %>
+            <div id="error_explanation">
+                <h2><%= pluralize(@photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
+                <ul>
+                    <% @photo.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                </ul>
+            </div>
+        <% end %>
 
-<%= form_with(model: @photo, local: true) do |form| %>
-    <% if @photo.errors.any? %>
-        <div id="error_explanation">
-            <h2><%= pluralize(@photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
-            <ul>
-                <% @photo.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-            </ul>
+    <div class="field">
+        <%= form.label :Photo_Link %>
+        <%= form.text_field :photoLink %>
+    </div>
+
+    <div class="field">
+        <%= form.label :Photo_Description %>
+        <%= form.text_field :photoDescription %>
+    </div>
+
+    <div class="field">
+        <%= form.label :Photo_Type %>
+        <%= form.text_field :photoType %>
+    </div>
+
+    <div class="field">
+        <%= form.label :Website_Page_Location %>
+        <%= form.text_field :Website_Page_Location %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit %>
         </div>
     <% end %>
 
-<div class="field">
-    <%= form.label :photoLink %>
-    <%= form.text_field :photoLink %>
+    <%= link_to 'Back', photos_path %>
 </div>
-
-<div class="field">
-    <%= form.label :photoDescription %>
-    <%= form.text_field :photoDescription %>
-</div>
-
-<div class="field">
-    <%= form.label :photoType %>
-    <%= form.text_field :photoType %>
-</div>
-
-<div class="field">
-    <%= form.label :photoPageLocation %>
-    <%= form.text_field :photoPageLocation %>
-</div>
-
-<div class="actions">
-    <%= form.submit %>
-    </div>
-<% end %>
-
-<%= link_to 'Back', photos_path %>

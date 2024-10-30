@@ -29,3 +29,53 @@
 .table-locations td {
     font-size: 1rem;
 }
+
+/* Centered form container */
+.form-container {
+    max-width: 500px;
+    /* Adjust as needed */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    /* Light background color */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+}
+
+/* Field styling */
+.form-container .field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* Label styling */
+.form-container label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+    /* Left-align labels only */
+}
+
+/* Input field styling */
+.form-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Centered submit button */
+.form-container .actions {
+    text-align: center;
+}
+
+.form-container .actions input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
