@@ -14,10 +14,13 @@ Rails.application.routes.draw do
   get '/emails/active_member_email', to: 'emails#active_member_email', as: 'active_member_email'
   get '/emails/active_inactive_member_email', to: 'emails#active_inactive_member_email',
                                               as: 'active_inactive_member_email'
+  get '/emails/calendar_email', to: 'emails#calendar_email', as: 'calendar_email'
+
   post '/emails', to: 'emails#send_email', as: 'send_email'
   post '/emails/active_member_email', to: 'emails#send_active_member_email', as: 'send_active_member_email'
   post '/emails/active_inactive_member_email', to: 'emails#send_active_inactive_member_email',
                                                as: 'send_active_inactive_member_email'
+  post '/emails/calendar_email', to: 'emails#send_calendar_email', as: 'send_calendar_email'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
