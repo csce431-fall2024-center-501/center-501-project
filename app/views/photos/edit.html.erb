@@ -1,5 +1,5 @@
 <h1><%= action_name.capitalize %> Photo</h1>
-<div class="form-container"
+<div class="form-container">
     <%= form_with(model: @photo, local: true) do |form| %>
         <% if @photo.errors.any? %>
             <div id="error_explanation">
@@ -29,7 +29,7 @@
 
     <div class="field">
         <%= form.label :Website_Page_Location %>
-        <%= form.text_field :Website_Page_Location %>
+        <%= form.text_field :photoPageLocation %>
     </div>
 
     <div class="actions">
