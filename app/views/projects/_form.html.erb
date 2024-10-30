@@ -28,7 +28,7 @@
 
           <tr>
             <th class = "form_th"> <%= form.label :locationID, "Location ID", style: "text-align: left; display: block; padding-left: 10px" %> </th>
-            <td> <%= form.select :locationID, Location.all.collect { |l| [l.state + ", " + l.country, l.id]}, include_blank: "Please Assign a Location" %> </td>
+            <td> <%= form.select :locationID, Location.all.collect { |l| ["#{l.city}, #{l.state} #{l.zip_code}, #{l.country}", l.id] }, include_blank: "Please Assign a Location" %> </td>
           </tr>
 
           <tr>
