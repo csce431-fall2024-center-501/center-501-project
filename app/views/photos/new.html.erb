@@ -28,46 +28,6 @@
   });
 </script>
 
-<%= form_with(model: @photo, local: true) do |form| %>
-    <% if @photo.errors.any? %>
-        <div id="error_explanation">
-            <h2><%= pluralize(@photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
-            <ul>
-                <% @photo.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-            </ul>
-        </div>
-    <% end %>
-
-<div>
-    <%= button_tag "Upload Image", id: "upload_widget", type: "button", data: { cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] } %>
-    <%= form.hidden_field :image_url, id: "image_url" %>
-</div>
-
-<div class="field">
-    <%= form.label :photoLink %>
-    <%= form.text_field :photoLink %>
-</div>
-
-<div class="field">
-    <%= form.label :photoDescription %>
-    <%= form.text_field :photoDescription %>
-</div>
-
-<div class="field">
-    <%= form.label :photoType %>
-    <%= form.text_field :photoType %>
-</div>
-
-<div class="field">
-    <%= form.label :photoPageLocation %>
-    <%= form.text_field :photoPageLocation %>
-</div>
-
-<div class="actions">
-    <%= form.submit %>
-    </div>
-<% end %>
+<%= render 'form', photo: @photo %>
 
 <%= link_to 'Back', photos_path %>
