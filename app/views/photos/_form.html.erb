@@ -27,7 +27,7 @@
 
     <div class="field">
         <%= form.label :photoType %>
-        <%= form.text_field :photoType %>
+        <%= form.select :photoType, Photo::TYPES.map { |type| [type.humanize, type] }, prompt: 'Select image file type' %>
     </div>
 
     <div class="field">
