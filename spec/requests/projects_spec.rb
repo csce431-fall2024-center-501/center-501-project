@@ -18,6 +18,16 @@ RSpec.describe '/projects', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Project. As you add validations to Project, be sure to
   # adjust the attributes here as well.
+  let(:location_info) do
+    {
+      id: 1,
+      address: "12345",
+      city: "College Station",
+      state: "Texas",
+      zip_code:"77840",
+      country: "USA"
+    }
+  end
   include TestAttributes
   include RequestHelpers
   let(:valid_project_attributes) do
@@ -25,7 +35,7 @@ RSpec.describe '/projects', type: :request do
       projectName: 'Test Project',
       projectDesc: 'This is a Test Description.',
       projectStartDate: Date.today,
-      locationID: 1000,
+      locationID: 1,
       isProjectActive: true
     }
   end
@@ -44,6 +54,7 @@ RSpec.describe '/projects', type: :request do
     context 'when no one is logged in' do
       it 'renders a successful response' do
         Project.create! valid_project_attributes
+        Location.create! location_info
         get projects_url
         expect(response).to be_successful
       end
@@ -169,7 +180,7 @@ RSpec.describe '/projects', type: :request do
           projectName: 'New Test Project',
           projectDesc: 'This is a New Test Description.',
           projectStartDate: Date.tomorrow,
-          locationID: 1001,
+          locationID: 1,
           isProjectActive: false
         }
       end
@@ -182,7 +193,7 @@ RSpec.describe '/projects', type: :request do
         expect(project.projectName).to eq('New Test Project')
         expect(project.projectDesc).to eq('This is a New Test Description.')
         expect(project.projectStartDate).to eq(Date.tomorrow) # Verify the date was updated
-        expect(project.locationID).to eq(1001)
+        expect(project.locationID).to eq(1)
         expect(project.isProjectActive).to eq(false)
       end
 

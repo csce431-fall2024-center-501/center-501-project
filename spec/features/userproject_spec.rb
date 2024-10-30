@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-Rspec.describe 'Adding a project to a user', type: :feature do
+RSpec.describe 'Adding a project to a user', type: :feature do
   include TestAttributes
   let!(:user) { User.create(valid_attributes) }
   let!(:project1) { Project.create(valid_project_attributes) }

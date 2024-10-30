@@ -50,6 +50,17 @@
 
 .form {
   width: 50%;
+  margin: 1%;
+}
+
+.form_table {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form_th {
+  background-color: rgba(235, 235, 235, 1);
 }
 
 .preview {
