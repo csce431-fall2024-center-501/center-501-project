@@ -25,6 +25,7 @@ module TestAttributes
       user_type: 'officer',
       phone_number: '1234567890',
       class_year: 2020,
+      dietary_restriction: 'Vegan',
       linkedin_url: 'https://linkedin.com/in/testuser'
     }
   end

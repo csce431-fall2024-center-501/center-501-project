@@ -425,4 +425,28 @@ RSpec.describe '/users', type: :request do
       expect(response).to redirect_to(new_user_session_url)
     end
   end
+
+  describe 'GET /csv' do
+    it 'sends a CSV file with all user data if user is an officer' do
+      officer = User.create! valid_officer_attributes
+      user = User.create! valid_attributes
+      sign_in officer
+      get csv_users_url
+      expect(response).to be_successful
+      expect(response.headers['Content-Type']).to eq('text/csv')
+      expect(response.headers['Content-Disposition']).to include("users-#{Date.today}.csv")
+      expect(response.body).to include('full_name','email','user_type','phone_number','class_year','dietary_restriction','linkedin_url')
+      expect(response.body).to include(officer.full_name, officer.email, officer.user_type,
+        officer.phone_number.to_s, officer.class_year.to_s, officer.dietary_restriction, officer.linkedin_url)
+      expect(response.body).to include(user.full_name, user.email, user.user_type,
+        user.phone_number.to_s, user.class_year.to_s, user.dietary_restriction, user.linkedin_url)
+    end
+
+    it 'redirects to root if user is not an officer' do
+      user = User.create! valid_attributes
+      sign_in user
+      get csv_users_url
+      expect(response).to redirect_to(root_path)
+    end
+  end
 end
