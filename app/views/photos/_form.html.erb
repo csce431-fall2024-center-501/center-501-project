@@ -38,6 +38,8 @@
         </div>
     <% end %>
 
+    <p>File formats allowed: .jpg, .png</p>
+
     <div>
         <%= button_tag "Upload Image", id: "upload_widget", type: "button", data: { cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] } %>
         <%= form.hidden_field :image_url, id: "image_url" %>
