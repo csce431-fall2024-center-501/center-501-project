@@ -14,7 +14,7 @@
       console.log("Upload button clicked");
 
       cloudinary.openUploadWidget(
-        { cloudName: "<%= ENV['CLOUDINARY_CLOUD_NAME'] %>", uploadPreset: "uw_test" },
+        { cloudName: "<%= Rails.application.credentials.cloudinary[:cloud_name] %>", uploadPreset: "uw_test" },
         (error, result) => {
           if (!error && result && result.event === "success") {
             console.log("Image uploaded successfully:", result.info.secure_url);
@@ -41,7 +41,7 @@
     <p>File formats allowed: .jpg, .png</p>
 
     <div>
-        <%= button_tag "Upload Image", id: "upload_widget", type: "button", data: { cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] } %>
+        <%= button_tag "Upload Image", id: "upload_widget", type: "button", data: { cloud_name: Rails.application.credentials.cloudinary[:cloud_name] } %>
         <%= form.hidden_field :image_url, id: "image_url" %>
     </div>
 

@@ -103,6 +103,3 @@ gem "faker"
 
 # Cloudinary for photo upload
 gem 'cloudinary'
-
-# Dotenv for environment variables
-gem 'dotenv-rails'
