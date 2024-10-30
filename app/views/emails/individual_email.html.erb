@@ -3,7 +3,7 @@
 <%= form_with url: send_email_path, method: :post, local: true do |form| %>
     <div class="field">
         <%= form.label :to, "To:" %>
-        <%= form.text_field :to %>
+        <%= form.text_field :recipients %>
     </div>
 
     <div class="field">
@@ -12,8 +12,8 @@
     </div>
 
     <div class="field">
-        <%= form.label :body, "Body:" %>
-        <%= form.text_area :body %>
+        <%= form.label :message, "Body:" %>
+        <%= form.text_area :message %>
     </div>
 
     <div class="actions">
