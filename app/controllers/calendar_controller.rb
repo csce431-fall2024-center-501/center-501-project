@@ -83,6 +83,102 @@ class CalendarController < OfficerApplicationController
     @calendar_id = params[:calendar_id]
   end
 
+  def event
+    unless EWB_CALENDAR_IDS.include?(params[:calendar_id])
+      flash[:alert] = 'Invalid calendar ID - only EWB calendars are supported.'
+      redirect_to calendars_path and return
+    end
+
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = @client
+
+    @event = service.get_event(params[:calendar_id], params[:event_id])
+    @calendar_id = params[:calendar_id]
+  end
+
+  def delete_event
+    unless EWB_CALENDAR_IDS.include?(params[:calendar_id])
+      flash[:alert] = 'Invalid calendar ID - only EWB calendars are supported.'
+      redirect_to calendars_path and return
+    end
+
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = @client
+
+    service.delete_event(params[:calendar_id], params[:event_id])
+    redirect_to events_url(calendar_id: params[:calendar_id])
+  end
+
+  def edit_event
+    unless EWB_CALENDAR_IDS.include?(params[:calendar_id])
+      flash[:alert] = 'Invalid calendar ID - only EWB calendars are supported.'
+      redirect_to calendars_path and return
+    end
+
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = @client
+
+    @event = service.get_event(params[:calendar_id], params[:event_id])
+    @calendar_id = params[:calendar_id]
+  end
+
+  def update_event
+    unless EWB_CALENDAR_IDS.include?(params[:calendar_id])
+      flash[:alert] = 'Invalid calendar ID - only EWB calendars are supported.'
+      redirect_to calendars_path and return
+    end
+
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = @client
+
+    start_date_time = begin
+      params[:start_datetime].to_datetime.rfc3339
+    rescue StandardError
+      nil
+    end
+    end_date_time = begin
+      params[:end_datetime].to_datetime.rfc3339
+    rescue StandardError
+      nil
+    end
+
+    start_date = begin
+      params[:start_date]
+    rescue StandardError
+      nil
+    end
+    end_date = begin
+      params[:end_date]
+    rescue StandardError
+      nil
+    end
+
+    event = Google::Apis::CalendarV3::Event.new(
+      summary: params[:event_name],
+      start: if start_date_time
+               Google::Apis::CalendarV3::EventDateTime.new(
+                 date_time: (start_date_time.to_time + 5.hours).rfc3339
+               )
+             else
+               Google::Apis::CalendarV3::EventDateTime.new(
+                 date: start_date
+               )
+             end,
+      end: if end_date_time
+             Google::Apis::CalendarV3::EventDateTime.new(
+               date_time: (end_date_time.to_time + 5.hours).rfc3339
+             )
+           else
+             Google::Apis::CalendarV3::EventDateTime.new(
+               date: end_date
+             )
+           end
+    )
+
+    service.update_event(params[:calendar_id], params[:event_id], event)
+    redirect_to event_url(calendar_id: params[:calendar_id], event_id: params[:event_id])
+  end
+
   private
 
   # Initializes the Google client with credentials stored in the session

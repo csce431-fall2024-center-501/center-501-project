@@ -1,0 +1,36 @@
+<h1> Editing <%= @event.summary %> </h1>
+
+<%= form_tag update_event_url(calendar_id: @calendar_id, event_id: @event.id) do %>
+  <div>
+    <%= label_tag :event_name, 'Event Name' %>
+    <%= text_field_tag :event_name, @event.summary %>
+  </div>
+  <div>
+    <%= label_tag :all_day, 'All Day' %>
+    <%= check_box_tag :all_day, 'all_day', @event.start.date_time.nil? %>
+  <div id="datetime-fields" style="<%= @event.start.date_time.nil? ? 'display: none;' : '' %>">
+    <div>
+    <%= label_tag :start_datetime, 'Start Date and Time' %>
+    <%= datetime_local_field_tag :start_datetime, @event.start.date_time.nil? ? nil : @event.start.date_time.to_s %>
+    </div>
+    <div>
+    <%= label_tag :end_datetime, 'End Date and Time' %>
+    <%= datetime_local_field_tag :end_datetime, @event.end.date_time.nil? ? nil : @event.end.date_time.to_s %>
+    </div>
+  </div>
+
+  <div id="date-fields" style="<%= @event.start.date_time.nil? ? '' : 'display: none;' %>">
+    <div>
+    <%= label_tag :start_date, 'Start Date' %>
+    <%= date_field_tag :start_date, @event.start.date_time.nil? ? @event.start.date : nil %>
+    </div>
+    <div>
+    <%= label_tag :end_date, 'End Date' %>
+    <%= date_field_tag :end_date, @event.end.date_time.nil? ? @event.end.date : nil %>
+    </div>
+  </div>
+
+  <div>
+    <%= submit_tag 'Update Event' %>
+  </div>
+<% end %>

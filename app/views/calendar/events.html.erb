@@ -39,6 +39,9 @@
             <% end %>
           <% end %>
           </div>
+          <div>
+            <%= link_to 'Show Event', event_url(calendar_id: @calendar_id, event_id: event.id), class: 'show-event-link' %>
+          </div>
         <% end %>
       </div>
   <div class="event-form">
