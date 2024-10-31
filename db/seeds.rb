@@ -108,6 +108,58 @@ Project.create!([
   }
 ])
 
+Location.create!([
+  {
+    id: 1000,
+    address: "123 Main St",
+    city: "Springfield",
+    state: "IL",
+    zip_code: "62701",
+    country: "USA"
+  },
+  {
+    id: 1,
+    address: "45 Alpha Ave",
+    city: "Boston",
+    state: "MA",
+    zip_code: "02108",
+    country: "USA"
+  },
+  {
+    id: 2,
+    address: "789 Beta Blvd",
+    city: "Austin",
+    state: "TX",
+    zip_code: "73301",
+    country: "USA"
+  },
+  {
+    id: 3,
+    address: "101 Gamma Rd",
+    city: "San Francisco",
+    state: "CA",
+    zip_code: "94103",
+    country: "USA"
+  },
+  {
+    id: 4,
+    address: "202 Delta Dr",
+    city: "Seattle",
+    state: "WA",
+    zip_code: "98101",
+    country: "USA"
+  },
+  {
+    id: 5,
+    address: "303 Epsilon Ln",
+    city: "New York",
+    state: "NY",
+    zip_code: "10001",
+    country: "USA"
+  }
+])
+
+
 100.times do
     User.create!(
         email: Faker::Internet.unique.email,

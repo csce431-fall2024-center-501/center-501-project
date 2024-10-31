@@ -38,13 +38,13 @@
     </div>
 
     <div class="field">
-        <%= form.label :photo_description %>
-        <%= form.text_field :photo_description %>
+        <%= form.label :description %>
+        <%= form.text_field :description %>
     </div>
 
     <div class="field">
-        <%= form.label :photo_type %>
-        <%= form.select :photo_type, Photo::TYPES.map { |type| [type.humanize, type] }, prompt: 'Select image file type' %>
+      <%= form.label :project_id, "Associated Project" %>
+      <%= form.collection_select :project_id, @projects, :id, :projectName, prompt: "Select a project" %>
     </div>
 
     <div class="field">
