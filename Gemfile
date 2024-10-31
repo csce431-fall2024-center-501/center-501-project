@@ -100,4 +100,7 @@ gem 'bxslider-rails'
 # Markdown Processor
 gem 'redcarpet'
 
+# Ensure that AJAX calls can be handled
+gem 'rack-cors'
+
 gem "faker"

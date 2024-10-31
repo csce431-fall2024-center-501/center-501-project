@@ -6,7 +6,7 @@ Project.create([
   { projectName: "Example Project",
     projectDesc: "This is an example of what a project looks like!",
     projectStartDate: Date.today,
-    locationID: 1000,
+    locationID: 1,
     isProjectActive: true,
     markdownBody: <<-MARKDOWN
 # Welcome to My Website
@@ -126,3 +126,11 @@ Project.create!([
         linkedin_url: Faker::Internet.url
     )
 end
+
+Location.create!(
+  address: "400 Bizzell St",
+  city: "College Station",
+  state: "Texas",
+  zip_code: "77840",
+  country: "United States"
+)
