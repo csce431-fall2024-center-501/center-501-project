@@ -29,7 +29,7 @@
 
     <div class="field">
         <%= form.label :Website_Page_Location %>
-        <%= form.text_field :photoPageLocation %>
+        <%= form.select :photoPageLocation, options_for_select([["Home", "home"], ["Projects", "projects"], ["Members", "members"], ["Sponsors & Donations", "sponsors_and_donations"]], @photo.photoPageLocation) %>
     </div>
 
     <div class="actions">
