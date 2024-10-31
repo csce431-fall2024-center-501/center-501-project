@@ -2,13 +2,13 @@
 
 <p>
   <strong>Image:</strong><br>
-    <!--need top make this size limited-->
+    <!--TODO need top make this size limited-->
   <%= image_tag(@photo.url, alt: @photo.photo_description) %>
 </p>
 
 <p>
     <strong>Link:</strong>
-    <%= link_to truncate(@photo.url, length: 30), @photo.url, target: '_blank' %>
+    <%= link_to truncate(@photo.url, length: 30), "#{@photo.url}", target: '_blank' %>
 </p>
 
 <p>
