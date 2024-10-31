@@ -174,3 +174,37 @@ a:active,
     text-align: center;
     max-width: 30%;
 }
+
+.form-container select {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #fff;
+    /* Optional: light background to match input fields */
+    color: #333;
+    /* Text color */
+    appearance: none;
+    /* Removes default arrow styling */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23999' d='M2 0L0 2h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 12px;
+    margin-bottom: 15px;
+}
+
+/* Dropdown focus styling */
+.form-container select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    /* Slight shadow on focus */
+}
+
+/* Adjusting padding for consistent sizing with text fields */
+.form-container .field select {
+    padding-right: 30px;
+    /* Extra space to accommodate dropdown arrow */
+}
