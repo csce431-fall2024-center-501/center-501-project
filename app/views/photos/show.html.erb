@@ -1,29 +1,30 @@
 <h1>Photo Details</h1>
+<div class="show-container">
+    <p>
+        <strong>Image:</strong><br>
+        <%= image_tag(@photo.photoLink, alt: @photo.photoDescription) %>
+    </p>
 
-<p>
-  <strong>Image:</strong><br>
-  <%= image_tag(@photo.photoLink, alt: @photo.photoDescription) %>
-</p>
+    <p>
+        <strong>Link:</strong>
+        <%= link_to truncate(@photo.photoLink, length: 30), @photo.photoLink, target: '_blank' %>
+    </p>
 
-<p>
-    <strong>Link:</strong>
-    <%= link_to truncate(@photo.photoLink, length: 30), @photo.photoLink, target: '_blank' %>
-</p>
+    <p>
+        <strong>Description:</strong>
+        <%= @photo.photoDescription %>
+    </p>
 
-<p>
-    <strong>Description:</strong>
-    <%= @photo.photoDescription %>
-</p>
+    <p>
+        <strong>Type:</strong>
+        <%= @photo.photoType %>
+    </p>
 
-<p>
-    <strong>Type:</strong>
-    <%= @photo.photoType %>
-</p>
+    <p>
+        <strong>Page Location:</strong>
+        <%= @photo.photoPageLocation %>
+    </p>
 
-<p>
-    <strong>Page Location:</strong>
-    <%= @photo.photoPageLocation %>
-</p>
-
-<%= link_to 'Edit', edit_photo_path(@photo) %> |
-<%= link_to 'Back', photos_path %>
+    <%= link_to 'Edit', edit_photo_path(@photo) %> |
+    <%= link_to 'Back', photos_path %>
+</div>

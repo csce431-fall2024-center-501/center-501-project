@@ -24,6 +24,7 @@ class LocationsController < OfficerApplicationController
 
         respond_to do |format|
             if @location.save
+                flash[:notice] = "Location was successfully created."
                 format.html { redirect_to @location, notice: 'Location was successfully created.' }
                 format.json { render :show, status: :created, locations: @location }
             else
@@ -37,6 +38,7 @@ class LocationsController < OfficerApplicationController
     def update
         respond_to do |format|
             if @location.update(location_params)
+                flash[:notice] = "Photo was successfully edited."
                 format.html { redirect_to @location, notice: 'Location was successfully updated.' }
                 format.json { render :show, status: :ok, location: @location }
             else
@@ -50,12 +52,14 @@ class LocationsController < OfficerApplicationController
     def destroy
         @location.destroy
         respond_to do |format|
+            flash[:notice] = "Photo was successfully deleted."
             format.html { redirect_to locations_url, notice: 'Location was successfully destroyed.' }
             format.json { head :no_content }
         end
     end
 
     def delete
+        flash[:notice] = "Photo was successfully deleted."
         @location = Location.find(params[:id])
     end
 

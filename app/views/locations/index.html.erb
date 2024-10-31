@@ -1,5 +1,11 @@
 <h1>Locations</h1>
 
+<% if flash[:notice] %>
+  <div class="flash-notice">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
 <table class="table-locations">
   <thead>
     <tr>
