@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 class User < ApplicationRecord
   # Validates that the email is present, unique, and properly formatted
   validates :email, presence: true, uniqueness: true, format: {
@@ -41,6 +43,16 @@ class User < ApplicationRecord
   # If email is already in the database, it simply returns the user
   def self.from_google(email:, full_name:, uid:, avatar_url:, user_type:)
     create_with(uid:, full_name:, avatar_url:, user_type:).find_or_create_by!(email:)
+  end
+
+  def self.to_csv attributes
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |user|
+        csv << attributes.map { |attr| user.send(attr) }
+      end
+    end
   end
 
   # Quick officer check

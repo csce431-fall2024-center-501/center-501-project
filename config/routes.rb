@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     collection do
       get 'complete_profile'
       patch 'update_profile'
+      get 'csv', defaults: { format: 'csv' }
     end
     member do
       get :delete

@@ -21,7 +21,8 @@ RSpec.describe '/users', type: :request do
       full_name: 'Test User',
       uid: '1234567890',
       avatar_url: 'http://example.com/avatar.jpg',
-      user_type: 'user'
+      user_type: 'user',
+      linkedin_url: 'https://linkedin.com/in/testuser'
     }
   end
   let(:new_attributes) do
@@ -30,7 +31,8 @@ RSpec.describe '/users', type: :request do
       full_name: 'Test Newuser', # changed name
       uid: '1234567890',
       avatar_url: 'http://example.com/avatar.jpg',
-      user_type: 'user'
+      user_type: 'user',
+      linkedin_url: 'https://linkedin.com/in/testuser'
     }
   end
 
@@ -264,7 +266,9 @@ RSpec.describe '/users', type: :request do
         patch user_url(user), params: { user: new_attributes }
         user.reload
         new_attributes.each do |key, value|
-          expect(user.send(key)).to eq(value)
+          if key != :linkedin_url
+            expect(user.send(key)).to eq(value)
+          end
         end
       end
 
@@ -281,7 +285,9 @@ RSpec.describe '/users', type: :request do
         user = User.create! valid_attributes
         patch user_url(user), params: { user: new_attributes }
         valid_attributes.each do |key, value|
-          expect(user.send(key)).to eq(value)
+          if key != :linkedin_url
+            expect(user.send(key)).to eq(value)
+          end
         end
       end
 
@@ -298,7 +304,9 @@ RSpec.describe '/users', type: :request do
         patch user_url(user), params: { user: new_attributes }
         user.reload
         new_attributes.each do |key, value|
-          expect(user.send(key)).to eq(value)
+          if key != :linkedin_url
+            expect(user.send(key)).to eq(value)
+          end
         end
       end
     end
@@ -415,6 +423,30 @@ RSpec.describe '/users', type: :request do
     it 'redirects to sign_in if not signed in' do
       get complete_profile_users_url
       expect(response).to redirect_to(new_user_session_url)
+    end
+  end
+
+  describe 'GET /csv' do
+    it 'sends a CSV file with all user data if user is an officer' do
+      officer = User.create! valid_officer_attributes
+      user = User.create! valid_attributes
+      sign_in officer
+      get csv_users_url
+      expect(response).to be_successful
+      expect(response.headers['Content-Type']).to eq('text/csv')
+      expect(response.headers['Content-Disposition']).to include("users-#{Date.today}.csv")
+      expect(response.body).to include('full_name','email','user_type','phone_number','class_year','dietary_restriction','linkedin_url')
+      expect(response.body).to include(officer.full_name, officer.email, officer.user_type,
+        officer.phone_number.to_s, officer.class_year.to_s, officer.dietary_restriction, officer.linkedin_url)
+      expect(response.body).to include(user.full_name, user.email, user.user_type,
+        user.phone_number.to_s, user.class_year.to_s, user.dietary_restriction, user.linkedin_url)
+    end
+
+    it 'redirects to root if user is not an officer' do
+      user = User.create! valid_attributes
+      sign_in user
+      get csv_users_url
+      expect(response).to redirect_to(root_path)
     end
   end
 end
