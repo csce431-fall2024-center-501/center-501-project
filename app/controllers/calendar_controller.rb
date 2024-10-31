@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CalendarController < AuthenticatedApplicationController
+class CalendarController < OfficerApplicationController
   EWB_CALENDAR_IDS = ['c_35657eacaf7df0315b9988c9b68e72be62b3d78e730edd6583459300f61320db@group.calendar.google.com'].freeze
 
   before_action :initialize_google_calendar_client
@@ -88,22 +88,10 @@ class CalendarController < AuthenticatedApplicationController
   # Initializes the Google client with credentials stored in the session
   def initialize_google_calendar_client
     @client = Signet::OAuth2::Client.new(client_options)
-    refresh_token_if_expired!
     @client.update!(
       access_token: session[:google_access_token],
       refresh_token: session[:google_refresh_token]
     )
-  end
-
-  # Refreshes the access token if it's expired
-  def refresh_token_if_expired!
-    return unless Time.at(session[:google_expires_at]) < Time.now
-
-    response = @client.refresh!
-
-    # Update session with new tokens and expiration time
-    session[:google_access_token] = response['access_token']
-    session[:google_expires_at] = Time.now + response['expires_in'].to_i.seconds
   end
 
   # OAuth2 client options
