@@ -17,7 +17,7 @@
         <td><a href="<%= photo.url %>" target="_blank"><%= truncate(photo.url, length: 30) %></a></td>
         <td><%= photo.photo_description %></td>
         <td><%= photo.photo_type %></td>
-        <td><%= photo.photoPageLocation %></td>
+        <td><%= photo.displayed_in_home_gallery %></td>
         <td><%= link_to 'Show', photo %></td>
         <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
         <td><%= link_to 'Delete', delete_photo_path(photo), method: :get %></td>

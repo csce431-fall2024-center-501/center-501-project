@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe "photos/show", type: :view do
   before do
-    @photo = assign(:photo, Photo.create!(url: "https://example.com/photo1", photo_description: "Description 1", photo_type: "Type1", photoPageLocation: "Home"))
+    @photo = assign(:photo, Photo.create!(url: "https://example.com/photo1", photo_description: "Description 1", photo_type: "Type1", displayed_in_home_gallery: true))
     render
   end
 
@@ -11,7 +11,6 @@ RSpec.describe "photos/show", type: :view do
     expect(rendered).to have_link("https://example.com/photo1", href: "https://example.com/photo1")
     expect(rendered).to have_content("Description 1")
     expect(rendered).to have_content("Type1")
-    expect(rendered).to have_content("Home")
   end
 
   it "has an Edit link" do

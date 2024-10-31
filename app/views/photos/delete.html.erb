@@ -15,11 +15,6 @@
     <%= @photo.photo_type %>
 </p>
 
-<p>
-    <strong>Page Location:</strong>
-    <%= @photo.photoPageLocation %>
-</p>
-
 <%= form_with url: photo_path(@photo), method: :delete, local: true do %>
     <div class="actions">
         <%= submit_tag 'Delete Photo', data: { confirm: 'Are you sure?' } %>

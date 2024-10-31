@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "photos/edit", type: :view do
   before do
-    @photo = Photo.create!(url: "https://example.com/photo1", photo_description: "A sample photo", photo_type: "jpg", photoPageLocation: "Gallery")
+    @photo = Photo.create!(url: "https://example.com/photo1", photo_description: "A sample photo", photo_type: "jpg", displayed_in_home_gallery: true)
     allow(view).to receive(:action_name).and_return("edit")
   end
 

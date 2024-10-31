@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "photos/delete", type: :view do
   before do
-    @photo = assign(:photo, Photo.create!(url: "https://example.com/photo", photo_description: "A sample photo", photo_type: "Landscape", photoPageLocation: "Home"))
+    @photo = assign(:photo, Photo.create!(url: "https://example.com/photo", photo_description: "A sample photo", photo_type: "Landscape", displayed_in_home_gallery: true))
     render
   end
 
@@ -14,7 +14,6 @@ RSpec.describe "photos/delete", type: :view do
     expect(rendered).to match(/https:\/\/example.com\/photo/)
     expect(rendered).to match(/A sample photo/)
     expect(rendered).to match(/Landscape/)
-    expect(rendered).to match(/Home/)
   end
 
   it "has a delete button and a cancel button" do
