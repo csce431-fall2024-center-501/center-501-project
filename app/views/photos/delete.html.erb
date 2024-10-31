@@ -1,10 +1,16 @@
 <h1>Are you sure you want to delete this photo?</h1>
 <div class="form-container">
+     <% if flash[:notice] %>
+        <div class="flash-notice">
+            <%= flash[:notice] %>
+        </div>
+    <% end %>
+    
     <p>
         <strong>Image:</strong><br>
         <%= image_tag(@photo.photoLink, alt: @photo.photoDescription) %>
     </p>
-    
+
     <p>
         <strong>Photo Link:</strong>
         <%= link_to truncate(@photo.photoLink, length: 30), @photo.photoLink, target: '_blank' %>

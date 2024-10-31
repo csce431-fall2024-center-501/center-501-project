@@ -1,5 +1,11 @@
 <h1><%= action_name.capitalize %> Photo</h1>
 <div class="form-container">
+    <% if flash[:notice] %>
+        <div class="flash-notice">
+            <%= flash[:notice] %>
+        </div>
+    <% end %>
+    
     <%= form_with(model: @photo, local: true) do |form| %>
         <% if @photo.errors.any? %>
             <div id="error_explanation">
