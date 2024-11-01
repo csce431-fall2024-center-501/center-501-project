@@ -31,6 +31,13 @@
   </div>
 
   <div>
+    <%= label_tag :description, 'Description' %>
+    <%= text_area_tag :description, @event.description %>
+
+  <div>
     <%= submit_tag 'Update Event' %>
+  </div>
+  <div>
+    <%= link_to 'Back to Events', events_url(calendar_id: @calendar_id) %>
   </div>
 <% end %>

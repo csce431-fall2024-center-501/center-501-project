@@ -56,7 +56,8 @@ class CalendarController < OfficerApplicationController
              Google::Apis::CalendarV3::EventDateTime.new(
                date: end_date
              )
-           end
+           end,
+      description: params[:description]
     )
 
     service.insert_event(params[:calendar_id], event)
@@ -172,7 +173,8 @@ class CalendarController < OfficerApplicationController
              Google::Apis::CalendarV3::EventDateTime.new(
                date: end_date
              )
-           end
+           end,
+      description: params[:description]
     )
 
     service.update_event(params[:calendar_id], params[:event_id], event)

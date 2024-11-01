@@ -9,6 +9,16 @@
 .event-blocks {
     width: 30%;
     margin-left: 15%;
+    font-size: large
+}
+
+.event-blocks .show-event-link {
+    color: var(--secondary-color);
+    font-size: medium;
+}
+
+.event-blocks .show-event-link:hover {
+    color: #4d7bff;
 }
 
 .event-form {
@@ -23,6 +33,21 @@
 
 .event-form input {
     margin-bottom: 10px;
+}
+
+.event-form .event-name-field {
+    width: 70%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.event-form .description-field {
+    width: 70%;
+    padding: 5px;
+    border-radius: 5px;
+    height: 100px;
+    border: 1px solid #ccc;
 }
 
 .event-block {
@@ -44,5 +69,25 @@
 }
 
 .event-form .add-button:hover {
+    background-color: #4d7bff;
+}
+
+.event-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.event-actions .event-button {
+    background-color: var(--primary-color);
+    color: var(--secondary-color); 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.event-actions .event-button:hover {
     background-color: #4d7bff;
 }

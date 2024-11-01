@@ -11,26 +11,25 @@
     <% end_time = end_date_time_obj.strftime('%I:%M') %>
     <% start_am_pm = start_date_time_obj.strftime('%p') %>
     <% end_am_pm = end_date_time_obj.strftime('%p') %>
-    <div><%= @event.summary %></div>
-    <div>Start Time: <%= start_date %> <%= start_time %> <%= start_am_pm %></div>
-    <div>End Time: <%= end_date %> <%= end_time %> <%= end_am_pm %></div>
+    <h2>Start Time: <%= start_date %> <%= start_time %> <%= start_am_pm %></h2>
+    <h2>End Time: <%= end_date %> <%= end_time %> <%= end_am_pm %></h2>
+    <h2><%= link_to 'See in Google Calendar', @event.html_link, target: '_blank' %></h2>
 <% else %>
-    <div><%= @event.summary %></div>
     <% if @event.start.date != @event.end.date %>
-        <div> Start Date: <%= @event.start.date %></div>
-        <div>End Date: <%= @event.end.date %></div>
+        <h2> Start Date: <%= @event.start.date %></h2>
+        <h2>End Date: <%= @event.end.date %></h2>
     <% else %>
-        <div> All Day: <%= @event.start.date %></div>
+        <h2> All Day: <%= @event.start.date %></h2>
     <% end %>
+    <h2><%= link_to 'See in Google Calendar', @event.html_link, target: '_blank' %></h2>
+    <h2><%= @event.description %></h2>
 <% end %>
 
-<div>
-    <%= link_to 'Edit Event', edit_event_url(calendar_id: @calendar_id, event_id: @event.id), class: 'edit-event-link' %>
-</div>
-<div>
-    <%= link_to 'Delete Event', delete_event_path(calendar_id: @calendar_id, event_id: @event.id), class: 'delete-event-link' %>
-</div>
-<div>
-    <%= link_to 'Back to Events', events_url(calendar_id: @calendar_id), class: 'back-to-events-link' %>
+<div class="event-actions">
+    <% if current_user.atleast_officer? %>
+        <%= link_to 'Edit Event', edit_event_url(calendar_id: @calendar_id, event_id: @event.id), class: 'event-button' %>
+        <%= link_to 'Delete Event', delete_event_path(calendar_id: @calendar_id, event_id: @event.id), class: 'event-button', method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    <%= link_to 'Back to Events', events_url(calendar_id: @calendar_id), class: 'event-button' %>
 </div>
 
