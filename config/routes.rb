@@ -66,5 +66,8 @@ Rails.application.routes.draw do
       get :delete
     end
   end
+
+  get 'help', to: 'help#index'
+
   root 'pages#home'
 end

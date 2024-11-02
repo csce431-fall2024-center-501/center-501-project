@@ -1,0 +1,13 @@
+.help-container {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.section-title {
+    color: var(--primary-color);
+}
+
