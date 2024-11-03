@@ -12,7 +12,12 @@
                 <li><%= link_to 'Email', email_path, class: current_page?(email_path) ? 'active' : '' %></li>
                 <li><%= link_to 'Photos', photos_path, class: current_page?(photos_path) ? 'active' : '' %></li>
                 <li><%= link_to 'Locations', locations_path, class: current_page?(locations_path) ? 'active' : '' %></li>
-            <% end %>
+                <li>
+                    <a href="<%= help_path %>" class="nav-icon" title="Help">
+                        <%= image_tag 'help_icon.png', alt: 'Help Icon', class: 'help-icon' %>
+                    </a>
+                </li>
+                <% end %>
             <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
         <% else %>
             <li><%= link_to 'Log In', new_user_session_path, class: current_page?(new_user_session_path) ? 'active' : '' %></li>
