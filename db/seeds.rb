@@ -9,21 +9,20 @@ Project.create([
     locationID: 1,
     isProjectActive: true,
     markdownBody: <<-MARKDOWN
-# Welcome to My Website
+# Welcome to My Website!
 
 This is a **simple website** designed to showcase some *cool features*. Let's explore what's on this page:
 
 ## Features
 
-1. **Easy to Use**: Just type in markdown, and it converts to HTML instantly.
-2. **Live Preview**: As you type, you can see the formatted content on the right side.
-3. **Rich Formatting**:
+1.**Easy to Use**: Just type in markdown, and it converts to HTML instantly.
+2.**Live Preview**: As you type, you can see the formatted content on the right side.
+3.**Rich Formatting**:
 
    - *Italics*
    - **Bold**
    - `Code snippets`
    - ~~Strikethrough~~
-   - ==Highlighting==
 
 ## Code Example
 

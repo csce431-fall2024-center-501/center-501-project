@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag "project_view", media: "all"%>
+<script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
 
 <div class="project-form">
 
@@ -43,7 +44,7 @@
 
           <tr>
             <th class = "form_th"> <%= form.label :markdownBody, "Markdown Body", style: "text-align: left; display: block; padding-left: 10px;" %> </th>
-            <td> <%= form.text_area :markdownBody, rows: 16, cols: 80, id: "markdown_body", style: "width: 100%; box-sizing: border-box" %> </td>
+            <td> <%= form.text_area :markdownBody, rows: 16, cols: 80, id: "markdownBody", style: "width: 100%; box-sizing: border-box" %> </td>
           </tr>
       </table>
 
@@ -57,9 +58,29 @@
 
   <div class="preview">
     <h2> Markdown Preview </h2>
-    <div id="markdown_preview" style="border: 1px solid #ddd; padding: 10px; margin-top: 20px;">
+    <div id="markdownPreview" style="border: 1px solid #ddd; padding: 10px; margin-top: 20px;">
       <!-- Live preview will be shown here -->
     </div>
   </div>
+
+  <script>
+    marked.setOptions({
+    gfm: true,
+    breaks: true,
+    smartLists: true,
+    smartypants: true,
+    });
+
+    const markdownInput = document.getElementById('markdownBody').innerHTML;
+    const markdown = marked.parse(markdownInput);
+    document.getElementById('markdownPreview').innerHTML = markdown;
+
+    document.getElementById('markdownBody').addEventListener('input', function(){
+      const markdownInput = this.value;
+
+      const markdown = marked.parse(markdownInput);
+      document.getElementById('markdownPreview').innerHTML = markdown;
+    });
+  </script>
 
 </div>
