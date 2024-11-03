@@ -1,21 +1,73 @@
 <h1 class="help-title">Help</h1>
 <div class="help-container">
-    <h2 class="section-title">General</h2>
-    <p class="section-info"></p>
-    <h2 class="section-title">Projects</h2>
-    <p class="section-info"></p>
-    <h2 class="section-title">Members</h2>
-    <p class="section-info"></p>
-    <h2 class="section-title">Sponsors & Donations</h2>
-    <p class="section-info"></p>
-    <h2 class="section-title">Calendar</h2>
-    <p class="section-info"></p>
-    <h2 class="section-title">Email</h2>
-    <p class="section-info"></p>
-    <h2 class="section-title">Photos</h2>
-    <p class="section-info"></p>
-    <h2 class="section-title">Locations</h2>
-    <p class="section-info"></p>
-    <h2 class="section-title">Helpful Resources</h2>
-    <p class="section-info"></p>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            General <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">hewwo uwu</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Projects <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">Information about projects.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Members <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">Details about membership.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Sponsors & Donations <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">Sponsor and donation information.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Calendar <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">Calendar details.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Email <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">Contact information.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Photos <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">Photo gallery info.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Locations <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">Our various locations.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Helpful Resources <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">Additional resources for support.</p>
+    </div>
 </div>
+
+
+<script>
+    function toggleSection(title) {
+        const sectionInfo = title.nextElementSibling;
+        const arrow = title.querySelector('.arrow');
+
+        if (sectionInfo.style.display === "block") {
+            sectionInfo.style.display = "none";
+            arrow.textContent = "▼"; // down arrow
+        } else {
+            sectionInfo.style.display = "block";
+            arrow.textContent = "▲"; // up arrow
+        }
+    }
+</script>

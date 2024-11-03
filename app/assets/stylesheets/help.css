@@ -11,3 +11,16 @@
     color: var(--primary-color);
 }
 
+.help-container .section-info {
+    display: none;
+    /* Hide the section info by default */
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.help-container .section-title {
+    cursor: pointer;
+    /* Indicate clickable title */
+    margin: 10px 0;
+    font-weight: bold;
+}

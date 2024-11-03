@@ -70,3 +70,50 @@ nav a.active {
     opacity: 0.8;
     /* Slightly dim on hover */
 }
+
+/* Initial styling for nav and menu icon */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+}
+
+/* Hide the menu icon by default */
+.menu-icon {
+    display: none;
+    cursor: pointer;
+}
+
+/* Hamburger bars styling */
+.menu-icon .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 4px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+
+    /* Hide nav links on smaller screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        background-color: white;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Show the menu icon */
+    .menu-icon {
+        display: block;
+    }
+
+    /* Show the menu when toggled */
+    .nav-links.show {
+        display: flex;
+    }
+}
