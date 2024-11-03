@@ -24,6 +24,7 @@ class PhotosController < OfficerApplicationController
         format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
         format.json { render :show, status: :created, location: @photo }
       else
+        @projects = Project.all
         format.html { render :new }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
@@ -36,6 +37,7 @@ class PhotosController < OfficerApplicationController
         format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
         format.json { render :show, status: :ok, location: @photo }
       else
+        @projects = Project.all
         format.html { render :edit }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
