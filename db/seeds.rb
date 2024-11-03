@@ -83,3 +83,24 @@ MARKDOWN
         linkedin_url: Faker::Internet.url
     )
 end
+
+Sponsorship.create!([
+  {
+    sponsor_logo: "Garver",
+    sponsor_lead_name: "garver_lead",
+    sponsor_phone: "9791234567",
+    sponsor_email: "test@gmail.com",
+    sponsor_donation: 500,
+    sponsor_end_of_contract: 1.year.from_now.to_date
+    sponsor_logo: "https://res.cloudinary.com/daw03xxlr/image/upload/v1730658925/btgi2wlslxgb30fnt7p0.png"
+  }, 
+  {
+    sponsor_logo: "Texas A&M Student Engineers' Council",
+    sponsor_lead_name: "sec_lead",
+    sponsor_phone: "9791234567",
+    sponsor_email: "test@gmail.com",
+    sponsor_donation: 1000,
+    sponsor_end_of_contract: 1.year.from_now.to_date
+    sponsor_logo: "https://res.cloudinary.com/daw03xxlr/image/upload/v1730660069/blyrbwrnxobl8nk5qa3p.png"
+  }
+])

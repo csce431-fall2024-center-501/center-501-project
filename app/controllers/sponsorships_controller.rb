@@ -56,6 +56,6 @@ class SponsorshipsController < ApplicationController
 
   def sponsorship_params
     params.require(:sponsorship).permit(:sponsor_name, :sponsor_lead_name, :sponsor_phone, :sponsor_email,
-                                        :sponsor_donation, :sponsor_end_of_contract)
+                                        :sponsor_donation, :sponsor_end_of_contract, :sponsor_logo)
   end
 end
