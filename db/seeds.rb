@@ -6,24 +6,23 @@ Project.create([
   { projectName: "Example Project",
     projectDesc: "This is an example of what a project looks like!",
     projectStartDate: Date.today,
-    locationID: 1000,
+    locationID: 1,
     isProjectActive: true,
     markdownBody: <<-MARKDOWN
-# Welcome to My Website
+# Welcome to My Website!
 
 This is a **simple website** designed to showcase some *cool features*. Let's explore what's on this page:
 
 ## Features
 
-1. **Easy to Use**: Just type in markdown, and it converts to HTML instantly.
-2. **Live Preview**: As you type, you can see the formatted content on the right side.
-3. **Rich Formatting**:
+1.**Easy to Use**: Just type in markdown, and it converts to HTML instantly.
+2.**Live Preview**: As you type, you can see the formatted content on the right side.
+3.**Rich Formatting**:
 
    - *Italics*
    - **Bold**
    - `Code snippets`
    - ~~Strikethrough~~
-   - ==Highlighting==
 
 ## Code Example
 
@@ -178,3 +177,11 @@ Location.create!([
         linkedin_url: Faker::Internet.url
     )
 end
+
+Location.create!(
+  address: "400 Bizzell St",
+  city: "College Station",
+  state: "Texas",
+  zip_code: "77840",
+  country: "United States"
+)

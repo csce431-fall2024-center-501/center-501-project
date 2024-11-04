@@ -29,9 +29,12 @@
   </div>
 <% end %>
 
-<% if current_user.admin? %>
+<% if current_user.atleast_officer? %>
   <div style="display: flex; flex-wrap: wrap; margin-left: 5px;">
     <%= link_to 'New User', new_user_path, class: "button-link" %>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; margin-left: 5px;">
+    <%= link_to 'Export CSV', csv_users_path, class: "button-link" %>
   </div>
 <% end %>
 
