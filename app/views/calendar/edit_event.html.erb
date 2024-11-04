@@ -11,11 +11,11 @@
   <div id="datetime-fields" style="<%= @event.start.date_time.nil? ? 'display: none;' : '' %>">
     <div>
     <%= label_tag :start_datetime, 'Start Date and Time' %>
-    <%= datetime_local_field_tag :start_datetime, @event.start.date_time.nil? ? nil : @event.start.date_time.to_s %>
+    <%= datetime_local_field_tag :start_datetime, @event.start.date_time.nil? ? nil : @event.start.date_time.strftime('%Y-%m-%dT%H:%M') %>
     </div>
     <div>
     <%= label_tag :end_datetime, 'End Date and Time' %>
-    <%= datetime_local_field_tag :end_datetime, @event.end.date_time.nil? ? nil : @event.end.date_time.to_s %>
+    <%= datetime_local_field_tag :end_datetime, @event.end.date_time.nil? ? nil : @event.end.date_time.strftime('%Y-%m-%dT%H:%M') %>
     </div>
   </div>
 
@@ -33,7 +33,27 @@
   <div>
     <%= label_tag :description, 'Description' %>
     <%= text_area_tag :description, @event.description %>
+  </div>
+  <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        const allDayCheckbox = document.querySelector('input[name="all_day"]');
+        const datetimeFields = document.getElementById('datetime-fields');
+        const dateFields = document.getElementById('date-fields');
 
+        allDayCheckbox.addEventListener('change', function() {
+          if (this.checked) {
+          datetimeFields.style.display = 'none';
+          dateFields.style.display = 'block';
+          } else {
+          datetimeFields.style.display = 'block';
+          dateFields.style.display = 'none';
+          }
+        });
+
+        // Trigger change event on page load to set initial state
+        allDayCheckbox.dispatchEvent(new Event('change'));
+        });
+      </script
   <div>
     <%= submit_tag 'Update Event' %>
   </div>

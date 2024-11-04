@@ -41,7 +41,7 @@ class CalendarController < OfficerApplicationController
       summary: params[:event_name],
       start: if start_date_time
                Google::Apis::CalendarV3::EventDateTime.new(
-                 date_time: (start_date_time.to_time + 5.hours).rfc3339
+                 date_time: (start_date_time.to_time + 6.hours).rfc3339
                )
              else
                Google::Apis::CalendarV3::EventDateTime.new(
@@ -50,7 +50,7 @@ class CalendarController < OfficerApplicationController
              end,
       end: if end_date_time
              Google::Apis::CalendarV3::EventDateTime.new(
-               date_time: (end_date_time.to_time + 5.hours).rfc3339
+               date_time: (end_date_time.to_time + 6.hours).rfc3339
              )
            else
              Google::Apis::CalendarV3::EventDateTime.new(
@@ -158,7 +158,7 @@ class CalendarController < OfficerApplicationController
       summary: params[:event_name],
       start: if start_date_time
                Google::Apis::CalendarV3::EventDateTime.new(
-                 date_time: (start_date_time.to_time + 5.hours).rfc3339
+                 date_time: (start_date_time.to_time + 6.hours).rfc3339
                )
              else
                Google::Apis::CalendarV3::EventDateTime.new(
@@ -167,7 +167,7 @@ class CalendarController < OfficerApplicationController
              end,
       end: if end_date_time
              Google::Apis::CalendarV3::EventDateTime.new(
-               date_time: (end_date_time.to_time + 5.hours).rfc3339
+               date_time: (end_date_time.to_time + 6.hours).rfc3339
              )
            else
              Google::Apis::CalendarV3::EventDateTime.new(
