@@ -70,4 +70,30 @@ module TestAttributes
       markdownBody: nil
     }
   end
+
+  def valid_photo_attributes1
+    {
+      description: 'Sample photo',
+      displayed_in_home_gallery: true,
+      url: 'http://example.com/photo.jpg',
+      project_id: Project.create(valid_project_attributes).id
+    }
+  end
+
+  def valid_photo_attributes2
+    {
+      description: 'Another sample photo',
+      displayed_in_home_gallery: false,
+      url: 'http://example.com/photo2.jpg'
+    }
+  end
+
+  def invalid_photo_attributes
+    {
+      description: '',
+      displayed_in_home_gallery: nil,
+      url: '',
+      project_id: nil
+    }
+  end
 end

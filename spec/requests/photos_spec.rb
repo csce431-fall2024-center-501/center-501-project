@@ -4,31 +4,6 @@ require 'rails_helper'
 
 RSpec.describe PhotosController, type: :request do
   include TestAttributes
-  let(:valid_photo_attributes1) do
-    {
-      description: 'Sample photo',
-      displayed_in_home_gallery: true,
-      url: 'http://example.com/photo.jpg',
-      project_id: Project.create(valid_project_attributes).id
-    }
-  end
-
-  let(:valid_photo_attributes2) do
-    {
-      description: 'Another sample photo',
-      displayed_in_home_gallery: false,
-      url: 'http://example.com/photo2.jpg'
-    }
-  end
-
-  let(:invalid_photo_attributes) do
-    {
-      description: '',
-      displayed_in_home_gallery: nil,
-      url: '',
-      project_id: nil
-    }
-  end
 
   describe "GET /index" do
     it "renders a successful response with expected information when officer" do
