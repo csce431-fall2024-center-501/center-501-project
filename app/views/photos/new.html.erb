@@ -1,39 +1,5 @@
 <h1><%= action_name.capitalize %> Photo</h1>
-<div class="form-container">
-    <%= form_with(model: @photo, local: true) do |form| %>
-        <% if @photo.errors.any? %>
-            <div id="error_explanation">
-                <h2><%= pluralize(@photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
-                <ul>
-                    <% @photo.errors.full_messages.each do |message| %>
-                        <li><%= message %></li>
-                    <% end %>
-                </ul>
-            </div>
-        <% end %>
 
-    <div class="field">
-        <%= form.label :Photo_Link %>
-        <%= form.text_field :photoLink %>
-    </div>
+<%= render 'form', photo: @photo %>
 
-    <div class="field">
-        <%= form.label :Photo_Description %>
-        <%= form.text_field :photoDescription %>
-    </div>
-
-    <div class="field">
-        <%= form.label :Photo_Type %>
-        <%= form.text_field :photoType %>
-    </div>
-
-    <div class="field">
-        <%= form.label :Website_Page_Location %>
-        <%= form.select :photoPageLocation, options_for_select([["Home", "home"], ["Projects", "projects"], ["Members", "members"], ["Sponsors & Donations", "sponsors_and_donations"]], @photo.photoPageLocation) %>
-    <div class="actions">
-        <%= form.submit %>
-        </div>
-    <% end %>
-
-    <%= link_to 'Back', photos_path %>
-</div>
+<%= link_to 'Back', photos_path %>

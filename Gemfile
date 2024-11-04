@@ -104,3 +104,6 @@ gem 'redcarpet'
 gem 'rack-cors'
 
 gem "faker"
+
+# Cloudinary for photo upload
+gem 'cloudinary'

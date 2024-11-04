@@ -81,5 +81,4 @@ RSpec.configure do |config|
     # Ensure tokens are refreshed if needed
     allow_any_instance_of(ApplicationController).to receive(:refresh_token_if_needed).and_return(true)
   end
-  
 end
