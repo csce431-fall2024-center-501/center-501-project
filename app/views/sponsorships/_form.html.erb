@@ -10,7 +10,7 @@
         { cloudName: "<%= Rails.application.credentials.cloudinary[:cloud_name] %>", uploadPreset: "uw_test" },
         (error, result) => {
           if (!error && result && result.event === "success") {
-            url.value = result.info.secure_url;
+            image_url.value = result.info.secure_url;
           }
         }
       );
