@@ -107,3 +107,6 @@ gem "faker"
 
 # Cloudinary for photo upload
 gem 'cloudinary'
+
+# Predefined list of countries
+gem 'country_select'

@@ -37,10 +37,11 @@
 
     <div class = "project-actions">
 
-      <%= link_to("Edit this Project", edit_project_path(@project)) %>
-
-      <%= link_to("Delete this Project", delete_project_path(@project)) %>
-
+      <% if current_user && current_user.atleast_officer? %>
+        <%= link_to("Edit this Project", edit_project_path(@project)) %>
+        <%= link_to("Delete this Project", delete_project_path(@project)) %>
+      <% else %>
+      <% end %>
       <%= link_to("View other Projects", projects_path) %>
 
     </div>

@@ -12,6 +12,10 @@
         <%= link_to("Delete", delete_sponsorship_path(@sponsorship), class: 'sponsorship-action delete') %>
     </div>
 
+    <div>
+        <%= image_tag(@sponsorship.sponsor_logo.presence || 'sponsor_placeholder.png', alt: @sponsorship.sponsor_name, class: 'sponsor-image') %>
+    </div>
+    
     <table summary="Sponsorship detail view">
         <tr>
             <th>Sponsor Name</th>

@@ -1,6 +1,6 @@
-<h1><%= action_name.capitalize %> Photo</h1>
+<h1><%= action_name.capitalize %>Photo</h1>
 
-<p> <%= link_to @photo.url, "#{@photo.url}" %> </p>
+<p><%= link_to @photo.url, "#{@photo.url}" %></p>
 
 <%= render 'form', photo: @photo %>
 
