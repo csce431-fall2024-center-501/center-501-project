@@ -109,55 +109,48 @@ Project.create!([
 
 Location.create!([
   {
-    id: 1000,
     address: "123 Main St",
     city: "Springfield",
     state: "IL",
     zip_code: "62701",
-    country: "USA"
+    country: "US"
   },
   {
-    id: 1,
     address: "45 Alpha Ave",
     city: "Boston",
     state: "MA",
     zip_code: "02108",
-    country: "USA"
+    country: "US"
   },
   {
-    id: 2,
     address: "789 Beta Blvd",
     city: "Austin",
     state: "TX",
     zip_code: "73301",
-    country: "USA"
+    country: "US"
   },
   {
-    id: 3,
     address: "101 Gamma Rd",
     city: "San Francisco",
     state: "CA",
     zip_code: "94103",
-    country: "USA"
+    country: "US"
   },
   {
-    id: 4,
     address: "202 Delta Dr",
     city: "Seattle",
     state: "WA",
     zip_code: "98101",
-    country: "USA"
+    country: "US"
   },
   {
-    id: 5,
     address: "303 Epsilon Ln",
     city: "New York",
     state: "NY",
     zip_code: "10001",
-    country: "USA"
+    country: "US"
   }
 ])
-
 
 100.times do
     User.create!(
@@ -178,31 +171,23 @@ Location.create!([
     )
 end
 
-Location.create!(
-  address: "400 Bizzell St",
-  city: "College Station",
-  state: "Texas",
-  zip_code: "77840",
-  country: "United States"
-)
-
 Sponsorship.create!([
   {
-    sponsor_logo: "Garver",
+    sponsor_name: "Garver",
     sponsor_lead_name: "garver_lead",
     sponsor_phone: "9791234567",
     sponsor_email: "test@gmail.com",
     sponsor_donation: 500,
-    sponsor_end_of_contract: 1.year.from_now.to_date
+    sponsor_end_of_contract: 1.year.from_now.to_date,
     sponsor_logo: "https://res.cloudinary.com/daw03xxlr/image/upload/v1730658925/btgi2wlslxgb30fnt7p0.png"
   }, 
   {
-    sponsor_logo: "Texas A&M Student Engineers' Council",
+    sponsor_name: "Texas A&M Student Engineers' Council",
     sponsor_lead_name: "sec_lead",
     sponsor_phone: "9791234567",
     sponsor_email: "test@gmail.com",
     sponsor_donation: 1000,
-    sponsor_end_of_contract: 1.year.from_now.to_date
+    sponsor_end_of_contract: 1.year.from_now.to_date,
     sponsor_logo: "https://res.cloudinary.com/daw03xxlr/image/upload/v1730660069/blyrbwrnxobl8nk5qa3p.png"
   }
 ])
