@@ -18,7 +18,11 @@
       <% if project.isProjectActive %>
       <div class="project-entry">
         <div class="project-image">
-          <%= image_tag('logo.png', alt: 'Engineers Without Borders Logo', style: "background-color: #444444; width: 200px; height: 200px;") %>
+          <% if project.photos.present? && project.photos[0].present? && project.photos[0].url.present? && project.photos[0].description.present? %>
+            <img src="<%= project.photos[0].url %>" alt="<%= project.photos[0].description %>" style="width: 200px; height: 200px;" />
+          <% else %>
+            <%= image_tag('logo.png', alt: 'Engineers Without Borders Logo', style: "background-color: #444444; width: 200px; height: 200px;") %>
+          <% end %>
         </div>
         <div class="project-body">
           <p>
@@ -52,7 +56,11 @@
       <% if !project.isProjectActive %>
         <div class="project-entry">
           <div class="project-image">
-            <%= image_tag('logo.png', alt: 'Engineers Without Borders Logo', style: "background-color: #444444; width: 200px; height: 200px;") %>
+            <% if project.photos.present? && project.photos[0].present? && project.photos[0].url.present? && project.photos[0].description.present? %>
+              <img src="<%= project.photos[0].url %>" alt="<%= project.photos[0].description %>" style="width:100%" />
+            <% else %>
+              <%= image_tag('logo.png', alt: 'Engineers Without Borders Logo', style: "background-color: #444444; width: 200px; height: 200px;") %>
+            <% end %>
           </div>
           <div class="project-body">
             <p>
@@ -80,7 +88,11 @@
       <% end %>
     <% end %>
 
-    <p> <%= link_to "Create a New Project", new_project_path %> </p>
+    <% if current_user %>
+      <% if current_user.admin? %>
+      <p> <%= link_to "Create a New Project", new_project_path %> </p>
+      <% end %>
+    <% end %>
 
   </div>
 
