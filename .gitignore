@@ -39,5 +39,5 @@ client_secret.apps.googleusercontent.com.json
 # Ignore the default vs code settings
 .vscode/*
 
-# Ignore environment file
-.env
+# Ignore macbook specific files
+**/.DS_Store

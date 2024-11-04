@@ -2,7 +2,7 @@
   <ul class="bxslider">
     <% photos.each do |photo| %>
       <li>
-        <img src="<%= photo.image_url %>" alt="<%= photo.photoDescription %>" style="width:100%" />
+        <img src="<%= photo.url %>" alt="<%= photo.description %>" style="width:100%" />
       </li>
     <% end %>
   </ul>

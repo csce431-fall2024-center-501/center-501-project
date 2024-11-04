@@ -3,22 +3,14 @@
     const uploadButton = document.getElementById("upload_widget");
     const imageUrlField = document.getElementById("image_url");
 
-    console.log("Upload button found:", uploadButton); 
-    if (!uploadButton) {
-      console.error("Upload button not found!");
-      return;
-    }
-
     uploadButton.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log("Upload button clicked");
 
       cloudinary.openUploadWidget(
-        { cloudName: "<%= ENV['CLOUDINARY_CLOUD_NAME'] %>", uploadPreset: "uw_test" },
+        { cloudName: "<%= Rails.application.credentials.cloudinary[:cloud_name] %>", uploadPreset: "uw_test" },
         (error, result) => {
           if (!error && result && result.event === "success") {
-            console.log("Image uploaded successfully:", result.info.secure_url);
-            imageUrlField.value = result.info.secure_url;
+            url.value = result.info.secure_url;
           }
         }
       );
@@ -41,28 +33,23 @@
     <p>File formats allowed: .jpg, .png</p>
 
     <div>
-        <%= button_tag "Upload Image", id: "upload_widget", type: "button", data: { cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] } %>
-        <%= form.hidden_field :image_url, id: "image_url" %>
+        <%= button_tag (photo.new_record? ? "Upload New Image" : "Change Image"), id: "upload_widget", type: "button", data: { cloud_name: Rails.application.credentials.cloudinary[:cloud_name] } %>
+        <%= form.hidden_field :url, id: "url" %>
     </div>
 
     <div class="field">
-        <%= form.label :photoLink %>
-        <%= form.text_field :photoLink %>
+        <%= form.label :description %>
+        <%= form.text_field :description %>
     </div>
 
     <div class="field">
-        <%= form.label :photoDescription %>
-        <%= form.text_field :photoDescription %>
+      <%= form.label :project_id, "Associated Project" %>
+      <%= form.collection_select :project_id, @projects, :id, :projectName, prompt: "Select a project" %>
     </div>
 
     <div class="field">
-        <%= form.label :photoType %>
-        <%= form.select :photoType, Photo::TYPES.map { |type| [type.humanize, type] }, prompt: 'Select image file type' %>
-    </div>
-
-    <div class="field">
-        <%= form.label :photoPageLocation %>
-        <%= form.text_field :photoPageLocation %>
+      <%= form.label :displayed_in_home_gallery, "Display in Home Gallery" %>
+      <%= form.check_box :displayed_in_home_gallery %>
     </div>
 
     <div class="actions">

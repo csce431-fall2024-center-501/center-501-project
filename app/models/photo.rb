@@ -1,6 +1,5 @@
 class Photo < ApplicationRecord
-    TYPES = %w[.jpg .png].freeze
-    validates :photoDescription, presence: true
-    validates :photoType, presence: true
-    validates :photoDescription, presence: true
+    validates :description, presence: true
+    validates :url, presence: true
+    belongs_to :project, optional: true
 end

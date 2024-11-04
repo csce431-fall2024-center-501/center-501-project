@@ -12,13 +12,13 @@ class ProjectsController < ApplicationController
   # GET /projects/1 or /projects/1.json
   def show
     @project = Project.find(params[:id])
-    @photos = Photo.where(photoPageLocation: 'Projects')
-
+    @photos = @project.photos
     @html_output = markdown_to_html(@project.markdownBody.to_s)
   end
 
   # GET /projects/new
   def new
+    return unless require_officer
     # Handles POST requests
     if request.post?
       data = params[:data]
@@ -32,11 +32,13 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    return unless require_officer
     @project = Project.find(params[:id])
   end
 
   # POST /projects or /projects.json
   def create
+    return unless require_officer
     @project = Project.new(project_params)
 
     respond_to do |format|
@@ -52,6 +54,7 @@ class ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
+    return unless require_officer
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to project_url(@project), notice: 'Project was successfully updated.' }
@@ -65,10 +68,12 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1 or /projects/1.json
   def delete
+    return unless require_officer
     @project = Project.find(params[:id])
   end
 
   def destroy
+    return unless require_officer
     @project = Project.find(params[:id])
     @project.destroy
     redirect_to projects_path, notice: 'Project was successfully deleted.'

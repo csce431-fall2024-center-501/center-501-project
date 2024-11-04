@@ -17,8 +17,6 @@ RSpec.describe 'CalendarController', type: :request do
                                                                                 google_refresh_token: 'valid_refresh_token',
                                                                                 google_expires_at: Time.now + 1.hour
                                                                               })
-
-    sign_in User.create! valid_attributes
   end
 
   # Mock the Google API client and service
@@ -37,7 +35,7 @@ RSpec.describe 'CalendarController', type: :request do
   end
 
   describe 'POST /new_event' do
-    context 'with valid parameters' do
+    context 'with valid parameters and logged in officer account' do
       let(:event_params) do
         {
           event_name: 'Test Event',
@@ -48,6 +46,7 @@ RSpec.describe 'CalendarController', type: :request do
 
       before do
         allow(calendar_service).to receive(:insert_event).and_return(true)
+        sign_in User.create! valid_officer_attributes
       end
 
       it 'creates a new event and redirects to events_url' do
@@ -65,13 +64,17 @@ RSpec.describe 'CalendarController', type: :request do
       end
     end
 
-    context 'with invalid calendar_id' do
+    context 'with invalid calendar_id but signed in officer account' do
       let(:event_params) do
         {
           event_name: 'Test Event',
           start_date: '2023-01-01',
           end_date: '2023-01-02'
         }
+      end
+
+      before do
+        sign_in User.create! valid_officer_attributes
       end
 
       it 'redirects to calendars_path' do
@@ -84,29 +87,46 @@ RSpec.describe 'CalendarController', type: :request do
   end
 
   describe 'GET /calendars' do
-    let(:calendar_list_response) do
-      double('CalendarList', items: [
-               double('Calendar', id: valid_calendar_id, summary: 'Test Calendar12345'),
-               double('Calendar', id: 'other_calendar_id', summary: 'Other Calendar67890')
-             ])
+    context 'with a logged in officer account' do
+      let(:calendar_list_response) do
+        double('CalendarList', items: [
+                double('Calendar', id: valid_calendar_id, summary: 'Test Calendar12345'),
+                double('Calendar', id: 'other_calendar_id', summary: 'Other Calendar67890')
+              ])
+      end
+
+      before do
+        allow(calendar_service).to receive(:list_calendar_lists).and_return(calendar_list_response)
+        sign_in User.create! valid_officer_attributes
+      end
+
+      it 'retrieves calendars successfully and redirects to events' do
+        get calendars_path
+
+        expect(response).to redirect_to(events_url(calendar_id: valid_calendar_id))
+      end
     end
 
-    before do
-      allow(calendar_service).to receive(:list_calendar_lists).and_return(calendar_list_response)
-    end
+    context 'with a logged in regular user account' do
+      before do
+        sign_in User.create! valid_attributes
+      end
 
-    it 'retrieves calendars successfully and redirects to events' do
-      get calendars_path
+      it 'redirects to root' do
+        get calendars_path
 
-      expect(response).to redirect_to(events_url(calendar_id: valid_calendar_id))
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
   describe 'GET /events' do
-    context 'with invalid calendar_id' do
+    context 'with invalid calendar_id but a logged in officer account' do
+      before do
+        sign_in User.create! valid_officer_attributes
+      end
       it 'redirects to calendars_path' do
         get "/events/#{invalid_calendar_id}"
-
         expect(response).to redirect_to(calendars_path)
       end
     end
