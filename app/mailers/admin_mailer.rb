@@ -18,7 +18,7 @@ class AdminMailer < ApplicationMailer
 
   def birthday_email(person)
     @person = person
-    mail(to: @person.pluck(:email), subject: "Happy Birthday#{person.full_name}!") if @users.present?
+    mail(to: @person.email, subject: "Happy Birthday #{person.full_name}!")
   end
 
   def calendar_email(subject, event_list)

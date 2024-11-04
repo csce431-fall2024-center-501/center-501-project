@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   get '/calendars', to: 'calendar#calendars', as: 'calendars'
   get '/events/:calendar_id', to: 'calendar#events', as: 'events', calendar_id: %r{[^/]+}
   post '/events/:calendar_id', to: 'calendar#new_event', as: 'new_event', calendar_id: %r{[^/]+}
+  get '/events/:calendar_id/:event_id', to: 'calendar#event', as: 'event', calendar_id: %r{[^/]+}, event_id: %r{[^/]+}
+  get '/events/:calendar_id/:event_id/edit', to: 'calendar#edit_event', as: 'edit_event', calendar_id: %r{[^/]+},
+                                             event_id: %r{[^/]+}
+  get '/events/:calendar_id/:event_id/delete', to: 'calendar#delete_event', as: 'delete_event', calendar_id: %r{[^/]+},
+                                               event_id: %r{[^/]+}
+  post '/events/:calendar_id/:event_id/update', to: 'calendar#update_event', as: 'update_event', calendar_id: %r{[^/]+},
+                                                event_id: %r{[^/]+}
 
   get '/emails', to: 'emails#email', as: 'email'
   get '/emails/indiviual_email', to: 'emails#individual_email', as: 'individual_email'

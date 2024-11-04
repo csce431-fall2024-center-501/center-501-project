@@ -27,9 +27,8 @@ nav ul {
 }
 
 nav ul li {
-    margin-left: 40px;
+    margin-left: 30px;
 }
-/* will remove once dummy data is replaced with actual links */
 nav li {
     color: white;
     font-weight: bold;
