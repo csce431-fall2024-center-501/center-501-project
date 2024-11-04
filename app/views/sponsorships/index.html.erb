@@ -3,7 +3,11 @@
 <div class="sponsorships-index">
     <h1>Sponsorships</h1>
 
-    <%= button_to 'New Sponsorship', new_sponsorship_path, method: :get, class: 'btn' %>
+    <% if current_user %>
+        <% if current_user.admin? %>
+            <%= button_to 'New Sponsorship', new_sponsorship_path, method: :get, class: 'btn' %>
+        <% end %>
+    <% end %>
 
     <table>
         <thead>
@@ -17,7 +21,7 @@
             <% @sponsorships.each do |sponsorship| %>
                 <tr>
                     <td class="sponsor-info">
-                        <%= image_tag 'sponsor_placeholder.png', class: 'sponsor-image' %>
+                        <%= image_tag(sponsorship.sponsor_logo.presence || 'sponsor_placeholder.png', alt: sponsorship.sponsor_name, class: 'sponsor-image') %>
                         <%= sponsorship.sponsor_name %>
                     </td>
                     <td><%= button_to 'Show', sponsorship, method: :get, class: 'btn show-btn' %></td>
@@ -25,6 +29,12 @@
             <% end %>
         </tbody>
     </table>
+
+    <h2>Donate</h2>
+    
+    <p>
+        <strong>Donate to our cause and help impact the world! Your support makes an impact on lives at Texas A&M and across the globe.</strong>
+    </p>
 
     <%= button_to 'Donate', 'https://support.ewb-usa.org/give/565525/#!/donation/checkout', method: :get, target: '_blank', class: 'btn donate-btn' %>
 
