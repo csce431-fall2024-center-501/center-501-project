@@ -94,6 +94,10 @@ GEM
       faraday-multipart (~> 1.0, >= 1.0.4)
       ostruct
     concurrent-ruby (1.3.4)
+    countries (7.0.0)
+      unaccent (~> 0.3)
+    country_select (10.0.0)
+      countries (> 5.0, < 8.0)
     crass (1.0.6)
     date (3.3.4)
     debug (1.9.2)
@@ -108,10 +112,6 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.5.1)
     docile (1.4.1)
-    dotenv (3.1.4)
-    dotenv-rails (3.1.4)
-      dotenv (= 3.1.4)
-      railties (>= 6.1)
     erubi (1.13.0)
     faker (3.4.2)
       i18n (>= 1.8.11, < 2)
@@ -389,6 +389,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
+    unaccent (0.4.0)
     unicode-display_width (2.5.0)
     uri (0.13.1)
     version_gem (1.1.4)
@@ -420,9 +421,9 @@ DEPENDENCIES
   bxslider-rails
   capybara
   cloudinary
+  country_select
   debug
   devise
-  dotenv-rails
   faker
   google-api-client
   importmap-rails

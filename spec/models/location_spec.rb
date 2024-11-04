@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Location, type: :model do
     subject do
-        described_class.new(address: '125 Spence St', city: 'College Station', state: 'Texas', zip_code: '77843', country: 'United States of America')
+        described_class.new(address: '125 Spence St', city: 'College Station', state: 'Texas', zip_code: '77843', country: 'US')
     end
 
     it 'is valid with all valid attributes' do
