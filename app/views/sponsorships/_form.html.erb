@@ -3,22 +3,14 @@
     const uploadButton = document.getElementById("upload_widget");
     const imageUrlField = document.getElementById("image_url");
 
-    console.log("Upload button found:", uploadButton); 
-    if (!uploadButton) {
-      console.error("Upload button not found!");
-      return;
-    }
-
     uploadButton.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log("Upload button clicked");
 
       cloudinary.openUploadWidget(
-        { cloudName: "<%= ENV['CLOUDINARY_CLOUD_NAME'] %>", uploadPreset: "uw_test" },
+        { cloudName: "<%= Rails.application.credentials.cloudinary[:cloud_name] %>", uploadPreset: "uw_test" },
         (error, result) => {
           if (!error && result && result.event === "success") {
-            console.log("Image uploaded successfully:", result.info.secure_url);
-            imageUrlField.value = result.info.secure_url;
+            url.value = result.info.secure_url;
           }
         }
       );

@@ -3,7 +3,11 @@
 <div class="sponsorships-index">
     <h1>Sponsorships</h1>
 
-    <%= button_to 'New Sponsorship', new_sponsorship_path, method: :get, class: 'btn' %>
+    <% if current_user %>
+        <% if current_user.admin? %>
+            <%= button_to 'New Sponsorship', new_sponsorship_path, method: :get, class: 'btn' %>
+        <% end %>
+    <% end %>
 
     <table>
         <thead>
