@@ -1,4 +1,6 @@
 <%= stylesheet_link_tag "project_view", media: "all"%>
+<script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+
   <p style="color: green"><%= notice %></p>
 
 <div class="show-project">
@@ -9,11 +11,27 @@
   </div>
 
   <div class="project-view-gallery">
-    <%= render 'shared/slideshow' %>
+    <%= render 'shared/slideshow', photos: @photos %>
   </div>
 
   <div class="project-view-body">
-    <p> <%= @html_output %> </p>
+    <div id='markdownBody'>
+      <!-- markdown will be be shown here -->
+    </div>
+
+    <script>
+      marked.setOptions({
+      gfm: true,
+      breaks: true,
+      smartLists: true,
+      smartypants: true,
+      });
+
+      const projectMarkdown = <%= @project.markdownBody.to_json.html_safe %>;
+      console.log("Project Markdown: ", projectMarkdown);
+      const markdown = marked.parse(projectMarkdown);
+      document.getElementById('markdownBody').innerHTML = markdown;
+    </script>
 
     <hr>
 

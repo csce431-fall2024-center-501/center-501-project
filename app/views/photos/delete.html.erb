@@ -2,22 +2,26 @@
 
 <p>
     <strong>Photo Link:</strong>
-    <%= @photo.photoLink %>
+    <%= @photo.url %>
 </p>
 
 <p>
     <strong>Description:</strong>
-    <%= @photo.photoDescription %>
+    <%= @photo.description %>
 </p>
 
 <p>
-    <strong>Type:</strong>
-    <%= @photo.photoType %>
+    <strong>Displayed in home page?</strong>
+    <%= @photo.displayed_in_home_gallery %>
 </p>
 
 <p>
-    <strong>Page Location:</strong>
-    <%= @photo.photoPageLocation %>
+    <strong>Associated with project:</strong>
+    <% if @photo.project_id %>
+        <%= Project.find(@photo.project_id).projectName %>
+    <% else %>
+        None
+    <% end %>
 </p>
 
 <%= form_with url: photo_path(@photo), method: :delete, local: true do %>

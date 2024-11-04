@@ -6,24 +6,23 @@ Project.create([
   { projectName: "Example Project",
     projectDesc: "This is an example of what a project looks like!",
     projectStartDate: Date.today,
-    locationID: 1000,
+    locationID: 1,
     isProjectActive: true,
     markdownBody: <<-MARKDOWN
-# Welcome to My Website
+# Welcome to My Website!
 
 This is a **simple website** designed to showcase some *cool features*. Let's explore what's on this page:
 
 ## Features
 
-1. **Easy to Use**: Just type in markdown, and it converts to HTML instantly.
-2. **Live Preview**: As you type, you can see the formatted content on the right side.
-3. **Rich Formatting**:
+1.**Easy to Use**: Just type in markdown, and it converts to HTML instantly.
+2.**Live Preview**: As you type, you can see the formatted content on the right side.
+3.**Rich Formatting**:
 
    - *Italics*
    - **Bold**
    - `Code snippets`
    - ~~Strikethrough~~
-   - ==Highlighting==
 
 ## Code Example
 
@@ -65,6 +64,101 @@ MARKDOWN
   }
 ])
 
+Project.create!([
+  {
+    projectName: 'Alpha Expansion',
+    projectDesc: 'Expansion of the Alpha site to accommodate new equipment.',
+    projectStartDate: Date.new(2024, 11, 1),
+    locationID: 1,
+    isProjectActive: true,
+    markdownBody: '# Alpha Expansion\nDetails about the expansion will be documented here.'
+  },
+  {
+    projectName: 'Beta Migration',
+    projectDesc: 'Migrating Beta site operations to the new facility.',
+    projectStartDate: Date.new(2025, 1, 15),
+    locationID: 2,
+    isProjectActive: false,
+    markdownBody: '## Migration Plan\nSteps to migrate Beta site operations are outlined here.'
+  },
+  {
+    projectName: 'Gamma Renovation',
+    projectDesc: 'Complete renovation of the Gamma project area.',
+    projectStartDate: Date.new(2025, 5, 20),
+    locationID: 3,
+    isProjectActive: true,
+    markdownBody: nil
+  },
+  {
+    projectName: 'Delta Research',
+    projectDesc: 'Initiating new research projects under the Delta initiative.',
+    projectStartDate: Date.new(2024, 12, 5),
+    locationID: 4,
+    isProjectActive: true,
+    markdownBody: '# Delta Research\nResearch objectives and timelines.'
+  },
+  {
+    projectName: 'Epsilon Closure',
+    projectDesc: 'Formal closure of the Epsilon facility.',
+    projectStartDate: Date.new(2025, 3, 30),
+    locationID: 5,
+    isProjectActive: false,
+    markdownBody: nil
+  }
+])
+
+Location.create!([
+  {
+    id: 1000,
+    address: "123 Main St",
+    city: "Springfield",
+    state: "IL",
+    zip_code: "62701",
+    country: "USA"
+  },
+  {
+    id: 1,
+    address: "45 Alpha Ave",
+    city: "Boston",
+    state: "MA",
+    zip_code: "02108",
+    country: "USA"
+  },
+  {
+    id: 2,
+    address: "789 Beta Blvd",
+    city: "Austin",
+    state: "TX",
+    zip_code: "73301",
+    country: "USA"
+  },
+  {
+    id: 3,
+    address: "101 Gamma Rd",
+    city: "San Francisco",
+    state: "CA",
+    zip_code: "94103",
+    country: "USA"
+  },
+  {
+    id: 4,
+    address: "202 Delta Dr",
+    city: "Seattle",
+    state: "WA",
+    zip_code: "98101",
+    country: "USA"
+  },
+  {
+    id: 5,
+    address: "303 Epsilon Ln",
+    city: "New York",
+    state: "NY",
+    zip_code: "10001",
+    country: "USA"
+  }
+])
+
+
 100.times do
     User.create!(
         email: Faker::Internet.unique.email,
@@ -83,3 +177,11 @@ MARKDOWN
         linkedin_url: Faker::Internet.url
     )
 end
+
+Location.create!(
+  address: "400 Bizzell St",
+  city: "College Station",
+  state: "Texas",
+  zip_code: "77840",
+  country: "United States"
+)

@@ -22,12 +22,22 @@
         </div>
         <div class="project-body">
           <p>
-            <b> <%= project.projectName %>: </b>
-            <br>
-            <%= project.projectDesc %>
+            <% if project.projectName %>
+              <b> <%= project.projectName %> </b> <br>
+            <% end %>
+            <% if project.projectDesc %>
+              <%= project.projectDesc %> <br>
+            <% end %>
             <ul>
-              <b> - Project Start Date: </b> <%= project.projectStartDate %> <br>
-              <b> - Location: </b> <%= project.locationID %> <br>
+              <% if project.projectStartDate %>
+                <b> - Project Start Date: </b>
+                <%= project.projectStartDate %> <br>
+              <% end %>
+              <% if Location.find_by(id: project.locationID) %>
+                <b> - Location: </b>
+                <%= Location.find_by(id: project.locationID).state.to_s + ", " + Location.find_by(id: project.locationID).country.to_s %>
+                <br>
+              <% end %>
             </ul>
           </p>
           <p> <%= link_to "Show this project", project %> </p>
@@ -46,12 +56,22 @@
           </div>
           <div class="project-body">
             <p>
-              <b> <%= project.projectName %>: </b>
-              <br>
-              <%= project.projectDesc %>
+              <% if project.projectName %>
+                <b> <%= project.projectName %> </b> <br>
+              <% end %>
+              <% if project.projectDesc %>
+                <%= project.projectDesc %> <br>
+              <% end %>
               <ul>
-                <b> - Project Start Date: </b> <%= project.projectStartDate %> <br>
-                <b> - Location: </b> <%= project.locationID %> <br>
+                <% if project.projectStartDate %>
+                  <b> - Project Start Date: </b>
+                  <%= project.projectStartDate %> <br>
+                <% end %>
+                <% if Location.find_by(id: project.locationID) %>
+                  <b> - Location: </b>
+                  <%= Location.find_by(id: project.locationID).state.to_s + ", " + Location.find_by(id: project.locationID).country.to_s %>
+                  <br>
+                <% end %>
               </ul>
             </p>
             <p> <%= link_to "Show this project", project %> </p>

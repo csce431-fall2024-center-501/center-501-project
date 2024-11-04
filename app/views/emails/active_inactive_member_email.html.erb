@@ -1,0 +1,20 @@
+<H1> Send Active/Inactive Members Email </H1>
+
+<H2> This email goes to ALL members who have signed up for the site (Active/Inactive) </H2>
+
+
+<%= form_with url: send_active_inactive_member_email_path, method: :post, local: true do |form| %>
+    <div class="field">
+        <%= form.label :subject, "Subject:" %>
+        <%= form.text_field :subject %>
+    </div>
+
+    <div class="field">
+        <%= form.label :message, "Body:" %>
+        <%= form.text_area :message %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit "Send" %>
+    </div>
+<% end %>

@@ -2,7 +2,8 @@
 
 class UsersController < AuthenticatedApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-
+  before_action :set_projects, only: %i[edit new]
+  
   # Only attributes that are selected by default
   INITIAL_SELECT_ATTRIBUTES = %i[full_name email phone_number class_year linkedin_url].freeze
 
@@ -12,7 +13,7 @@ class UsersController < AuthenticatedApplicationController
 
   # Attributes that officers can access
   OFFICER_ACCESS_ATTRIBUTES = %i[full_name email user_type phone_number class_year ring_date grad_date birthday
-                                 shirt_size dietary_restriction account_complete created_at updated_at linkedin_url].freeze
+                                 shirt_size dietary_restriction account_complete created_at updated_at linkedin_u].freeze
 
   # Attributes that users can access
   USER_ACCESS_ATTRIBUTES = %i[full_name email phone_number class_year linkedin_url].freeze
@@ -57,6 +58,7 @@ class UsersController < AuthenticatedApplicationController
                   else
                     USER_ACCESS_ATTRIBUTES
                   end
+    @projects = @user.projects
   end
 
   # GET /users/new
@@ -74,6 +76,7 @@ class UsersController < AuthenticatedApplicationController
 
   # POST /users or /users.json
   def create
+    @projects = []
     return unless require_officer
 
     @user = User.new(user_params)
@@ -88,9 +91,12 @@ class UsersController < AuthenticatedApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    @projects = []
     return unless current_user.id == @user.id || require_officer
 
-    if @user.update(user_params)
+    if !valid_linkedin_url?(user_params[:linkedin_url])
+      flash[:alert] = 'LinkedIn URL must be a valid LinkedIn profile URL.'
+    elsif @user.update(user_params.merge(linkedin_url: process_linkedin_url(user_params[:linkedin_url])))
       save_user(@user, :edit)
     else
       render_errors(@user.errors, :edit)
@@ -138,10 +144,23 @@ class UsersController < AuthenticatedApplicationController
     end
   end
 
+  def csv
+    return unless require_officer
+
+    csv_data = User.to_csv %w[full_name email user_type phone_number class_year ring_date grad_date birthday
+    shirt_size dietary_restriction account_complete created_at updated_at linkedin_url]
+
+    send_data csv_data, filename: "users-#{Date.today}.csv", type: 'text/csv'
+  end
+
   private
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_projects
+    @projects = Project.all
   end
 
   def user_params
@@ -150,7 +169,7 @@ class UsersController < AuthenticatedApplicationController
                                    :dietary_restriction, :linkedin_url)
     else
       params.require(:user).permit(:email, :full_name, :uid, :avatar_url, :user_type, :phone_number, :class_year,
-                                   :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, :linkedin_url)
+                                   :ring_date, :grad_date, :birthday, :shirt_size, :dietary_restriction, :linkedin_url, project_ids: [])
     end
   end
 

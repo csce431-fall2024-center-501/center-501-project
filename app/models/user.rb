@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 class User < ApplicationRecord
   # Validates that the email is present, unique, and properly formatted
   validates :email, presence: true, uniqueness: true, format: {
@@ -34,15 +36,32 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
+  has_many :user_projects
+  has_many :projects, through: :user_projects
+
   # Create a user from Google OAuth and return it if the email doesn't already exist
   # If email is already in the database, it simply returns the user
   def self.from_google(email:, full_name:, uid:, avatar_url:, user_type:)
     create_with(uid:, full_name:, avatar_url:, user_type:).find_or_create_by!(email:)
   end
 
+  def self.to_csv attributes
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |user|
+        csv << attributes.map { |attr| user.send(attr) }
+      end
+    end
+  end
+
   # Quick officer check
   def officer?
     user_type == 'officer'
+  end
+
+  def atleast_officer?
+    user_type == 'officer' || user_type == 'admin'
   end
 
   # Quick admin check

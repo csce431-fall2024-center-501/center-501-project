@@ -2,27 +2,32 @@
 
 <p>
   <strong>Image:</strong><br>
-  <%= image_tag(@photo.photoLink, alt: @photo.photoDescription) %>
+    <!--TODO need top make this size limited-->
+  <%= image_tag(@photo.url, alt: @photo.description) %>
 </p>
 
 <p>
     <strong>Link:</strong>
-    <%= link_to truncate(@photo.photoLink, length: 30), @photo.photoLink, target: '_blank' %>
+    <%= link_to truncate(@photo.url, length: 30), "#{@photo.url}", target: '_blank' %>
 </p>
 
 <p>
     <strong>Description:</strong>
-    <%= @photo.photoDescription %>
+    <%= @photo.description %>
 </p>
 
 <p>
-    <strong>Type:</strong>
-    <%= @photo.photoType %>
+    <strong>Displayed in home page?</strong>
+    <%= @photo.displayed_in_home_gallery %>
 </p>
 
 <p>
-    <strong>Page Location:</strong>
-    <%= @photo.photoPageLocation %>
+    <strong> Associated with project:</strong>
+    <% if @photo.project_id %>
+        <%= Project.find(@photo.project_id).projectName %>
+    <% else %>
+        None
+    <% end %>
 </p>
 
 <%= link_to 'Edit', edit_photo_path(@photo) %> |
