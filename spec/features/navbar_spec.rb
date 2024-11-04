@@ -103,3 +103,29 @@ RSpec.feature 'Navbar', type: :feature do
     end
   end
 end
+
+RSpec.feature 'Navbar', type: :feature do
+  include TestAttributes
+  scenario "'Members' link takes user to membership page when user is not signed in" do
+    visit root_path
+
+    within('nav') do
+      click_link 'Members'
+    end
+
+    expect(page).to have_current_path(members_path)
+  end
+
+  scenario "'Members' link takes user to member directory page when user is signed in" do
+    user = User.create! valid_attributes
+    sign_in user
+
+    visit root_path
+
+    within('nav') do
+      click_link 'Members'
+    end
+
+    expect(page).to have_current_path(users_path)
+  end
+end

@@ -73,5 +73,7 @@ Rails.application.routes.draw do
       get :delete
     end
   end
+
+  get 'members', to: 'pages#members', as: 'members'
   root 'pages#home'
 end
