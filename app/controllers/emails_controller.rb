@@ -22,7 +22,16 @@ class EmailsController < AdminApplicationController
     recipients = params[:recipients].split(',')
     subject = params[:subject]
     message = params[:message]
-    AdminMailer.indiviual_email(recipients, subject, message).deliver_now
+    num_emails = recipients.size
+    if recipients.size > 50
+      while num_emails > 50
+        AdminMailer.individual_email(recipients.pop(50), subject, message).deliver_now
+        num_emails -= 50
+      end
+      AdminMailer.individual_email(recipients.pop(num_emails), subject, message).deliver_now
+    else
+      AdminMailer.individual_email(recipients, subject, message).deliver_now
+    end
     redirect_to email_path, notice: 'Email sent successfully.'
   end
 
