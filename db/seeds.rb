@@ -2,11 +2,62 @@
 
 require 'faker'
 
-Project.create([
-  { projectName: "Example Project",
-    projectDesc: "This is an example of what a project looks like!",
+# Creating Location records and storing them in variables for easy reference
+location1 = Location.create!(
+  address: "123 Main St",
+  city: "Springfield",
+  state: "IL",
+  zip_code: "62701",
+  country: "US"
+)
+
+location2 = Location.create!(
+  address: "45 Alpha Ave",
+  city: "Boston",
+  state: "MA",
+  zip_code: "02108",
+  country: "US"
+)
+
+location3 = Location.create!(
+  address: "789 Beta Blvd",
+  city: "Austin",
+  state: "TX",
+  zip_code: "73301",
+  country: "US"
+)
+
+location4 = Location.create!(
+  address: "101 Gamma Rd",
+  city: "San Francisco",
+  state: "CA",
+  zip_code: "94103",
+  country: "US"
+)
+
+location5 = Location.create!(
+  address: "202 Delta Dr",
+  city: "Seattle",
+  state: "WA",
+  zip_code: "98101",
+  country: "US"
+)
+
+location6 = Location.create!(
+  address: "303 Epsilon Ln",
+  city: "New York",
+  state: "NY",
+  zip_code: "10001",
+  country: "US"
+)
+
+# Creating Project records with references to Location IDs
+Project.create!([
+  {
+    projectName: 'Example Project',
+    projectDesc: 'This is an example of what a project looks like!',
     projectStartDate: Date.today,
-    locationID: 1,
+    locationID: location1.id,
     isProjectActive: true,
     markdownBody: <<-MARKDOWN
 # Welcome to My Website!
@@ -61,15 +112,12 @@ Here’s an example of a table:
 
 Feel free to explore more about **Markdown** and how it can be used to build _dynamic_ web pages!
 MARKDOWN
-  }
-])
-
-Project.create!([
+  },
   {
     projectName: 'Alpha Expansion',
     projectDesc: 'Expansion of the Alpha site to accommodate new equipment.',
     projectStartDate: Date.new(2024, 11, 1),
-    locationID: 1,
+    locationID: location1.id,
     isProjectActive: true,
     markdownBody: '# Alpha Expansion\nDetails about the expansion will be documented here.'
   },
@@ -77,7 +125,7 @@ Project.create!([
     projectName: 'Beta Migration',
     projectDesc: 'Migrating Beta site operations to the new facility.',
     projectStartDate: Date.new(2025, 1, 15),
-    locationID: 2,
+    locationID: location2.id,
     isProjectActive: false,
     markdownBody: '## Migration Plan\nSteps to migrate Beta site operations are outlined here.'
   },
@@ -85,7 +133,7 @@ Project.create!([
     projectName: 'Gamma Renovation',
     projectDesc: 'Complete renovation of the Gamma project area.',
     projectStartDate: Date.new(2025, 5, 20),
-    locationID: 3,
+    locationID: location3.id,
     isProjectActive: true,
     markdownBody: nil
   },
@@ -93,7 +141,7 @@ Project.create!([
     projectName: 'Delta Research',
     projectDesc: 'Initiating new research projects under the Delta initiative.',
     projectStartDate: Date.new(2024, 12, 5),
-    locationID: 4,
+    locationID: location4.id,
     isProjectActive: true,
     markdownBody: '# Delta Research\nResearch objectives and timelines.'
   },
@@ -101,63 +149,50 @@ Project.create!([
     projectName: 'Epsilon Closure',
     projectDesc: 'Formal closure of the Epsilon facility.',
     projectStartDate: Date.new(2025, 3, 30),
-    locationID: 5,
+    locationID: location5.id,
     isProjectActive: false,
     markdownBody: nil
   }
 ])
 
-Location.create!([
+# Creating User and Sponsorship records as in the original code
+100.times do
+  User.create!(
+    email: Faker::Internet.unique.email,
+    full_name: Faker::Name.name,
+    phone_number: Faker::PhoneNumber.unique.subscriber_number(length: 10),
+    ring_date: Faker::Date.between(from: '1990-01-01', to: Date.today),
+    grad_date: Faker::Date.between(from: '1990-01-01', to: Date.today),
+    birthday: Faker::Date.between(from: '1990-01-01', to: '2000-01-01'),
+    uid: Faker::Number.unique.number(digits: 10),
+    avatar_url: Faker::Avatar.image,
+    user_type: ['user', 'admin'].sample,
+    class_year: Faker::Number.between(from: 1900, to: Date.today.year + 4),
+    shirt_size: ['S', 'M', 'L', 'XL'].sample,
+    dietary_restriction: ['None', 'Vegetarian', 'Vegan', 'Gluten-Free', 'Halal'].sample,
+    account_complete: true,
+    linkedin_url: Faker::Internet.url
+  )
+end
+
+Sponsorship.create!([
   {
-    id: 1000,
-    address: "123 Main St",
-    city: "Springfield",
-    state: "IL",
-    zip_code: "62701",
-    country: "USA"
+    sponsor_name: "Garver",
+    sponsor_lead_name: "garver_lead",
+    sponsor_phone: "9791234567",
+    sponsor_email: "test@gmail.com",
+    sponsor_donation: 500,
+    sponsor_end_of_contract: 1.year.from_now.to_date,
   },
   {
-    id: 1,
-    address: "45 Alpha Ave",
-    city: "Boston",
-    state: "MA",
-    zip_code: "02108",
-    country: "USA"
-  },
-  {
-    id: 2,
-    address: "789 Beta Blvd",
-    city: "Austin",
-    state: "TX",
-    zip_code: "73301",
-    country: "USA"
-  },
-  {
-    id: 3,
-    address: "101 Gamma Rd",
-    city: "San Francisco",
-    state: "CA",
-    zip_code: "94103",
-    country: "USA"
-  },
-  {
-    id: 4,
-    address: "202 Delta Dr",
-    city: "Seattle",
-    state: "WA",
-    zip_code: "98101",
-    country: "USA"
-  },
-  {
-    id: 5,
-    address: "303 Epsilon Ln",
-    city: "New York",
-    state: "NY",
-    zip_code: "10001",
-    country: "USA"
+    sponsor_name: "Texas A&M Student Engineers' Council",
+    sponsor_lead_name: "sec_lead",
+    sponsor_phone: "9791234567",
+    sponsor_email: "test@gmail.com",
+    sponsor_donation: 1000,
+    sponsor_end_of_contract: 1.year.from_now.to_date,
   }
 ])
-
 
 100.times do
     User.create!(
