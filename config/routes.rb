@@ -56,6 +56,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'members', to: 'members#index'
+  get 'members', to: 'pages#members', as: 'members'
   root 'pages#home'
 end
