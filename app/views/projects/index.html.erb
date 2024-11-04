@@ -89,7 +89,7 @@
     <% end %>
 
     <% if current_user %>
-      <% if current_user.admin? %>
+      <% if current_user.atleast_officer? %>
       <p> <%= link_to "Create a New Project", new_project_path %> </p>
       <% end %>
     <% end %>
