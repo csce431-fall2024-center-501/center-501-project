@@ -2,18 +2,23 @@
 
 <h2> This email is send to all members who have their graduation date set to a future date. </h2>
 
-<%= form_with url: send_active_member_email_path, method: :post, local: true do |form| %>
-    <div class="field">
-        <%= form.label :subject, "Subject:" %>
-        <%= form.text_field :subject %>
-    </div>
+<div class="email-container">
+    <%= form_with url: send_active_member_email_path, method: :post, local: true do |form| %>
+        <div class="field email-header">
+            <%= form.label :subject, "Subject:" %>
+            <%= form.text_field :subject, class: 'email-header input' %>
+        </div>
 
-    <div class="field">
-        <%= form.label :message, "Body:" %>
-        <%= form.text_area :message %>
-    </div>
+        <div class="field email-body">
+            <%= form.label :message, "Body:" %>
+            <%= form.text_area :message, class: 'email-body textarea' %>
+        </div>
 
+        <div class="actions">
+            <%= form.submit "Send", class: 'send-button' %>
+        </div>
+    <% end %>
     <div class="actions">
-        <%= form.submit "Send" %>
+        <%= link_to 'Back to Emails', email_path, class: 'back-button' %>
     </div>
-<% end %>
+</div>
