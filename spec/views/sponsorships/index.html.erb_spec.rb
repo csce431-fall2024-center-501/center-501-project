@@ -68,8 +68,15 @@ RSpec.describe 'sponsorships/index.html.erb', type: :view do
     expect(rendered).to have_selector('td', text: 'Test Sponsor')
   end
 
-  it 'displays the Show button for each sponsorship' do
-    expect(rendered).to have_selector('form button', text: 'Show', count: 2)
+  context 'when user is an admin' do
+    before do
+      allow(view).to receive(:current_user).and_return(double(admin?: true))
+      render
+    end
+  
+    it 'displays the Show button for each sponsorship' do
+      expect(rendered).to have_selector('form .show-btn', text: 'Show', count: 2)
+    end
   end
 
   it "displays the 'Donate' button" do

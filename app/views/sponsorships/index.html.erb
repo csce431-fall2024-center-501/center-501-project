@@ -24,7 +24,11 @@
                         <%= image_tag(sponsorship.sponsor_logo.presence || 'sponsor_placeholder.png', alt: sponsorship.sponsor_name, class: 'sponsor-image') %>
                         <%= sponsorship.sponsor_name %>
                     </td>
-                    <td><%= button_to 'Show', sponsorship, method: :get, class: 'btn show-btn' %></td>
+                    <% if current_user %>
+                        <% if current_user.admin? %>
+                            <td><%= button_to 'Show', sponsorship, method: :get, class: 'btn show-btn' %></td>
+                        <% end %>
+                    <% end %>
                 </tr>
             <% end %>
         </tbody>
