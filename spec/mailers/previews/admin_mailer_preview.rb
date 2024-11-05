@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class AdminMailerPreview < ActionMailer::Preview
-  def indiviual_email
+  def individual_email
     recipients = ['test1@email.com', 'test2@email.com', 'test3@email.com']
     subject = 'Test Email'
     message = 'This is a test email.'
-    AdminMailer.indiviual_email(recipients, subject, message)
+    AdminMailer.individual_email(recipients, subject, message)
   end
 
   def active_member_email

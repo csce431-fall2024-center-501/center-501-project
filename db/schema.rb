@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_24_150715) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_03_181228) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,12 +33,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_24_150715) do
   end
 
   create_table "photos", force: :cascade do |t|
-    t.string "photoLink"
-    t.string "photoDescription"
-    t.string "photoType"
-    t.string "photoPageLocation"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "url"
+    t.bigint "project_id"
+    t.boolean "displayed_in_home_gallery"
+    t.index ["project_id"], name: "index_photos_on_project_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -47,6 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_24_150715) do
     t.integer "locationID"
     t.date "projectStartDate"
     t.boolean "isProjectActive"
+    t.text "markdownBody"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -60,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_24_150715) do
     t.date "sponsor_end_of_contract"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "sponsor_logo"
   end
 
   create_table "user_projects", force: :cascade do |t|
@@ -91,6 +94,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_24_150715) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "photos", "projects"
   add_foreign_key "user_projects", "projects"
   add_foreign_key "user_projects", "users"
 end

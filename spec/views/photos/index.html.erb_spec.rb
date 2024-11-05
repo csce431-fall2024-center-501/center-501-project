@@ -4,8 +4,8 @@ require 'rails_helper'
 RSpec.describe "photos/index", type: :view do
   before do
     assign(:photos, [
-      Photo.create!(photoLink: "https://example.com/photo1", photoDescription: "Description 1", photoType: "Type1", photoPageLocation: "Home"),
-      Photo.create!(photoLink: "https://example.com/photo2", photoDescription: "Description 2", photoType: "Type2", photoPageLocation: "Gallery")
+      Photo.create!(url: "https://example.com/photo1", description: "Description 1", displayed_in_home_gallery: true),
+      Photo.create!(url: "https://example.com/photo2", description: "Description 2", displayed_in_home_gallery: true)
     ])
     render
   end
@@ -13,13 +13,9 @@ RSpec.describe "photos/index", type: :view do
   it "displays all photos" do
     expect(rendered).to have_link("https://example.com/photo1", href: "https://example.com/photo1")
     expect(rendered).to have_content("Description 1")
-    expect(rendered).to have_content("Type1")
-    expect(rendered).to have_content("Home")
 
     expect(rendered).to have_link("https://example.com/photo2", href: "https://example.com/photo2")
     expect(rendered).to have_content("Description 2")
-    expect(rendered).to have_content("Type2")
-    expect(rendered).to have_content("Gallery")
   end
 
   it "has a New Photo link" do
@@ -29,8 +25,6 @@ RSpec.describe "photos/index", type: :view do
   it "displays the correct headers" do
     expect(rendered).to have_selector("th", text: "Photo Link")
     expect(rendered).to have_selector("th", text: "Description")
-    expect(rendered).to have_selector("th", text: "Type")
-    expect(rendered).to have_selector("th", text: "Page Location")
   end
 
   it "displays links to the photos with truncation" do

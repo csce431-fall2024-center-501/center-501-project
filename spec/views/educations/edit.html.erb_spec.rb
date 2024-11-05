@@ -21,7 +21,10 @@ RSpec.describe 'educations/edit', type: :view do
     assert_select 'form[action=?][method=?]', education_path(education), 'post' do
       assert_select 'input[name=?]', 'education[educationName]'
 
-      assert_select 'input[name=?]', 'education[educationType]'
+      assert_select 'select[name=?]', 'education[educationType]' do
+        assert_select 'option[value=?]', 'major'
+        assert_select 'option[value=?]', 'minor'
+      end
 
       assert_select 'textarea[name=?]', 'education[educationDescription]'
     end

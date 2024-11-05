@@ -1,0 +1,58 @@
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const uploadButton = document.getElementById("upload_widget");
+    const imageUrlField = document.getElementById("image_url");
+
+    uploadButton.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      cloudinary.openUploadWidget(
+        { cloudName: "<%= Rails.application.credentials.cloudinary[:cloud_name] %>", uploadPreset: "uw_test" },
+        (error, result) => {
+          if (!error && result && result.event === "success") {
+            url.value = result.info.secure_url;
+          }
+        }
+      );
+    });
+  });
+</script>
+
+<%= form_with(model: photo, local: true) do |form| %>
+    <% if @photo.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
+            <ul>
+                <% photo.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <p>File formats allowed: .jpg, .png</p>
+
+    <div>
+        <%= button_tag (photo.new_record? ? "Upload New Image" : "Change Image"), id: "upload_widget", type: "button", data: { cloud_name: Rails.application.credentials.cloudinary[:cloud_name] } %>
+        <%= form.hidden_field :url, id: "url" %>
+    </div>
+
+    <div class="field">
+        <%= form.label :description %>
+        <%= form.text_field :description %>
+    </div>
+
+    <div class="field">
+      <%= form.label :project_id, "Associated Project" %>
+      <%= form.collection_select :project_id, @projects, :id, :projectName, prompt: "Select a project" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :displayed_in_home_gallery, "Display in Home Gallery" %>
+      <%= form.check_box :displayed_in_home_gallery %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit %>
+    </div>
+<% end %>

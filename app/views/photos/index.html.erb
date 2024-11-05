@@ -11,8 +11,8 @@
     <tr>
       <th>Photo Link</th>
       <th>Description</th>
-      <th>Type</th>
-      <th>Page Location</th>
+      <th>In home gallery?</th>
+      <th>Associated Project</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,10 +20,16 @@
   <tbody>
     <% @photos.each do |photo| %>
       <tr>
-        <td><a href="<%= photo.photoLink %>" target="_blank"><%= truncate(photo.photoLink, length: 30) %></a></td>
-        <td><%= photo.photoDescription %></td>
-        <td><%= photo.photoType %></td>
-        <td><%= photo.photoPageLocation %></td>
+        <td><a href="<%= photo.url %>" target="_blank"><%= truncate(photo.url, length: 30) %></a></td>
+        <td><%= photo.description %></td>
+        <td><%= photo.displayed_in_home_gallery %></td>
+        <td>
+          <% if photo.project_id %>
+            <%= Project.find(photo.project_id).projectName %>
+          <% else %>
+            None
+          <% end %>
+        </td>
         <td><%= link_to 'Show', photo %></td>
         <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
         <td><%= link_to 'Delete', delete_photo_path(photo), method: :get %></td>

@@ -26,11 +26,11 @@
             <% end_time = end_date_time_obj.strftime('%I:%M') %>
             <% start_am_pm = start_date_time_obj.strftime('%p') %>
             <% end_am_pm = end_date_time_obj.strftime('%p') %>
-            <div><%= event.summary %></div>
+            <div><strong><%= event.summary %></strong></div>
             <div>Start Time: <%= start_date %> <%= start_time %> <%= start_am_pm %></div>
             <div>End Time: <%= end_date %> <%= end_time %> <%= end_am_pm %></div>
           <% else %>
-            <div><%= event.summary %></div>
+            <div><strong><%= event.summary %></strong></div>
             <% if event.start.date != event.end.date %>
               <div> Start Date: <%= event.start.date %></div>
               <div>End Date: <%= event.end.date %></div>
@@ -38,60 +38,71 @@
               <div> Date: <%= event.start.date %></div>
             <% end %>
           <% end %>
+          <div><%= event.description %></div>
+            <div>
+              <%= link_to 'Show Event', event_url(calendar_id: @calendar_id, event_id: event.id), class: 'show-event-link' %>
+            </div>
           </div>
         <% end %>
       </div>
-  <div class="event-form">
-    <%= form_tag new_event_url(calendar_id: @calendar_id) do %>
-    <div>
-      <%= label_tag :event_name, 'Event Name' %>
-      <%= text_field_tag :event_name %>
+  <% if current_user.atleast_officer? %>
+    <div class="event-form">
+      <%= form_tag new_event_url(calendar_id: @calendar_id) do %>
+      <div>
+        <%= label_tag :event_name, 'Event Name' %>
+        <%= text_field_tag :event_name, nil, class: 'event-name-field' %>
+      </div>
+      <div>
+        <%= label_tag :all_day, 'All Day' %>
+        <%= check_box_tag :all_day %>
+      <div id="datetime-fields" style="display: none;">
+        <div>
+        <%= label_tag :start_datetime, 'Start Date and Time' %>
+        <%= datetime_local_field_tag :start_datetime %>
+        </div>
+        <div>
+        <%= label_tag :end_datetime, 'End Date and Time' %>
+        <%= datetime_local_field_tag :end_datetime %>
+        </div>
+      </div>
+
+      <div id="date-fields" style="display: none;">
+        <div>
+        <%= label_tag :start_date, 'Start Date' %>
+        <%= date_field_tag :start_date %>
+        </div>
+        <div>
+        <%= label_tag :end_date, 'End Date' %>
+        <%= date_field_tag :end_date %>
+        </div>
+      </div>
+
+      <div>
+        <%= label_tag :description, 'Description/RSVP Link' %>
+        <%= text_area_tag :description, nil, class: 'description-field' %>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        const allDayCheckbox = document.querySelector('input[name="all_day"]');
+        const datetimeFields = document.getElementById('datetime-fields');
+        const dateFields = document.getElementById('date-fields');
+
+        allDayCheckbox.addEventListener('change', function() {
+          if (this.checked) {
+          datetimeFields.style.display = 'none';
+          dateFields.style.display = 'block';
+          } else {
+          datetimeFields.style.display = 'block';
+          dateFields.style.display = 'none';
+          }
+        });
+
+        // Trigger change event on page load to set initial state
+        allDayCheckbox.dispatchEvent(new Event('change'));
+        });
+      </script>
+      <%= submit_tag 'Add event', class: 'add-button' %><% end %>
     </div>
-    <div>
-      <%= label_tag :all_day, 'All Day' %>
-      <%= check_box_tag :all_day %>
-    <div id="datetime-fields" style="display: none;">
-      <div>
-      <%= label_tag :start_datetime, 'Start Date and Time' %>
-      <%= datetime_local_field_tag :start_datetime %>
-      </div>
-      <div>
-      <%= label_tag :end_datetime, 'End Date and Time' %>
-      <%= datetime_local_field_tag :end_datetime %>
-      </div>
-    </div>
-
-    <div id="date-fields" style="display: none;">
-      <div>
-      <%= label_tag :start_date, 'Start Date' %>
-      <%= date_field_tag :start_date %>
-      </div>
-      <div>
-      <%= label_tag :end_date, 'End Date' %>
-      <%= date_field_tag :end_date %>
-      </div>
-    </div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-      const allDayCheckbox = document.querySelector('input[name="all_day"]');
-      const datetimeFields = document.getElementById('datetime-fields');
-      const dateFields = document.getElementById('date-fields');
-
-      allDayCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-        datetimeFields.style.display = 'none';
-        dateFields.style.display = 'block';
-        } else {
-        datetimeFields.style.display = 'block';
-        dateFields.style.display = 'none';
-        }
-      });
-
-      // Trigger change event on page load to set initial state
-      allDayCheckbox.dispatchEvent(new Event('change'));
-      });
-    </script>
-    <%= submit_tag 'Add event', class: 'add-button' %><% end %>
-  </div>
+  <% end %>
 </div>

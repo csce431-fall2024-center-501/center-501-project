@@ -17,4 +17,6 @@ class Project < ApplicationRecord
     end
     ''
   end
+
+  has_many :photos
 end
