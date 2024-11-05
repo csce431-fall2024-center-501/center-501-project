@@ -17,7 +17,7 @@ Rails.application.routes.draw do
                                                 event_id: %r{[^/]+}
 
   get '/emails', to: 'emails#email', as: 'email'
-  get '/emails/indiviual_email', to: 'emails#individual_email', as: 'individual_email'
+  get '/emails/individual_email', to: 'emails#individual_email', as: 'individual_email'
   get '/emails/active_member_email', to: 'emails#active_member_email', as: 'active_member_email'
   get '/emails/active_inactive_member_email', to: 'emails#active_inactive_member_email',
                                               as: 'active_inactive_member_email'
@@ -73,5 +73,8 @@ Rails.application.routes.draw do
       get :delete
     end
   end
+
+  get 'help', to: 'pages#help', as: 'help'
+  get 'members', to: 'pages#members', as: 'members'
   root 'pages#home'
 end

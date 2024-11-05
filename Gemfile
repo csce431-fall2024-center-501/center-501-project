@@ -71,6 +71,8 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem 'yard'
 end
 
 group :test do
@@ -107,3 +109,6 @@ gem "faker"
 
 # Cloudinary for photo upload
 gem 'cloudinary'
+
+# Predefined list of countries
+gem 'country_select'
