@@ -1,0 +1,258 @@
+<h1 class="help-title">Help</h1>
+<div class="help-container">
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            General <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">
+            
+        </p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Projects <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">
+          <b>Viewing Projects:</b>
+          <br>
+          <br>
+          The Projects Overview Page can be accessed by clicking <u>Projects</u> in the navbar.
+          This is where all of the organization's projects can be viewed.
+          Each project is listed in its own window with the <b>Project Name</b>, <b>Project Description</b>, <b>Project Start Date</b>, and <b>Location</b> shown.
+          Each project also has a preview image, which is the first image from the project's <b>Photo Gallery</b>.
+          Projects are split into two groups, "Current Projects" and "Past Projects".
+          Clicking on <u>Show this Project</u> will take you to the project's unique page.
+          At the bottom of the page, a <u>Create a New Project</u> button only visible to admins can be found.
+          <br>
+          <br>
+          Each project's page includes the <b>Project Name</b>, <b>Project Start Date</b>, and <b>Photo Gallery</b> at the top of the page.
+          Beneath these elements is the body of the page, which is generated using markdown.
+          At the bottom of each page are buttons <u>Edit this Project</u>, <u>Delete this Project</u>, and <u>View other Projects</u>.
+          <u>View other Projects</u> returns to the Projects Overview page. The other buttons are only visible to admins.
+          <br>
+          <br>
+          <b>Creating and Editing Projects:</b>
+          <br>
+          <br>
+          When clicking <u>Create a New Project</u> and <u>Edit this Project</u> you are taken to a new page where you can enter information about the project.
+          A project can only be created or updated if sufficient information is provided. If the provided information is insufficient, an alert will inform you of what is needed.
+          The <b>Project Name</b>, <b>Project Description</b>, <b>Location</b>, and <b>Project Start Date</b> fields are the contents displayed on the Projects Overview page.
+          The <b>Is the Project Active?</b> field determines whether the project is listed under "Current Projects" or "Past Projects".
+          Lastly, the <b>Markdown Body</b> field is where markdown text can be entered. The appearance of the markdown text can be viewed under the "Markdown Preview" section, which provides a real-time
+          preview as the <b>Markdown Body</b> field is updated.
+          Once the desired information has been entered, you can press <u>Update Project</u> to finalize your changes. If you are making a new project, this results in a new window for the newly made project
+          being shown in the Projects Overview page, and clicking <u>Show this Project</u> opens the project's unique page with the changes reflected. If you are editing a new project, the displayed information
+          on both pages is altered to reflect any changes made.
+          <br>
+        </p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Members <span class="arrow">▼</span>
+        </h2>
+        <div class="section-info">
+            <strong>To update the photos for President or Vice Presidents:</strong>
+            <ol>
+                <li>Navigate to <code>app/pages/members.html.erb</code> in the GitHub repository and open the file for editing.</li>
+                <li>Look for sections with headers like <code>&lt;h4&gt;President&lt;/h4&gt;</code> or <code>&lt;h4&gt;VP of Development&lt;/h4&gt;</code>.</li>
+                <li>Above each header, you will find a line similar to:
+                    <div class="code-sample">
+                        <code>&lt;div class="headshot"&gt;&lt;%= image_tag('logo2.png', alt: 'Engineers Without Borders Logo') %&gt;&lt;/div&gt;</code>
+                    </div>
+                </li>
+                <li>To change the image, replace the above line with:
+                    <div class="code-sample">
+                        <code>&lt;div class="headshot"&gt;&lt;%= image_tag('https://example.com/path/to/logo.png', alt: 'Engineers Without Borders Logo') %&gt;&lt;/div&gt;</code>
+                    </div>
+                    using the URL of the new image.
+                </li>
+            </ol>
+
+            <strong>To add photos for Project Leads:</strong>
+            <ol>
+                <li>Navigate to <code>app/pages/members.html.erb</code> in the GitHub repository and open the file for editing.</li>
+                <li>Look for the section with the header <code>&lt;h2&gt;Project Leads&lt;/h2&gt;</code>.</li>
+                <li>Below this header, find lines similar to:
+                    <div class="code-sample">
+                        <code>&lt;div class="projectlead-headshot"&gt;&lt;%= image_tag('logo2.png', alt: 'Engineers Without Borders Logo') %&gt;&lt;/div&gt;</code>
+                    </div>
+                </li>
+                <li>Replace the above line with:
+                    <div class="code-sample">
+                        <code>&lt;div class="projectlead-headshot"&gt;&lt;%= image_tag('https://example.com/path/to/logo.png', alt: 'Engineers Without Borders Logo') %&gt;&lt;/div&gt;</code>
+                    </div>
+                    using the URL of the desired image.
+                </li>
+            </ol>
+
+            <strong>To update links in the Join EWB section:</strong>
+            <ol>
+                <li>Navigate to <code>app/pages/members.html.erb</code> in the GitHub repository and open the file for editing.</li>
+                <li>Find the section with the header <code>&lt;h2&gt;Join EWB&lt;/h2&gt;</code>.</li>
+                <li>Locate the link you want to update, for example:
+                    <div class="code-sample">
+                        <code>
+                            &lt;a href="https://www.ewb-tamu.org/projects" target="_blank" class="link-box"&gt;<br>
+                            &nbsp;&nbsp;&lt;img src="&lt;%= asset_path('texting_icon.png') %&gt;" alt="Texting Icon" class="icon"&gt;<br>
+                            &nbsp;&nbsp;&lt;span class="link-item"&gt;GroupMe&lt;/span&gt;<br>
+                            &lt;/a&gt;
+                        </code>
+                    </div>
+                </li>
+                <li>Replace the URL inside <code>href="..."</code> with the desired link.</li>
+            </ol>
+        </div>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Sponsors & Donations <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">
+            <b>View Sponsors:</b>
+            <br>
+            <br>
+            The Sponsors & Donations Page can be accessed by clicking <u>Sponsors & Donations</u> in the navbar.
+            This is where all of the organization's sponsors and donation information can be viewed.
+            At the top of the page, there is a <u>Create Sponsorship</u> button that is only visible to admins.
+            Clicking on the <u>Show</u> button beside each sponsor will take users to view the sponsor details.
+            The <u>Donate</u> button redirects the user to EWB's payment page to make a donation.
+            EWB's sponsorship pack is embedded at the bottom of the page.
+            <br>
+            <br>
+            <b>Create/Edit/Delete Sponsors:</b>
+            <br>
+            <br>
+            These pages can only be accessed by admins. 
+            Only .jpg and .png file types are allowed in the <u>Upload Image</u>.
+            If the admin does not upload an image of the sponsor logo, the page will render a placeholder image.
+            All the other fields must be filled in.
+            There will be a delete confirmation message before the admin decides to delete a sponsor.
+            <br>
+        </p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Calendar <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">
+            The calendar page displays the upcoming events for the EWB organization as it shows on the EWB Google Calendar. The calendar page is accessible by clicking <u>Calendar</u> in the navbar.
+            The calendar page displays the upcoming events for the next week. Each event is listed with the <b>Event Name</b>, <b>Start Time</b>, <b>End Time</b>, and <b>Description</b>.
+            The <b>Start Time</b> and <b>End Time</b> are displayed in the format "YYYY-MM-DD HH:MM AM/PM".
+            <br>
+            <br>
+            As Admins, the ability to edit and delete calendar events will be available. The <u>Edit this Event</u> button will take you to a page where you can edit the event's information.
+            Admins will also have the ability to create events on the calendar page. Any events that are created on the website will show up in the EWB Google Calendar. 
+            The opposite is true too as any events created on the EWB Google Calendar will show up on the website.
+            <br>
+            <br>
+            There will be a link provided to the President that will allow for members to have access to the Google Calendar. The calendar will not be seen on the website without this link and calendar acceptance.
+        </p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Email <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">
+            The email page is created only for admins to send emails to members. The email page is accessible by clicking <u>Email</u> in the navbar.
+            There is no ability for members to view the emails that have been sent on the website. They will recieve the emails in their inbox.
+            <br>
+            <br>
+            The email page is split into four sections: <b>Individual Email</b>, <b>Active Members Email</b>, <b>Active/Inactive Members Email</b>, and <b>Calendar Email</b>.
+            The <b>Individual Email</b> section allows for admins to send an email to a specific member(s) of the organization.
+            The <b>Active Members Email</b> section allows for admins to send an email to all members who have their graduation date set to a future date.
+            The <b>Active/Inactive Members Email</b> section allows for admins to send an email to all members who have signed up for the site (Active/Inactive).
+            The <b>Calendar Email</b> section allows for admins to send an email to all active members about the upcoming events for the next week.
+            <br>
+            <br>
+            Each section has a <u>Subject</u> field and a <u>Body</u> field. The <u>Subject</u> field is where the subject of the email is entered, and the <u>Body</u> field is where the body of the email is entered.
+            Once the desired information has been entered, the email can be sent by clicking the <u>Send</u> button.
+            The email will come from the the EWB President's email address.
+        </p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Photos <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">
+            The photos page can only be accessible by admins. 
+            Only .jpg and .png file types are supported.
+            The description field will be the alt text of the image should the image not render.
+            If the admin chooses to display the image in the home page, that image will be rendered in the slideshow found in the home page.
+            Otherwise the admin can choose to select a project for the image to be rendered in the slideshow of that particular project.
+        </p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Locations <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">
+            The location page is where EWB can add locations to the database.
+            These locations are connected to the projects. Adding, editing, or deleting locations is
+            an admin only permission.
+        </p>
+    </div>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Education <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">
+            The education page is where EWB can update the possible majors/minors for their members.
+            The education database will be preloaded with all educations that are available at TAMU.
+            If a member has a major/minor that is not listed, an admin can add it to the database.
+        </p>
+    <div class="section">
+        <h2 class="section-title" onclick="toggleSection(this)">
+            Helpful Resources <span class="arrow">▼</span>
+        </h2>
+        <p class="section-info">
+            <strong>Link to Github Repository</strong>
+            <br>
+            <a href="https://github.com/csce431-fall2024-center-501/center-501-project" target="_blank">
+                Center-501-Project
+            </a>
+            <br>
+            <br>
+            <strong>Sign up for Github Student Developer Pack</strong>
+            <br>
+            <a href="https://education.github.com/pack" target="_blank">
+                Student Developer Pack
+            </a>
+            <br>
+            <br>
+            <strong>Sign up for Heroku</strong>
+            <br>
+            <a href="https://www.heroku.com/github-students" target="_blank">
+                Heroku Github Student Sign Up
+            </a>
+            <br>
+            <a href="https://help.heroku.com/MV88YDXQ/how-do-i-sign-up-for-the-heroku-github-student-program#" target="_blank">
+                How To
+            </a>
+            <br>
+            <br>
+            <strong>Transfer the App to a New Owner</strong>
+            <br>
+            <a href="https://devcenter.heroku.com/articles/transferring-apps" target="_blank">
+                Student Developer Pack
+            </a>
+        </p>
+    </div>
+</div>
+
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeGR2DqkA_CWFUR5YEOBVuZBTrpnFfhl0MMkWykvz5DBpgJ6A/viewform?embedded=true" width="640" height="3647" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+
+<script>
+    function toggleSection(title) {
+        const sectionInfo = title.nextElementSibling;
+        const arrow = title.querySelector('.arrow');
+
+        if (sectionInfo.style.display === "block") {
+            sectionInfo.style.display = "none";
+            arrow.textContent = "▼"; // down arrow
+        } else {
+            sectionInfo.style.display = "block";
+            arrow.textContent = "▲"; // up arrow
+        }
+    }
+</script>
