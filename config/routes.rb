@@ -74,7 +74,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'help', to: 'help#index'
+  get 'help', to: 'pages#help', as: 'help'
   get 'members', to: 'pages#members', as: 'members'
   root 'pages#home'
 end

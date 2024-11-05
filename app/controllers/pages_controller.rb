@@ -15,4 +15,8 @@ class PagesController < ApplicationController
   #
   # @return [void]
   def members; end
+
+  def help
+    return if require_officer
+  end
 end
