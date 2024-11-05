@@ -27,9 +27,8 @@ nav ul {
 }
 
 nav ul li {
-    margin-left: 40px;
+    margin-left: 30px;
 }
-/* will remove once dummy data is replaced with actual links */
 nav li {
     color: white;
     font-weight: bold;
@@ -52,4 +51,68 @@ nav a:hover {
 nav a.active {
     color: var(--secondary-color);
     border-bottom: 2px solid var(--secondary-color);
+}
+
+.nav-icon {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    /* Push the help icon to the right */
+}
+
+.help-icon {
+    max-height: 45px;
+    width: auto;
+}
+
+.help-icon:hover {
+    opacity: 0.8;
+    /* Slightly dim on hover */
+}
+
+/* Initial styling for nav and menu icon */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+}
+
+/* Hide the menu icon by default */
+.menu-icon {
+    display: none;
+    cursor: pointer;
+}
+
+/* Hamburger bars styling */
+.menu-icon .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 4px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+
+    /* Hide nav links on smaller screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        background-color: white;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Show the menu icon */
+    .menu-icon {
+        display: block;
+    }
+
+    /* Show the menu when toggled */
+    .nav-links.show {
+        display: flex;
+    }
 }

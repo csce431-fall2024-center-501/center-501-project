@@ -11,12 +11,12 @@ on:
     branches:
       - main
       - test
-      - develop
+      - dev
   pull_request:
     branches:
       - main
       - test
-      - develop
+      - dev
 
 jobs:
   rspec-test:

@@ -12,6 +12,7 @@ RSpec.describe 'projects/new', type: :view do
                        isProjectActive: false,
                        markdownBody: ''
                      ))
+    Location.create(address: "12345", city: "College Station", state: "Texas", zip_code:"77840", country: "USA")
   end
 
   it 'renders new project form' do
@@ -24,7 +25,10 @@ RSpec.describe 'projects/new', type: :view do
 
       assert_select 'input[name=?][type=?]', 'project[projectStartDate]', 'date'
 
-      assert_select 'input[name=?][type=?]', 'project[locationID]', 'number'
+      assert_select 'select[name=?]', 'project[locationID]' do
+        assert_select "option", "Please Assign a Location"
+        assert_select "option", text: "College Station, Texas 77840, USA", value: Location.find_by(state: "Texas").id.to_s
+      end
 
       assert_select 'input[name=?][type=?]', 'project[isProjectActive]', 'checkbox'
 

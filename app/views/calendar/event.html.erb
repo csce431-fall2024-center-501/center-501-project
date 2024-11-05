@@ -1,0 +1,35 @@
+<h1> <%= @event.summary %> </h1>
+
+<% if @event.start.date_time %>
+    <% start_date_time = @event.start.date_time.to_s %>
+    <% end_date_time = @event.end.date_time.to_s %>
+    <% start_date_time_obj = DateTime.parse(start_date_time) %>
+    <% end_date_time_obj = DateTime.parse(end_date_time) %>
+    <% start_date = start_date_time_obj.strftime('%Y-%m-%d') %>
+    <% start_time = start_date_time_obj.strftime('%I:%M') %>
+    <% end_date = end_date_time_obj.strftime('%Y-%m-%d') %>
+    <% end_time = end_date_time_obj.strftime('%I:%M') %>
+    <% start_am_pm = start_date_time_obj.strftime('%p') %>
+    <% end_am_pm = end_date_time_obj.strftime('%p') %>
+    <h2>Start Time: <%= start_date %> <%= start_time %> <%= start_am_pm %></h2>
+    <h2>End Time: <%= end_date %> <%= end_time %> <%= end_am_pm %></h2>
+    <h2><%= link_to 'See in Google Calendar', @event.html_link, target: '_blank' %></h2>
+<% else %>
+    <% if @event.start.date != @event.end.date %>
+        <h2> Start Date: <%= @event.start.date %></h2>
+        <h2>End Date: <%= @event.end.date %></h2>
+    <% else %>
+        <h2> All Day: <%= @event.start.date %></h2>
+    <% end %>
+    <h2><%= link_to 'See in Google Calendar', @event.html_link, target: '_blank' %></h2>
+    <h2><%= @event.description %></h2>
+<% end %>
+
+<div class="event-actions">
+    <% if current_user.atleast_officer? %>
+        <%= link_to 'Edit Event', edit_event_url(calendar_id: @calendar_id, event_id: @event.id), class: 'event-button' %>
+        <%= link_to 'Delete Event', delete_event_path(calendar_id: @calendar_id, event_id: @event.id), class: 'event-button', method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    <%= link_to 'Back to Events', events_url(calendar_id: @calendar_id), class: 'event-button' %>
+</div>
+

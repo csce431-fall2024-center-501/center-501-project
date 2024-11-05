@@ -1,41 +1,68 @@
 # frozen_string_literal: true
 
+# ProjectsController manages CRUD actions for project records and provides a preview
+# feature for rendering Markdown content.
 class ProjectsController < ApplicationController
+  # Sets the project object for actions that require a specific record.
   before_action :set_project, only: %i[show edit update destroy preview]
+  
+  # Disables CSRF protection for JSON requests, allowing null sessions.
   protect_from_forgery with: :null_session
 
   # GET /projects or /projects.json
+  # Lists all projects and assigns them to @projects.
+  #
+  # @return [void]
   def index
     @projects = Project.all
   end
 
   # GET /projects/1 or /projects/1.json
+  # Displays a specific project and its associated photos.
+  # Converts project Markdown content to HTML.
+  #
+  # @return [void]
   def show
-    @project = Project.find(params[:id])
-
+    @photos = @project.photos
     @html_output = markdown_to_html(@project.markdownBody.to_s)
   end
 
   # GET /projects/new
+  # Initializes a new project object for creation or renders Markdown preview.
+  # Requires officer-level permissions.
+  #
+  # @return [void]
   def new
-    # Handles POST requests
+    return unless require_officer
+
     if request.post?
       data = params[:data]
       preview_html = markdown_to_html(data)
       render json: { message: 'Success', result: preview_html }
-    # handles other (GET) requests
     else
       @project = Project.new
     end
   end
 
   # GET /projects/1/edit
+  # Provides the form for editing a specific project.
+  # Requires officer-level permissions.
+  #
+  # @return [void]
   def edit
-    @project = Project.find(params[:id])
+    return unless require_officer
   end
 
   # POST /projects or /projects.json
+  # Saves a new project record to the database.
+  # Requires officer-level permissions.
+  #
+  # Responds to HTML or JSON format.
+  #
+  # @return [void]
   def create
+    return unless require_officer
+
     @project = Project.new(project_params)
 
     respond_to do |format|
@@ -50,7 +77,15 @@ class ProjectsController < ApplicationController
   end
 
   # PATCH/PUT /projects/1 or /projects/1.json
+  # Updates an existing project record in the database.
+  # Requires officer-level permissions.
+  #
+  # Responds to HTML or JSON format.
+  #
+  # @return [void]
   def update
+    return unless require_officer
+
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to project_url(@project), notice: 'Project was successfully updated.' }
@@ -62,24 +97,35 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1 or /projects/1.json
+  # DELETE /projects/1
+  # Marks a project for deletion.
+  # Requires officer-level permissions.
+  #
+  # @return [void]
   def delete
+    return unless require_officer
     @project = Project.find(params[:id])
   end
 
+  # DELETE /projects/1 or /projects/1.json
+  # Permanently deletes a project record from the database.
+  # Requires officer-level permissions.
+  #
+  # Responds to HTML format.
+  #
+  # @return [void]
   def destroy
-    @project = Project.find(params[:id])
+    return unless require_officer
+
     @project.destroy
     redirect_to projects_path, notice: 'Project was successfully deleted.'
-
-    # respond_to do |format|
-    #  format.html { redirect_to projects_url, notice: "Project was successfully destroyed." }
-    #  format.json { head :no_content }
-    # end
   end
 
+  # GET /projects/1/preview
+  # Renders a Markdown preview for a project.
+  #
+  # @return [JSON] JSON response containing rendered HTML from Markdown
   def preview
-    @project = Project.find(params[:id])
     data = params[:data]
     preview_html = markdown_to_html(data)
     render json: { message: 'Success', result: preview_html }
@@ -87,17 +133,24 @@ class ProjectsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Finds and sets the project object based on the id parameter.
+  #
+  # @return [void]
   def set_project
     @project = Project.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
+  # Defines and permits the allowed parameters for creating/updating a project.
+  #
+  # @return [ActionController::Parameters] Filtered parameters for project creation/update
   def project_params
-    params.require(:project).permit(:projectName, :projectDesc, :locationID, :projectStartDate, :isProjectActive,
-                                    :markdownBody)
+    params.require(:project).permit(:projectName, :projectDesc, :locationID, :projectStartDate, :isProjectActive, :markdownBody)
   end
 
+  # Converts Markdown text to HTML for preview purposes.
+  #
+  # @param text [String] The Markdown text to be converted
+  # @return [String] Rendered HTML
   def markdown_to_html(text)
     renderer = Redcarpet::Render::HTML.new
     markdown = Redcarpet::Markdown.new(renderer, {

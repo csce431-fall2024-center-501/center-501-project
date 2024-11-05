@@ -1,72 +1,115 @@
-class LocationsController < ApplicationController
-    # ensure location is set b4 performing any actions on it
+# LocationsController manages CRUD actions for location records.
+# Inherits officer-level access control from OfficerApplicationController.
+class LocationsController < OfficerApplicationController
+    # Sets the location object for actions that require a specific record.
     before_action :set_location, only: %i[show edit update destroy delete]
-
-    # list all locations
+  
+    # GET /locations
+    # Lists all locations and assigns them to @locations.
+    #
+    # @return [void]
     def index
-        @locations = Location.all
+      @locations = Location.all
     end
-
-    def show
-    end
-
-    # make an empty location object
+  
+    # GET /locations/1
+    # Displays a specific location record.
+    #
+    # @return [void]
+    def show; end
+  
+    # GET /locations/new
+    # Initializes a new location object for creation.
+    #
+    # @return [void]
     def new
-        @location = Location.new
+      @location = Location.new
     end
-
-    def edit
-    end
-
-    # save new location record to database
+  
+    # GET /locations/1/edit
+    # Provides the form for editing a specific location record.
+    #
+    # @return [void]
+    def edit; end
+  
+    # POST /locations
+    # Saves a new location record to the database.
+    #
+    # Responds to HTML or JSON format.
+    #
+    # @return [void]
     def create
-        @location = Location.new(location_params)
-
-        respond_to do |format|
-            if @location.save
-                format.html { redirect_to @location, notice: 'Location was successfully created.' }
-                format.json { render :show, status: :created, locations: @location }
-            else
-                format.html { render :new }
-                format.json { render json: @location.errors, status: :unprocessable_entity }
-            end
+      @location = Location.new(location_params)
+  
+      respond_to do |format|
+        if @location.save
+          flash[:notice] = "Location was successfully created."
+          format.html { redirect_to @location, notice: 'Location was successfully created.' }
+          format.json { render :show, status: :created, locations: @location }
+        else
+          format.html { render :new }
+          format.json { render json: @location.errors, status: :unprocessable_entity }
         end
+      end
     end
-
-    # update existing location record in database
+  
+    # PATCH/PUT /locations/1
+    # Updates an existing location record in the database.
+    #
+    # Responds to HTML or JSON format.
+    #
+    # @return [void]
     def update
-        respond_to do |format|
-            if @location.update(location_params)
-                format.html { redirect_to @location, notice: 'Location was successfully updated.' }
-                format.json { render :show, status: :ok, location: @location }
-            else
-                format.html { render :edit }
-                format.json { render json: @location.errors, status: :unprocessable_entity }
-            end
+      respond_to do |format|
+        if @location.update(location_params)
+          flash[:notice] = "Location was successfully updated."
+          format.html { redirect_to @location, notice: 'Location was successfully updated.' }
+          format.json { render :show, status: :ok, location: @location }
+        else
+          format.html { render :edit }
+          format.json { render json: @location.errors, status: :unprocessable_entity }
         end
+      end
     end
-
-    # delete location record from database
+  
+    # DELETE /locations/1
+    # Deletes a location record from the database.
+    #
+    # Responds to HTML or JSON format.
+    #
+    # @return [void]
     def destroy
-        @location.destroy
-        respond_to do |format|
-            format.html { redirect_to locations_url, notice: 'Location was successfully destroyed.' }
-            format.json { head :no_content }
-        end
+      @location.destroy
+      respond_to do |format|
+        flash[:notice] = "Location was successfully deleted."
+        format.html { redirect_to locations_url, notice: 'Location was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
-
+  
+    # DELETE /locations/1/delete
+    # Finds a location by ID for deletion.
+    #
+    # @return [void]
     def delete
-        @location = Location.find(params[:id])
+      flash[:notice] = "Location was successfully deleted."
+      @location = Location.find(params[:id])
     end
-
-    # find location based on id parameter
+  
+    private
+  
+    # Finds and sets the location object based on the id parameter.
+    #
+    # @return [void]
     def set_location
-        @location = Location.find(params[:id])
+      @location = Location.find(params[:id])
     end
-
-    # filter parameters for creating/updating a Location
+  
+    # Defines and permits the allowed parameters for creating/updating a location.
+    #
+    # @return [ActionController::Parameters] Filtered parameters for location creation/update.
     def location_params
-        params.require(:location).permit(:address, :city, :state, :zip_code, :country)
+      params.require(:location).permit(:address, :city, :state, :zip_code, :country)
     end
-
-end
+  end
+  

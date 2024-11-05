@@ -22,7 +22,7 @@
   <div>
     <!-- Label and text field for Education Type -->
     <%= form.label "Education Type", style: "display: block" %>
-    <%= form.text_field :educationType %>
+    <%= form.select :educationType, options_for_select([['Major', 'major'], ['Minor', 'minor']]) %>
   </div>
 
   <div>
