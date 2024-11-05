@@ -3,17 +3,24 @@
         <li class="logo"><%= image_tag('logo.png', alt: 'Engineers Without Borders Logo') %></li>
         <li><%= link_to 'Home', root_path, class: current_page?(root_path) ? 'active' : '' %></li>
         <li><%= link_to 'Projects', projects_path, class: current_page?(projects_path) ? 'active' : '' %></li>
-        <li><%= 'Members' %></li>
         <li><%= link_to 'Sponsors & Donations', sponsorships_path, class: current_page?(sponsorships_path) ? 'active' : '' %></li>
         <% if current_user %>
-            <li><%= link_to 'Member Directory', users_path, class: current_page?(users_path) ? 'active' : '' %></li>
+            <li><%= link_to 'Members', users_path, class: current_page?(users_path) ? 'active' : '' %></li>
             <li><%= link_to 'Calendar', calendars_path, class: current_page?(calendars_path) ? 'active' : '' %></li>
             <% if current_user.admin? %>
                 <li><%= link_to 'Email', email_path, class: current_page?(email_path) ? 'active' : '' %></li>
-            <% end %>
+                <li><%= link_to 'Photos', photos_path, class: current_page?(photos_path) ? 'active' : '' %></li>
+                <li><%= link_to 'Locations', locations_path, class: current_page?(locations_path) ? 'active' : '' %></li>
+                <li>
+                    <a href="<%= help_path %>" class="nav-icon" title="Help">
+                        <%= image_tag 'help_icon.png', alt: 'Help Icon', class: 'help-icon' %>
+                    </a>
+                </li>
+                <% end %>
             <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
         <% else %>
+            <li><%= link_to 'Members', members_path, class: current_page?(members_path) ? 'active' : '' %></li>
             <li><%= link_to 'Log In', new_user_session_path, class: current_page?(new_user_session_path) ? 'active' : '' %></li>
         <% end %>
     </ul>
-</nav>
+</nav

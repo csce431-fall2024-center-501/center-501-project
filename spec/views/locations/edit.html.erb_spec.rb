@@ -7,7 +7,7 @@ RSpec.describe "locations/edit", type: :view do
       city: "Houston",
       state: "TX",
       zip_code: "77001",
-      country: "USA"
+      country: "US"
     )
     allow(view).to receive(:action_name).and_return("edit")
   end
@@ -19,7 +19,7 @@ RSpec.describe "locations/edit", type: :view do
     expect(rendered).to have_field('location[city]', with: "Houston")
     expect(rendered).to have_field('location[state]', with: "TX")
     expect(rendered).to have_field('location[zip_code]', with: "77001")
-    expect(rendered).to have_field('location[country]', with: "USA")
+    expect(rendered).to have_field('location[country]', with: "US")
   end
 
   it "displays error messages if any" do

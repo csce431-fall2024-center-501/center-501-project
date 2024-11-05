@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'sponsorships/index.html.erb', type: :view do
+  include Devise::Test::ControllerHelpers
+
   let(:valid_attributes1) do
     {
       sponsor_name: 'Rich Sponsor',
@@ -37,8 +39,26 @@ RSpec.describe 'sponsorships/index.html.erb', type: :view do
     expect(rendered).to have_selector('h1', text: 'Sponsorships')
   end
 
-  it 'displays a New Sponsorship button' do
-    expect(rendered).to have_selector('form button', text: 'New Sponsorship')
+  context 'when user is an admin' do
+    before do
+      allow(view).to receive(:current_user).and_return(double(admin?: true))
+      render
+    end
+
+    it 'displays the New Sponsorship button' do
+      expect(rendered).to have_selector('form button', text: 'New Sponsorship')
+    end
+  end
+
+  context 'when user is not an admin' do
+    before do
+      allow(view).to receive(:current_user).and_return(double(admin?: false))
+      render
+    end
+
+    it 'does not display the New Sponsorship button' do
+      expect(rendered).not_to have_selector('form button', text: 'New Sponsorship')
+    end
   end
 
   it 'renders a table with sponsorships' do
@@ -48,8 +68,15 @@ RSpec.describe 'sponsorships/index.html.erb', type: :view do
     expect(rendered).to have_selector('td', text: 'Test Sponsor')
   end
 
-  it 'displays the Show button for each sponsorship' do
-    expect(rendered).to have_selector('form button', text: 'Show', count: 2)
+  context 'when user is an admin' do
+    before do
+      allow(view).to receive(:current_user).and_return(double(admin?: true))
+      render
+    end
+  
+    it 'displays the Show button for each sponsorship' do
+      expect(rendered).to have_selector('form .show-btn', text: 'Show', count: 2)
+    end
   end
 
   it "displays the 'Donate' button" do

@@ -14,18 +14,79 @@
 
 /* Header background color */
 .table-locations th {
-    background-color: var(--quaternary-color);
+    background-color: var(--primary-color);
     /* Set background to secondary color */
     color: white;
     /* Text color */
 }
 
-/* Table row hover effect */
-.table-locations tr:hover {
-    background-color: var(--secondary-color);
-    /* Keep hover for rows only */
+.table-locations tr {
+    background-color: #fff;
 }
 
 .table-locations td {
     font-size: 1rem;
+}
+
+/* Centered form container */
+.form-container {
+    max-width: 500px;
+    /* Adjust as needed */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    /* Light background color */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+}
+
+/* Field styling */
+.form-container .field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* Label styling */
+.form-container label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+    /* Left-align labels only */
+}
+
+/* Input field styling */
+.form-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Centered submit button */
+.form-container .actions {
+    text-align: center;
+}
+
+.form-container .actions input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.flash-notice {
+    background-color: #d4edda;
+    /* light green background */
+    color: #155724;
+    /* dark green text */
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    margin: 15px auto;
+    text-align: center;
+    max-width: 30%;
 }
