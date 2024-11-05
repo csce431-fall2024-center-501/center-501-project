@@ -1,5 +1,5 @@
 class AdminMailer < ApplicationMailer
-  def indiviual_email(recipients, subject, message)
+  def individual_email(recipients, subject, message)
     @message = message
     mail(to: recipients, subject:)
   end
@@ -7,13 +7,17 @@ class AdminMailer < ApplicationMailer
   def active_member_email(subject, message)
     @message = message
     @users = User.where('grad_date > ?', Date.today)
-    mail(to: @users.pluck(:email), subject:) if @users.present?
+    @users.find_in_batches(batch_size: 50) do |group|
+      mail(to: group.pluck(:email), subject:) if group.present?
+    end
   end
 
   def active_inactive_member_email(subject, message)
     @message = message
     @users = User.all
-    mail(to: @users.pluck(:email), subject:) if @users.present?
+    @users.find_in_batches(batch_size: 50) do |group|
+      mail(to: group.pluck(:email), subject:) if group.present?
+    end
   end
 
   def birthday_email(person)
@@ -24,6 +28,8 @@ class AdminMailer < ApplicationMailer
   def calendar_email(subject, event_list)
     @users = User.where('grad_date > ?', Date.today)
     @event_list = event_list
-    mail(to: @users.pluck(:email), subject:) if @users.present?
+    @users.find_in_batches(batch_size: 50) do |group|
+      mail(to: group.pluck(:email), subject:) if group.present?
+    end
   end
 end

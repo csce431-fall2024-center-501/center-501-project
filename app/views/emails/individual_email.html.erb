@@ -1,22 +1,27 @@
 <h1>Send Individual Mail</h1>
 
-<%= form_with url: send_email_path, method: :post, local: true do |form| %>
-    <div class="field">
-        <%= form.label :to, "To:" %>
-        <%= form.text_field :recipients %>
-    </div>
+<div class="email-container">
+    <%= form_with url: send_email_path, method: :post, local: true do |form| %>
+        <div class="email-header">
+            <%= form.label :recipients, "To:" %>
+            <%= form.collection_select :recipients, User.all, :email, :full_name, {}, { multiple: true, size: 20 } %>
+        </div>
 
-    <div class="field">
-        <%= form.label :subject, "Subject:" %>
-        <%= form.text_field :subject %>
-    </div>
+        <div class="email-header">
+            <%= form.label :subject, "Subject:" %>
+            <%= form.text_field :subject %>
+        </div>
 
-    <div class="field">
-        <%= form.label :message, "Body:" %>
-        <%= form.text_area :message %>
-    </div>
+        <div class="email-body">
+            <%= form.label :message, "Body:" %>
+            <%= form.text_area :message %>
+        </div>
 
+        <div class="actions">
+            <%= form.submit "Send", class: "send-button" %>
+        </div>
+    <% end %>
     <div class="actions">
-        <%= form.submit "Send" %>
+        <%= link_to 'Back to Emails', email_path, class: 'back-button' %>
     </div>
-<% end %>
+</div>
