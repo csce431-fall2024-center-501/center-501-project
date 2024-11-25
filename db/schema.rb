@@ -48,7 +48,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_03_181228) do
     t.integer "locationID"
     t.date "projectStartDate"
     t.boolean "isProjectActive"
-    t.text "markdownBody"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
